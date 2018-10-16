@@ -1,6 +1,12 @@
 body
 {
-	padding-top: 75px; 
+	padding-top: 75px;
+	min-width: 540px;
+}
+
+.container-fluid
+{
+	padding-top: 75px;
 }
 .avatar {
     vertical-align: middle;
@@ -11,15 +17,36 @@ body
 
 article
 {
-	width: 614px;
-	position: block;
+	width: 45.5%;
+	margin-left: 25%;
+	max-height: 1029px;
+	min-height: 720px;
+	min-width: 530px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+
+header .avatar
+{
+	vertical-align: middle;
+	position: relative;
+	right: 0px;
+	text-align: right;
+	align-self: flex-end;
+}
+header
+{
+	width: 100%;
+	
 }
 
 .img-wrapper
 {
-	width: inherit;
-	max-height: 767.5px;
-	height: 767.5px;
+	height: 74.58%;
+	width: 100%;
 }
 
 .img-wrapper img
@@ -32,12 +59,3 @@ article
 	padding-top: 75px;
 	max-height: 50px;
 }
-/*img
-{
-	min-width: 614px;
-	min-height: 767.5px;
-	max-width: 614px;
-	max-height: 767.5px;
-	width: 614px;
-	height: 767.5px;
-}*/

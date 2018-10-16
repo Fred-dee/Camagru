@@ -1,12 +1,12 @@
 <?php
 	class Element
 	{
-		private $_tagname;
-		private $_classes = array();
-		private $_attributes = array();
-		private $_children = array();
-		private $_isInline;
-		private $_text;
+		protected $_tagname;
+		protected $_classes = array();
+		protected $_attributes = array();
+		protected $_children = array();
+		protected $_isInline;
+		protected $_text;
 		
 		public function __construct($elem_name, $inline)
 		{

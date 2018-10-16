@@ -6,4 +6,9 @@
 		$_SESSION["errors"] = array('errno' => $errno, 'errmsg' => $errmsg);
 		header("location: ../login");
 	}
+	function index_error($errno, $errmsg)
+	{
+		$_SESSION["errors"] = array('errno' => $errno, 'errmsg' => $errmsg);
+		header("location: ../index");
+	}
 ?>
