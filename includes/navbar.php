@@ -51,6 +51,9 @@ header('Content-type: text/html');
 			TODO:
 				find the avatar from the users database
 	  	*/
+	  	require_once('./config/database.php');
+	  	require_once('./includes/Element.php');
+	  	require_once('./includes/functions.php');
 	  	if (isset($_SESSION["login"]))
 		{
 			if ($_SESSION["login"] == "guest")
@@ -59,7 +62,20 @@ header('Content-type: text/html');
 			}
 			else
 			{
-				echo "<img src='./imgs/avatar.png' alt='Avatar' class='avatar' />";
+				$pdo = DB::getConnection();
+				$stmt =  $pdo->prepare("SELECT avatar FROM users WHERE user_name=:uname");
+				$stmt->bindParam(':uname', $_SESSION["login"], PDO::PARAM_STR, 15);
+				$stmt->execute();
+				$val = $stmt->fetch(PDO::FETCH_ASSOC);
+				$img = new Element("img", true);
+				$img->add_class("avatar");
+				//debug_to_console( var_dump($val) );
+				if ($val["avatar"] != null)
+					$img->add_attribute("src", "data:image/jpg;base64,".base64_encode($val["avatar"]));
+				else 
+					$img->add_attribute("src", "./imgs/avatar.png");
+				$img->add_attribute("alt", "Avatar");
+				echo $img;
 			}
 		}
 	  ?>
