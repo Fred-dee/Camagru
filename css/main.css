@@ -8,3 +8,36 @@ body
     height: 50px;
     border-radius: 50%;
 }
+
+article
+{
+	width: 614px;
+	position: block;
+}
+
+.img-wrapper
+{
+	width: inherit;
+	max-height: 767.5px;
+	height: 767.5px;
+}
+
+.img-wrapper img
+{
+	width: 100%;
+	height: 100%;
+}
+.comment_section
+{
+	padding-top: 75px;
+	max-height: 50px;
+}
+/*img
+{
+	min-width: 614px;
+	min-height: 767.5px;
+	max-width: 614px;
+	max-height: 767.5px;
+	width: 614px;
+	height: 767.5px;
+}*/

@@ -20,7 +20,7 @@
 			try {
 				
 				$old_errlevel = error_reporting(0);
-				echo "Testing connection...\n";
+				//echo "Testing connection...\n";
 				self::$pdo->query("SELECT 1");
 			} catch (PDOException $e) {
 				echo "Connection failed, reinitializing...\n";
