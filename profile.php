@@ -6,18 +6,18 @@ if(!isset($_SESSION))
 <!DOCTYPE html>
 <html>
 	<head>
-		<titile>
+		<title>
 			<?php
 				require_once('./includes/functions.php');
-				if (isset($_SESSION["login"]))
-					echo $_SESSION["login"];
-				else
+				if (!isset($_SESSION["login"]) || $_SESSION["login"] == "guest")
 				{
 					index_error(-1, "You must be logged in to view this page");
 				}
+                else
+                    echo $_SESSION["login"];
 			?>
 
-		</titile>
+		</title>
 		<?php
 			require_once('./includes/main-includes.php');
 		?>
@@ -35,6 +35,19 @@ if(!isset($_SESSION))
 				$pdo = DB::getConnection();
 				
 			?>
+            <div class="row">
+                <div class="col-md-offset-1 col-md-3">
+                    <img class="avatar-lg img-responsive" src="./imgs/avatar.png" alt=""/>
+                </div>
+                <div class="col-md-6">
+                    <h1>Fred-Dee</h1>
+                    <br/>
+                    <span>
+                        <i class="fa fa-cog" aria-hidden="true"></i> <h3 style="display: inline-block">Edit Profile</h3></span>
+                    <br/>
+                    <i class="fa fa-upload" aria-hidden="true"></i><h3 style="display:inline-block">Upload Profile Picture</h3>
+                </div>
+            </div>
 		</div>
 		<?php
 			require_once('./footer.php');

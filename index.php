@@ -57,7 +57,6 @@
 					$row_div = new Element("div", false);
 					$row_div->add_class("row");
 					$col_div = new Element("div", false);
-					//$col_div->add_class("col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8 col-xs-offset-1 col-xs-10");
 					$col_div->add_class("col-xs-12");
 					$col_div->add_child($value);
 					$row_div->add_child($col_div);
@@ -68,6 +67,16 @@
 					echo $value;
 				}
 			?>
+            <div class="pagination">
+              <a href="#">&laquo;</a>
+              <a href="#">1</a>
+              <a href="#" class="active">2</a>
+              <a href="#">3</a>
+              <a href="#">4</a>
+              <a href="#">5</a>
+              <a href="#">6</a>
+              <a href="#">&raquo;</a>
+            </div>
 		</div>
 		<?php require_once('./includes/footer.php'); ?>
 	</body>

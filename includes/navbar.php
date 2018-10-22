@@ -7,7 +7,7 @@ header('Content-type: text/html');
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark indigo fixed-top scrolling-navbar">
   <!-- Navbar brand -->
-  <a class="navbar-brand" href="#">Camagru</a>
+  <a class="navbar-brand" href="./index">Camagru</a>
 
   <!-- Collapse button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
@@ -16,7 +16,7 @@ header('Content-type: text/html');
   </button>
 
   <!-- Collapsible content -->
-  <div class="collapse navbar-collapse" id="basicExampleNav">
+  <div class="collapse navbar-collapse" id="basicExampleNav" toggle="true">
 
     <!-- Links -->
     <ul class="navbar-nav mr-auto">
@@ -58,7 +58,7 @@ header('Content-type: text/html');
 		{
 			if ($_SESSION["login"] == "guest")
 			{
-				echo "<a class='nav-lin' href='./login'>Login/Sign-up</a>";
+				echo "<a class='nav-item nav-link' href='./login'>Login/Sign-up</a>";
 			}
 			else
 			{
@@ -69,13 +69,20 @@ header('Content-type: text/html');
 				$val = $stmt->fetch(PDO::FETCH_ASSOC);
 				$img = new Element("img", true);
 				$img->add_class("avatar");
-				//debug_to_console( var_dump($val) );
+                $profile_link = new Element("a", false);
+                $profile_link->add_attribute("href", "./profile");
+                $profile_link->add_child($img);
 				if ($val["avatar"] != null)
 					$img->add_attribute("src", "data:image/jpg;base64,".base64_encode($val["avatar"]));
 				else 
 					$img->add_attribute("src", "./imgs/avatar.png");
 				$img->add_attribute("alt", "Avatar");
-				echo $img;
+                $div = new Element("span", false);
+                $h3 = new Element("h3", false);
+                $h3->add_text($_SESSION["login"]);
+                $div->add_child($h3);
+                $div->add_child($profile_link);
+				echo $div;
 			}
 		}
 	  ?>
