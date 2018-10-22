@@ -5,6 +5,7 @@
 		protected $_classes = array();
 		protected $_attributes = array();
 		protected $_children = array();
+                protected $_inlineattr = array();
 		protected $_isInline;
 		protected $_text;
 		
@@ -48,6 +49,10 @@
 					$ret_string .= $ind." = '".$val."'";
 				}
 			}
+                        foreach($this->_inlineattr as $key => $value)
+                        {
+                            $ret_string .= " ".$value." ";
+                        }
 			if ($this->_isInline == true)
 			{
 				$ret_string .=" />";
@@ -76,6 +81,26 @@
 			}
 		}
 		
+                public function add_inlineattr($attr)
+                {
+                    $attr = trim($attr);
+                    if(!array_search($attr, $this->_inlineattr))
+                    {
+                        array_push($this->_inlineattr, array($attr => $attr));
+                    }
+                }
+                
+                public function remove_inlineattr($attr)
+                {
+                    $attr = trim($attr);
+                    $index;
+                    if (($index = array_search($attr, $this->_inlineattr)))
+                    {
+                        $this->_inlineattr[$index] = NULL;
+                        $this->_inlineattr[$index] = array_filter($thhis->_inlineattr);
+                    }
+                }
+                
 		public function remove_class($class)
 		{
 			$class = trim($class);

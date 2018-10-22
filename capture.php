@@ -28,6 +28,7 @@ header('Content-Type: text/html');
     </head>
     <body>
         <?php
+        require_once './includes/navbar.php';
         ?>
         <div id="container">
             <video autoplay="true" id="videoElement">
@@ -35,6 +36,9 @@ header('Content-Type: text/html');
             </video>
         </div>
         <button class="btn btn-primary grey darken-4" onclick="getMedia()">Get Media Script</button>
+        <?php
+            require_once './includes/footer.php';
+        ?>
         <script>
             var video = document.querySelector("#videoElement");
 
