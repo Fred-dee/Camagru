@@ -14,46 +14,7 @@ header('Content-Type: text/html');
         <script src="./js/capture.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="./css/capture.css"/>
         <style>
-            .container {
-                position: relative;
-                width: 500px;
-                height: 375px;
-            }
-            
-            .container:hover .overlay
-            {
-                opacity: 1;
-            }
-            .overlay {
-              position: absolute;
-              top: 0;
-              bottom: 0;
-              left: 0;
-              right: 0;
-              height: 100%;
-              width: 100%;
-              opacity: 0;
-              transition: .3s ease;
-              text-align: center;
-            }
-            #videoElement {
-                width: 500px;
-                height: 375px;
-                background-color: #666;
-                transform: rotateY(180deg);
-                -webkit-transform:rotateY(180deg); /* Safari and Chrome */
-                -moz-transform:rotateY(180deg); /* Firefox */
-            }
-            .icon {
-              color: white;
-              font-size: 100px;
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              transform: translate(-50%, -50%);
-              -ms-transform: translate(-50%, -50%);
-              text-align: center;
-            }
+
         </style>
     </head>
     <body>
@@ -62,29 +23,30 @@ header('Content-Type: text/html');
         ?>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xs-12"><button class="btn btn-primary grey darken-4" onclick="" id="btn_snap">Snap</button>
+                <div class="col-md-3">
+                    <div class="flex-column" id="col-right">
+                        
+                    </div>
+                    <canvas id="c" style="display:none;" width="500px" height="375px"></canvas>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3" id="col-right">
-                    <canvas id="c" style="display:box;" width="500px" height="375px"></canvas>
-                </div>
-                <div class="col-md-6">
-                    <div class="container">
+                <div class="col-md-6 text-center">
+                    <button class="btn btn-primary grey darken-4" onclick="" id="btn_snap">Snap</button>
+                    <div class="contained">
                         <video autoplay="true" id="videoElement">
                         </video>
                         <div class="overlay">
                             <img id="img_overlay" src="./imgs/overlay.png" alt="" class="img-responsive icon" style="width: inherit; height: inherit"/>
                         </div>
                     </div>
+                    <button class="btn btn-primary grey darken-4" onclick="" id="btn_upload">Upload Snaps</button>
                 </div>
                 <div class="col-md-3">
                     <div class="flex-column">
                         <div class="flex-col-item">
-                            <img class="img-responsive" id="ov_1" src="./imgs/overlay.png" alt="" />
+                            <img class="img-responsive" id="ov_1" src="./imgs/overlay.png" alt="" onclick="changeFilter(this)"/>
                         </div>
                         <div class="flex-col-item">
-                            <img class="img-responsive" id="ov_2" src="./imgs/overlay2.png" alt="" />
+                            <img class="img-responsive" id="ov_2" src="./imgs/overlay2.png" alt="" onclick="changeFilter(this)"/>
                         </div>
                     </div>
                 </div>
@@ -116,9 +78,12 @@ header('Content-Type: text/html');
                             canvas.getContext("2d").drawImage(over, 0, 0, 500, 375, 0, 0, 500, 375);
                             var img = canvas.toDataURL("image/png");
                             const imgnew = document.createElement("img");
+                            const colnew = document.createElement("div");
                             imgnew.setAttribute('src', img);
+                            colnew.setAttribute("class", "flex-col-item");
+                            colnew.appendChild(imgnew);
                             var right =  document.querySelector("#col-right");
-                            right.insertBefore(imgnew, right.childNodes[0]);
+                            right.insertBefore(colnew, right.childNodes[0]);
                             
                         };
                         })
