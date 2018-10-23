@@ -1,7 +1,6 @@
 <?php
-	/*
-		Specific article class for this project
-	*/
+    if(!isset($_SESSION))
+        session_start();
 	require_once('Element.php');
 	class Article extends Element
 	{
@@ -28,6 +27,8 @@
 			$heart_span->add_class("glyphicon glyphicon-heart");
 			$heart_span->add_attribute("style", "font-size: 50px");
 			$like_button = new Element("button", false);
+            if($_SESSION["login"] == "guest")
+                $like_button->add_inlineattr("disabled");
 			$like_button->add_class("btn btn-primary");
 			$like_button->add_text($heart_span."Like");
 			$comm_div->add_child($like_button);

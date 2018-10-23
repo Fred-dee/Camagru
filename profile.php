@@ -40,6 +40,8 @@ if (!isset($_SESSION))
             if(($result = $stmt->execute()))
             {
                 $form = new Element("form", false);
+                $form->add_attribute("method", "post");
+                $form->add_attribute("action", "./private/update");
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 foreach($row as $key => $value)
                 {
