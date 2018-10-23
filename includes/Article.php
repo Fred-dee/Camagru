@@ -29,7 +29,7 @@
 			$like_button = new Element("button", false);
             if($_SESSION["login"] == "guest")
                 $like_button->add_inlineattr("disabled");
-			$like_button->add_class("btn btn-primary");
+			$like_button->add_class("btn btn-primary grey darken-3");
 			$like_button->add_text($heart_span."Like");
 			$comm_div->add_child($like_button);
 			$this->add_child($head_div);

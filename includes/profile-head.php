@@ -13,6 +13,6 @@ header('Content-type: text/html');
         <!--<span>
             <i class="fa fa-cog" aria-hidden="true"></i> <h3 style="display: inline-block"><a class="nav-link nav-item" href="./profile_edit">Edit Profile</a></h3></span>-->
         <br/>
-        <i class="fa fa-upload" aria-hidden="true"></i><h3 style="display:inline-block"><a class="nav-link" href="./capture?type=propic">Edit Profile Picture</a></h3>
+        <i class="fa fa-upload icon-large" aria-hidden="true"></i><h3 style="display:inline-block"><a class="nav-link" href="./capture?type=propic">Edit Profile Picture</a></h3>
     </div>
 </div>

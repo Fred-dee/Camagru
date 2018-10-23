@@ -59,7 +59,7 @@
 			{
 				$stmt->execute();
 				$numRows = $stmt->rowCount();
-				echo $numRows;
+				//echo $numRows;
 				if ($numRows == 1)
 				{
 					$row = $stmt->fetch(PDO::FETCH_ASSOC);

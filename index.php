@@ -77,6 +77,7 @@
               <a href="#">6</a>
               <a href="#">&raquo;</a>
             </div>
+            <a href="./capture.php?type=gallery" class="btn btn-primary grey darken-3"><i class="fas fa-camera"></i></a>
 		</div>
 		<?php require_once('./includes/footer.php'); ?>
 	</body>

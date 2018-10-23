@@ -25,5 +25,9 @@ function getMedia()
 }
 */
 
+function changeFilter(obj)
+{
+    overlay = document.querySelector('#img_overlay');
+}
 
 
