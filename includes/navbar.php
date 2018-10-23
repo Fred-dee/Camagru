@@ -4,7 +4,7 @@ if (!isset($_SESSION)) {
 }
 header('Content-type: text/html');
 ?>
-<nav class="navbar navbar-expand-lg navbar-dark indigo fixed-top scrolling-navbar">
+<nav class="navbar navbar-expand-lg navbar-dark grey darken-4 fixed-top scrolling-navbar">
     <!-- Navbar brand -->
     <a class="navbar-brand" href="./index">Camagru</a>
 
@@ -14,10 +14,10 @@ header('Content-type: text/html');
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Collapsible content -->
+    <!-- Collapsible content
     <div class="collapse navbar-collapse" id="basicExampleNav" toggle="true">
 
-        <!-- Links -->
+        <!-- Links 
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="#">Home
@@ -31,7 +31,7 @@ header('Content-type: text/html');
                 <a class="nav-link" href="#">Pricing</a>
             </li>
 
-            <!-- Dropdown -->
+            <!-- Dropdown 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
                    aria-expanded="false">Dropdown</a>

@@ -55,7 +55,10 @@ if (!isset($_SESSION))
                         $ip = new Element("input", true);
                         $ip->add_class("form-control");
                         $ip->add_attribute("name", $key);
-                        $ip->add_attribute("type", "text");
+                        if ($key != "email")
+                            $ip->add_attribute("type", "text");
+                        else
+                            $ip->add_attribute("type", "email");
                         $ip->add_attribute("value", $value);
                         $fg->add_child($lb);
                         $fg->add_child($ip);

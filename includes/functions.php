@@ -11,6 +11,13 @@
 		$_SESSION["errors"] = array('errno' => $errno, 'errmsg' => $errmsg);
 		header("location: ../index");
 	}
+
+	function profile_error($errno, $errmsg)
+	{
+		$_SESSION["errors"] = array('errno' => $errno, 'errmsg' => $errmsg);
+		header("location: ../profile");
+	}
+    
 	function debug_to_console( $data ) {
 		$output = $data;
 		if ( is_array( $output ) )

@@ -26,22 +26,25 @@
 		}
 		public function __toString()
 		{
-			$ret_string = "<".$this->_tagname;
-			$ret_string .= " class='";
-			$arrkeys = array_keys($this->_classes);
-			$last_key = end($arrkeys);
-			foreach($this->_classes as $key => $value)
-			{
-				if (!($key == $last_key))
-				{
-					$ret_string .= $value.",";
-				}
-				else
-				{
-					$ret_string .= $value;
-				}
-			}
-			$ret_string .= "' ";
+			$ret_string = "<".$this->_tagname." ";
+            if (!empty($this->_classes))
+            {
+                $ret_string .= " class='";
+                $arrkeys = array_keys($this->_classes);
+                $last_key = end($arrkeys);
+                foreach($this->_classes as $key => $value)
+                {
+                    if (!($key == $last_key))
+                    {
+                        $ret_string .= $value.",";
+                    }
+                    else
+                    {
+                        $ret_string .= $value;
+                    }
+                }
+                $ret_string .= "' ";
+            }
 			foreach($this->_attributes as $key => $value)
 			{
 				foreach($value as $ind => $val)
