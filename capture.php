@@ -32,10 +32,12 @@ header('Content-Type: text/html');
         ?>
         <div id="container">
             <video autoplay="true" id="videoElement">
-
             </video>
         </div>
-        <button class="btn btn-primary grey darken-4" onclick="getMedia()">Get Media Script</button>
+        <button class="btn btn-primary grey darken-4" onclick="getMedia()" id="btn_snap">Snap</button>
+        <br/>
+
+        <canvas id="c" style="display:box;" width="500px" height="375px"></canvas>
         <?php
             require_once './includes/footer.php';
         ?>
@@ -46,6 +48,15 @@ header('Content-Type: text/html');
                 navigator.mediaDevices.getUserMedia({video: true})
                         .then(function (stream) {
                             video.srcObject = stream;
+                    
+                        var canvas = document.getElementById("c");
+                        var button = document.getElementById("btn_snap");
+                        //video.src = stream;
+                        button.disabled = false;
+                        button.onclick = function() {
+                            canvas.getContext("2d").drawImage(video, 0, 0, 500, 375, 0, 0, 500, 375);
+                            var img = canvas.toDataURL("image/png");
+                        };
                         })
                         .catch(function (err0r) {
                             console.log("Something went wrong!");
