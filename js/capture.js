@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/*
 function hasGetUserMedia() {
     return !!(navigator.mediaDevices &&
             navigator.mediaDevices.getUserMedia);
@@ -22,7 +23,7 @@ function getMedia()
         alert('getUserMedia() is not supported by your browser');
     }
 }
-
+*/
 
 
 
