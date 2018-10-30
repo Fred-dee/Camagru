@@ -17,6 +17,7 @@
 		<meta name="author" description="mdilapi" />
 		<meta charset="utf-8" />
 		<?php require_once('./includes/main-includes.php'); ?>
+                <script src="js/capture.js"></script>
 	</head>
 	<body onload="onReady()">
 		<?php require_once('./includes/navbar.php'); ?>
@@ -50,6 +51,12 @@
 						"avatar_src" => $pro_pic,
 					);
 					$art = new Article($data);
+                                        $art->add_attribute("id", $row["id"]."art");
+                                        $btnclose = new Element("button", false);
+                                        $btnclose->add_attribute("onclick", "removeThis(this)");
+                                        $btnclose->add_text("Close");
+                                        $btnclose->add_class("btn btn-primary");
+                                        $art->add_child($btnclose);
 					array_push($articles, $art);
 				}
 				foreach($articles as $key => $value)
@@ -62,10 +69,23 @@
 					$row_div->add_child($col_div);
 					array_push($body, $row_div);
 				}
+                                if (isset($_SESSION["errors"]))
+                                {
+                                    if ($_SESSION["errors"]["errno"] == -1)
+                                    {
+                                        $err_div = new Element("div", "false");
+                                        $err_div->add_class("alert alert-danger");
+                                        $err_div->add_text($_SESSION["erros"]["errmsg"]);
+                                        echo $err_div;
+                                        unset($_SESSION["erros"]);
+                                    }
+                                 
+                                }
 				foreach($body as $key => $value)
 				{
 					echo $value;
 				}
+
 			?>
             <div class="pagination">
               <a href="#">&laquo;</a>

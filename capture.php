@@ -38,7 +38,7 @@ header('Content-Type: text/html');
                             <img id="img_overlay" src="./imgs/overlay.png" alt="" class="img-responsive icon" style="width: inherit; height: inherit"/>
                         </div>
                     </div>
-                    <button class="btn btn-primary grey darken-4" onclick="" id="btn_upload">Upload Snaps</button>
+                    <button class="btn btn-primary grey darken-4" onclick="uploadSnaps()" id="btn_upload">Upload Snaps</button>
                 </div>
                 <div class="col-md-3">
                     <div class="flex-column">
@@ -82,6 +82,13 @@ header('Content-Type: text/html');
                             imgnew.setAttribute('src', img);
                             colnew.setAttribute("class", "flex-col-item");
                             colnew.appendChild(imgnew);
+                            const btnclose = document.createElement("button");
+                            btnclose.addEventListener("click", function(this)
+                            {
+                                document.removeChild(this.parent());
+                            });
+                            btnclose.setAttribute("class", "btn btn-close");
+                            colnew.appendChild(btnclose);
                             var right =  document.querySelector("#col-right");
                             right.insertBefore(colnew, right.childNodes[0]);
                             
