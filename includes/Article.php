@@ -82,6 +82,8 @@
 			$this->add_child($head_div);
 			$this->add_child($img_div);
 			$this->add_child($comm_div);
+            
+            
             // Comment Form //
             $mcom = new Element("div", false);
             
@@ -98,7 +100,7 @@
             $input->add_attribute("placeholder", "Comment...");
             $input->add_attribute("type", "input");
             $mform->add_child($input);
-            $submit->add_class("form-control grey darken-3");
+            $submit->add_class("form-control grey darken-3 btn");
             $submit->add_attribute("type", "submit");
             $mform->add_child($submit);
             $mcom->add_child($mform);
