@@ -72,8 +72,8 @@ header('Content-Type: text/html');
                         var canvas = document.getElementById("c");
                         var button = document.getElementById("btn_snap");
 
-                        button.disabled = false;
-                        button.onclick = function() {
+                            button.disabled = false;
+                            button.onclick = function() {
                             canvas.getContext("2d").drawImage(video, 0, 0, 500, 375, 0, 0, 500, 375);
                             canvas.getContext("2d").drawImage(over, 0, 0, 500, 375, 0, 0, 500, 375);
                             var img = canvas.toDataURL("image/png");
@@ -83,11 +83,20 @@ header('Content-Type: text/html');
                             colnew.setAttribute("class", "flex-col-item");
                             colnew.appendChild(imgnew);
                             const btnclose = document.createElement("button");
-                            btnclose.addEventListener("click", function(this)
+                            
+                            btnclose.setAttribute("class", "close");
+                            btnclose.setAttribute("aria-label", "Close");
+                            btnclose.setAttribute("type", "button");
+                            btnclose.onclick = function(btnclose)
                             {
-                                document.removeChild(this.parent());
-                            });
-                            btnclose.setAttribute("class", "btn btn-close");
+                                    objParent = btnclose.parentNode;
+                                    row =objParent.parentNode;
+                                    row.removeChild(objParent);
+                            }.bind(null, btnclose);
+                            ico = document.createElement("span");
+                            ico.setAttribute("aria-hidden", "true");
+                            ico.innerHTML = "&times;";
+                            btnclose.appendChild(ico);
                             colnew.appendChild(btnclose);
                             var right =  document.querySelector("#col-right");
                             right.insertBefore(colnew, right.childNodes[0]);

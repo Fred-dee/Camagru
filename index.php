@@ -51,36 +51,34 @@
 						"avatar_src" => $pro_pic,
 					);
 					$art = new Article($data);
-                                        $art->add_attribute("id", $row["id"]."art");
-                                        $btnclose = new Element("button", false);
-                                        $btnclose->add_attribute("onclick", "removeThis(this)");
-                                        $btnclose->add_text("Close");
-                                        $btnclose->add_class("btn btn-primary");
-                                        $art->add_child($btnclose);
+                    $art->add_attribute("id", $row["id"]."art");
 					array_push($articles, $art);
 				}
+                $row_div = new Element("div", false);
+                $row_div->add_class("gal-grid-thirds");
 				foreach($articles as $key => $value)
 				{
-					$row_div = new Element("div", false);
-					$row_div->add_class("row");
+					
 					$col_div = new Element("div", false);
-					$col_div->add_class("col-xs-12");
+					$col_div->add_class("gal-col");
 					$col_div->add_child($value);
 					$row_div->add_child($col_div);
-					array_push($body, $row_div);
+					
 				}
-                                if (isset($_SESSION["errors"]))
-                                {
-                                    if ($_SESSION["errors"]["errno"] == -1)
-                                    {
-                                        $err_div = new Element("div", "false");
-                                        $err_div->add_class("alert alert-danger");
-                                        $err_div->add_text($_SESSION["erros"]["errmsg"]);
-                                        echo $err_div;
-                                        unset($_SESSION["erros"]);
-                                    }
-                                 
-                                }
+                array_push($body, $row_div);
+                if (isset($_SESSION["errors"]))
+                {
+                    if ($_SESSION["errors"]["errno"] == -1)
+                    {
+
+                        $err_div = new Element("div", false);
+                        $err_div->add_class("alert alert-danger row");
+                        $err_div->add_text($_SESSION["errors"]["errmsg"]);
+                        array_unshift($body, $err_div);
+                        unset($_SESSION["errors"]);
+                    }
+
+                }
 				foreach($body as $key => $value)
 				{
 					echo $value;

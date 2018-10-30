@@ -9,7 +9,7 @@
 	function index_error($errno, $errmsg)
 	{
 		$_SESSION["errors"] = array('errno' => $errno, 'errmsg' => $errmsg);
-		header("location: ../index");
+		header("location: index");
 	}
 
 	function profile_error($errno, $errmsg)

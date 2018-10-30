@@ -22,10 +22,11 @@ function uploadSnaps()
 
 function removeThis(obj)
 {
-    objParent = document.getElementById(obj.parentNode.getAttribute("id"));
+    alert(obj.getAttribute("src"));
+   // objParent = document.getElementById(obj.parentNode.getAttribute("id"));
     //alert(objParent.parentNode);
     //objParent.parentNode.removeChild(objParent); // delete just the article
-    var row = objParent.parentNode.parentNode;
-    row.removeChild(objParent.parentNode); // delete the entire column
+    //var row = objParent.parentNode.parentNode;
+    //row.removeChild(objParent.parentNode); // delete the entire column
     //document.removeChild(objParent.parentNode);
 }

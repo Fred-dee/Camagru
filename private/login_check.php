@@ -46,6 +46,11 @@
 				login_error(1, $e->getMessage());
 			}
 			$_SESSION["login"] = $username;
+            $stmt = $pdo->prepare("SELECT id FROM users WHERE user_name=:uname");
+            $stmt->bindParam(':uname', $username, PDO::PARAM_STR, 15);
+            $stmt->execute();
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+            $_SESSION["user_id"] = (int) $row["id"];
 			header("location: ../index");
 		}
 		if ($_POST["submit"] == "Login")
@@ -59,13 +64,13 @@
 			{
 				$stmt->execute();
 				$numRows = $stmt->rowCount();
-				//echo $numRows;
 				if ($numRows == 1)
 				{
 					$row = $stmt->fetch(PDO::FETCH_ASSOC);
 					if (password_verify($rawpassword, $row["hash"]))
 					{
 						$_SESSION["login"] = $username;
+                        $_SESSION["user_id"] = (int) $row["id"];
 						header("location: ../index");
 					}
 					else
