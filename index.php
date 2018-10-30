@@ -18,6 +18,7 @@
 		<meta charset="utf-8" />
 		<?php require_once('./includes/main-includes.php'); ?>
                 <script src="js/capture.js"></script>
+                <script src="js/likes.js"></script>
 	</head>
 	<body onload="onReady()">
 		<?php require_once('./includes/navbar.php'); ?>

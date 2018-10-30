@@ -25,7 +25,7 @@ header('Content-Type: text/html');
             <div class="row">
                 <div class="col-md-3">
                     <div class="flex-column" id="col-right">
-                        
+
                     </div>
                     <canvas id="c" style="display:none;" width="500px" height="375px"></canvas>
                 </div>
@@ -53,12 +53,12 @@ header('Content-Type: text/html');
             </div>
 
         </div>
-        
+
         <br/>
 
-        
+
         <?php
-            require_once './includes/footer.php';
+        require_once './includes/footer.php';
         ?>
         <script>
             var video = document.querySelector("#videoElement");
@@ -69,39 +69,38 @@ header('Content-Type: text/html');
                             video.srcObject = stream;
                             var over;
                             over = document.getElementById("img_overlay");
-                        var canvas = document.getElementById("c");
-                        var button = document.getElementById("btn_snap");
+                            var canvas = document.getElementById("c");
+                            var button = document.getElementById("btn_snap");
 
                             button.disabled = false;
-                            button.onclick = function() {
-                            canvas.getContext("2d").drawImage(video, 0, 0, 500, 375, 0, 0, 500, 375);
-                            canvas.getContext("2d").drawImage(over, 0, 0, 500, 375, 0, 0, 500, 375);
-                            var img = canvas.toDataURL("image/png");
-                            const imgnew = document.createElement("img");
-                            const colnew = document.createElement("div");
-                            imgnew.setAttribute('src', img);
-                            colnew.setAttribute("class", "flex-col-item");
-                            colnew.appendChild(imgnew);
-                            const btnclose = document.createElement("button");
-                            
-                            btnclose.setAttribute("class", "close");
-                            btnclose.setAttribute("aria-label", "Close");
-                            btnclose.setAttribute("type", "button");
-                            btnclose.onclick = function(btnclose)
-                            {
+                            button.onclick = function () {
+                                canvas.getContext("2d").drawImage(video, 0, 0, 500, 375, 0, 0, 500, 375);
+                                canvas.getContext("2d").drawImage(over, 0, 0, 500, 375, 0, 0, 500, 375);
+                                var img = canvas.toDataURL("image/png");
+                                        const imgnew = document.createElement("img");
+                                        const colnew = document.createElement("div");
+                                        imgnew.setAttribute('src', img);
+                                colnew.setAttribute("class", "flex-col-item");
+                                colnew.appendChild(imgnew);
+                                        const btnclose = document.createElement("button");
+                                        btnclose.setAttribute("class", "close");
+                                btnclose.setAttribute("aria-label", "Close");
+                                btnclose.setAttribute("type", "button");
+                                btnclose.onclick = function (btnclose)
+                                {
                                     objParent = btnclose.parentNode;
-                                    row =objParent.parentNode;
+                                    row = objParent.parentNode;
                                     row.removeChild(objParent);
-                            }.bind(null, btnclose);
-                            ico = document.createElement("span");
-                            ico.setAttribute("aria-hidden", "true");
-                            ico.innerHTML = "&times;";
-                            btnclose.appendChild(ico);
-                            colnew.appendChild(btnclose);
-                            var right =  document.querySelector("#col-right");
-                            right.insertBefore(colnew, right.childNodes[0]);
-                            
-                        };
+                                }.bind(null, btnclose);
+                                ico = document.createElement("span");
+                                ico.setAttribute("aria-hidden", "true");
+                                ico.innerHTML = "&times;";
+                                btnclose.appendChild(ico);
+                                colnew.appendChild(btnclose);
+                                var right = document.querySelector("#col-right");
+                                right.insertBefore(colnew, right.childNodes[0]);
+
+                            };
                         })
                         .catch(function (err0r) {
                             console.log("Something went wrong!");
