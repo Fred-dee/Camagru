@@ -82,6 +82,29 @@
 			$this->add_child($head_div);
 			$this->add_child($img_div);
 			$this->add_child($comm_div);
+            // Comment Form //
+            $mcom = new Element("div", false);
+            
+            $mform = new Element("form", false);
+            
+            $input = new Element("input", true);
+            
+            $submit = new Element("input" ,false);
+            $mform->add_class("form-inline");            
+            
+            if ($_SESSION["login"] == "guest")
+                $input->add_inlineattr("disabled");
+            $input->add_class("form-control");
+            $input->add_attribute("placeholder", "Comment...");
+            $input->add_attribute("type", "input");
+            $mform->add_child($input);
+            $submit->add_class("form-control grey darken-3");
+            $submit->add_attribute("type", "submit");
+            $mform->add_child($submit);
+            $mcom->add_child($mform);
+            $this->add_child($mcom);
+            
+            // end Comment Form //
 		}
 	}
 ?>
