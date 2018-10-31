@@ -30,6 +30,12 @@ header('Content-Type: text/html');
                     <canvas id="c" style="display:none;" width="500px" height="375px"></canvas>
                 </div>
                 <div class="col-md-6 text-center">
+
+                    <form action="./upload.php" method="post" enctype="multipart/form-data">
+                        Select image to upload:
+                        <input type="file" name="fileToUpload" id="fileToUpload">
+                        <input type="submit" value="Upload Image" name="submit">
+                    </form>
                     <button class="btn btn-primary grey darken-4" onclick="" id="btn_snap">Snap</button>
                     <div class="contained">
                         <video autoplay="true" id="videoElement">

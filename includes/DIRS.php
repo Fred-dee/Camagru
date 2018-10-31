@@ -1,3 +1,3 @@
 <?php
-    define (ROOT_DIR, "localhost:8080/Camagru");
+    define ("ROOT_DIR", "http://localhost:8080/Camagru");
 ?>
