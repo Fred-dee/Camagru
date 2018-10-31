@@ -29,6 +29,31 @@ if (!isset($_SESSION))
             require_once('./includes/profile-head.php');
             ?>
             <hr/>
+            <div class="row">
+                <div class ="col-xs-12">
+                    <?php
+                    require_once("./includes/Element.php");
+                    $div = new Element("div", false);
+                    $msg;
+                    $class;
+                    if (isset($_SESSION["errors"])) {
+                        $msg = $_SESSION["errors"]["errmsg"];
+                        $class = "alert alert-danger";
+                    }
+                    if (isset($_SESSION["success"])) {
+                        $msg = $_SESSION["success"]["message"];
+                        $class = "alert alert-success";
+                    }
+                    if (isset($_SESSION["errors"]) || isset($_SESSION["success"])) {
+                        $div->add_class($class);
+                        $div->add_text($msg);
+                        echo $div;
+                        unset($_SESSION["errors"]);
+                        unset($_SESSION["success"]);
+                    }
+                    ?>
+                </div>
+            </div>
             <?php
             require_once('./config/database.php');
             require_once('./includes/Article.php');
@@ -37,21 +62,18 @@ if (!isset($_SESSION))
             $pdo = DB::getConnection();
             $stmt = $pdo->prepare("SELECT * FROM users WHERE user_name=:uname");
             $stmt->bindParam(":uname", $_SESSION["login"], PDO::PARAM_STR, 15);
-            if(($result = $stmt->execute()))
-            {
+            if (($result = $stmt->execute())) {
                 $form = new Element("form", false);
                 $form->add_attribute("method", "post");
                 $form->add_attribute("action", "./private/update");
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                foreach($row as $key => $value)
-                {
-                    if ($key != "hash" && $key != "avatar" && $key != "id" && $key != "user_name")
-                    {
+                foreach ($row as $key => $value) {
+                    if ($key != "hash" && $key != "avatar" && $key != "id" && $key != "user_name") {
                         $fg = new Element("div", false);
                         $fg->add_class("form-group");
                         $lb = new Element("label", false);
                         $lb->add_attribute("for", $key);
-                        $lb->add_text($key.":");
+                        $lb->add_text($key . ":");
                         $ip = new Element("input", true);
                         $ip->add_class("form-control");
                         $ip->add_attribute("name", $key);

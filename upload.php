@@ -1,4 +1,5 @@
 <?php
+
 if (!isset($_SESSION))
     session_start();
 if ($_SESSION["login"] == "guest")
@@ -11,6 +12,8 @@ date_default_timezone_set('Africa/Harare');
 
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo(basename($_FILES["fileToUpload"]["name"]), PATHINFO_EXTENSION));
+if (!isset($_GET))
+    capture_error(-1, "This is not a valid request");
 // Check if image file is a actual image or fake image
 if (isset($_POST["submit"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
@@ -40,13 +43,25 @@ if ($uploadOk == 0) {
     try {
         $pdo = DB::getConnection();
         $img_src = base64_encode(file_get_contents($_FILES["fileToUpload"]["tmp_name"]));
-        $date = strtotime(date("Y-m-d H:i:s"));
-        $stmt = $pdo->prepare("INSERT INTO images (`user_id`, `src`, `creation_date`, `type`) VALUES (:uid, :src, NOW(), :type)");
-        $stmt->bindParam(":uid", $_SESSION["user_id"], PDO::PARAM_STR);
-        $stmt->bindParam(":src", $img_src, PDO::PARAM_LOB);
-        $stmt->bindParam(":type", $imageFileType, PDO::PARAM_STR);
-        $stmt->execute();
-        valid_success(-1, "The file " . basename($_FILES["fileToUpload"]["name"]) . " has been uploaded.", "/capture.php");
+        if ($_GET["type"] == "gellery") {
+            
+            $stmt = $pdo->prepare("INSERT INTO images (`user_id`, `src`, `creation_date`, `type`) VALUES (:uid, :src, NOW(), :type)");
+            $stmt->bindParam(":uid", $_SESSION["user_id"], PDO::PARAM_STR);
+            $stmt->bindParam(":src", $img_src, PDO::PARAM_LOB);
+            $stmt->bindParam(":type", $imageFileType, PDO::PARAM_STR);
+            $stmt->execute();
+            valid_success(-1, "The file: " . basename($_FILES["fileToUpload"]["name"]) . " has been uploaded.", "/capture");
+        }
+        elseif($_GET["type"] == "propic")
+        {
+            $stmt = $pdo->prepare("UPDATE users SET `avatar` = :img WHERE user_name = :uname");
+            $stmt->bindParam(":uname", $_SESSION["login"], PDO::PARAM_STR);
+            $stmt->bindParam(":img", $img_src, PDO::PARAM_LOB);
+            $stmt->execute();
+            
+            valid_success(-1, "Your Profile Picture has been updated", "/profile");
+        }
+            
     } catch (\PDOException $e) {
         capture_error(-1, $e->getMessage());
     }
