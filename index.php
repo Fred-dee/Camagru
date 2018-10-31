@@ -43,7 +43,7 @@
 					if ($uname["avatar"] == NULL)
 						$pro_pic = "./imgs/avatar.png";
 					else
-						$pro_pic = "data:image/jpg;base64,".$uname["avatar"];
+						$pro_pic = "data:image".$uname["type"].";base64,".$uname["avatar"];
 					$data = array(
 						"img_src" => "data:image/jpg;base64,".base64_encode($row["src"]),
 						"img_classes" => "img-thumbnail img-responsive",

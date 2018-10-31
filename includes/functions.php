@@ -6,20 +6,38 @@ require_once ("DIRS.php");
 
 function login_error($errno, $errmsg) {
     $_SESSION["errors"] = array('errno' => $errno, 'errmsg' => $errmsg);
-    header("location: " . ROOT_DIR . "/login");
+    $dir = ROOT_DIR . "/login";
+    header("location: " . $dir);
 }
 
 function index_error($errno, $errmsg) {
     $_SESSION["errors"] = array('errno' => $errno, 'errmsg' => $errmsg);
-    //echo "Screw this";
-    $dir = ROOT_DIR."/index.php";
-    //echo $dir;
-    header("location: " .$dir);
+    $dir = ROOT_DIR . "/index";
+    header("location: " . $dir);
 }
 
 function profile_error($errno, $errmsg) {
     $_SESSION["errors"] = array('errno' => $errno, 'errmsg' => $errmsg);
-    header("location: " . ROOT_DIR . "/profile");
+    $dir = ROOT_DIR . "/profile";
+    header("location: " . $dir);
+}
+
+function capture_error($errno, $errmsg) {
+    $_SESSION["errors"] = array('errno' => $errno, 'errmsg' => $errmsg);
+    $dir = ROOT_DIR . "/capture";
+    header("location: " . $dir);
+}
+
+function valid_success($code, $msg, $location)
+{
+    $_SESSION["success"] = array('code' => $code, 'message' => $msg);
+    $dir = ROOT_DIR.$location;
+    header("location: ".$dir);
+}
+
+function upload($img_src)
+{
+    
 }
 
 function debug_to_console($data) {
