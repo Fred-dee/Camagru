@@ -45,6 +45,11 @@ header('Content-type: text/html');
                 $h3->add_text($_SESSION["login"]);
                 $div->add_child($h3);
                 $div->add_child($profile_link);
+                $logout = new Element("a", false);
+                $logout->add_class("nav-item");
+                $logout->add_attribute("href", "./logout");
+                $logout->add_text("Logout");
+                $div->prepend_child($logout);
                 echo $div;
             }
         }

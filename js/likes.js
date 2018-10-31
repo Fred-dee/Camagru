@@ -4,8 +4,11 @@
  * and open the template in the editor.
  */
 
+var uid;
+
 window.addEventListener("DOMContentLoaded", function () {
 
+    getUserID();
     function getUserID()
     {
         var xhttp = new XMLHttpRequest();
@@ -13,52 +16,48 @@ window.addEventListener("DOMContentLoaded", function () {
             if (this.readyState == 4 && this.status == 200) {
                 var resp;
                 
-                resp = this.responseText;
-                if (resp == "guest")
-                    return "guest";
-                else
-                    return resp;
-                alert(resp);
+                uid = this.responseText;
+               
+                
                 //return(this.responseText);
             }
         };
         xhttp.open("GET", "./includes/likes.php?uid", true);
         xhttp.send();
     }
-    /*function hasClass(selector, element)
-     {
-     var className = " " + selector + " ";
-     if ( (" " + element.className + " ").replace(/[\n\t]/g, " ").indexOf(" thatClass ") > -1 ) 
-     }*/
+
     function like(data)
     {
         var span = data.childNodes[0];
-        var id;
-        id = getUserID();
-        if (id  != "guest")
+        var img_id = data.parentNode.parentNode.getAttribute("id").toString();
+        var xhttp =  new XMLHttpRequest();
+        xhttp.onreadystatechange = function()
         {
-            //alert(id);
-            if ((" " + span.className + " ").replace(/[\n\t]/g, " ").indexOf(" far ") > -1)
+            if(this.readyState == 4 && this.status == 200)
             {
-                //This means I have yet to like the thing, I need to send a request giving 
-                //an insert into the table
+                if(this.responseText == "success")
+                {
+                    var numlikes = parseInt(span.textContent);
+                    if ((" " + span.className + " ").replace(/[\n\t]/g, " ").indexOf(" far ") > -1)
+                    {
+                        span.classList.remove("far");
+                        span.classList.add("fas");
+                        numlikes = numlikes + 1;
 
-            } else
-            {
-                //This means I have liked the thing, I need to remove my like
+                    } else
+                    {
+                        span.classList.remove("fas");
+                        span.classList.add("far");
+                        numlikes -= 1;
+                    }
+                    span.textContent = numlikes.toString();
+                }
+                // make an error div
             }
-        }
-        /*
-         var xhttp = new XMLHttpRequest(obj);
-         xhttp.onreadystatechange = function () {
-         if (this.readyState == 4 && this.status == 200) {
-         
-         document.getElementById("demo").innerHTML = this.responseText;
-         }
-         };
-         xhttp.open("POST", "ajax_info.txt", true);
-         xhttp.send();
-         */
+            
+        };
+        xhttp.open("GET", "./includes/likes.php?method=update&img="+img_id, true);
+        xhttp.send();
     }
 
     var form = document.querySelectorAll(".like-btn");

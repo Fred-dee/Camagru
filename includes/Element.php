@@ -5,7 +5,7 @@
 		protected $_classes = array();
 		protected $_attributes = array();
 		protected $_children = array();
-                protected $_inlineattr = array();
+        protected $_inlineattr = array();
 		protected $_isInline;
 		protected $_text;
 		
@@ -24,6 +24,11 @@
 				array_push($this->_classes, $class);
 			}
 		}
+        
+        public function prepend_child($child)
+        {
+            array_unshift($this->_children, $child);
+        }
 		public function __toString()
 		{
 			$ret_string = "<".$this->_tagname." ";
