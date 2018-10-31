@@ -5,18 +5,18 @@
 	function login_error($errno, $errmsg)
 	{
 		$_SESSION["errors"] = array('errno' => $errno, 'errmsg' => $errmsg);
-		header("location: ".ROOT_DIR."./login");
+		header("location: ".ROOT_DIR."/login");
 	}
 	function index_error($errno, $errmsg)
 	{
 		$_SESSION["errors"] = array('errno' => $errno, 'errmsg' => $errmsg);
-		header("location: ".ROOT_DIR."./index");
+		header("location: ".ROOT_DIR."/index");
 	}
 
 	function profile_error($errno, $errmsg)
 	{
 		$_SESSION["errors"] = array('errno' => $errno, 'errmsg' => $errmsg);
-		header("location: ".ROOT_DIR."./profile");
+		header("location: ".ROOT_DIR."/profile");
 	}
     
 	function debug_to_console( $data ) {

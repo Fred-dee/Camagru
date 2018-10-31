@@ -20,8 +20,8 @@
         try
         {
             $stmt->execute();
-            echo ROOTDIR;
-            header("location: ".ROOT_DIR."./index");
+            header("location: ".ROOT_DIR."/index");
+            //var_dump(ROOT_DIR."/index");
         }
         catch (\PDOException $e)
         {
