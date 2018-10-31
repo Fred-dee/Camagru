@@ -87,3 +87,16 @@ body {
   background: salmon;
   padding: 20px;
 }
+
+
+input.comment {
+    width: 200px;
+    height: 20px;
+    padding-right: 50px;
+}
+
+input.comm_submit{
+    margin-left: -50px;
+    height: 20px;
+    width: 50px;
+}

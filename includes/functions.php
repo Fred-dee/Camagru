@@ -1,21 +1,22 @@
 <?php
 	if(!isset($_SESSION))
 		session_start();
+    include_once('./DIRS.php');
 	function login_error($errno, $errmsg)
 	{
 		$_SESSION["errors"] = array('errno' => $errno, 'errmsg' => $errmsg);
-		header("location: ../login");
+		header("location: ".ROOT_DIR."./login");
 	}
 	function index_error($errno, $errmsg)
 	{
 		$_SESSION["errors"] = array('errno' => $errno, 'errmsg' => $errmsg);
-		header("location: index");
+		header("location: ".ROOT_DIR."./index");
 	}
 
 	function profile_error($errno, $errmsg)
 	{
 		$_SESSION["errors"] = array('errno' => $errno, 'errmsg' => $errmsg);
-		header("location: ../profile");
+		header("location: ".ROOT_DIR."./profile");
 	}
     
 	function debug_to_console( $data ) {

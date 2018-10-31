@@ -84,20 +84,33 @@ class Article extends Element {
         $mcom = new Element("div", false);
 
         $mform = new Element("form", false);
+        $mform->add_attribute("action", "./includes/comment.php");
+        $mform->add_attribute("method", "POST");
 
         $input = new Element("input", true);
-
-        $submit = new Element("input", false);
+        $input->add_attribute("name", "message");
+        $hidden = new Element("input", true);
+        $hidden->add_attribute("name", "img_id");
+        $hidden->add_attribute("value", $data["img_id"]);
+        $hidden->add_inlineattr("hidden");
+        $mform->add_child($hidden);
+        $submit = new Element("button", false);
+        $submit->add_attribute("name", "submit");
+        $submit->add_attribute("type", "submit");
+        $submit->add_text("<i class='fa fa-paper-plane' aria-hidden='true'></i>");
         $mform->add_class("form-inline");
 
         if ($_SESSION["login"] == "guest")
+        {
             $input->add_inlineattr("disabled");
-        $input->add_class("form-control");
+            $submit->add_inlineattr("disabled");
+        }
+        $input->add_class("form-control comment");
         $input->add_attribute("placeholder", "Comment...");
         $input->add_attribute("type", "input");
         $mform->add_child($input);
-        $submit->add_class("form-control grey darken-3 btn");
-        $submit->add_attribute("type", "submit");
+        $submit->add_class("form-control grey darken-3 btn comm_submit");
+      
         $mform->add_child($submit);
         $mcom->add_child($mform);
         $this->add_child($mcom);
