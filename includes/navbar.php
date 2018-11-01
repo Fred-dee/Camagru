@@ -23,7 +23,7 @@ header('Content-type: text/html');
                 echo "<a class='nav-item nav-link' href='./login'>Login/Sign-up</a>";
             } else {
                 $pdo = DB::getConnection();
-                $stmt = $pdo->prepare("SELECT avatar FROM users WHERE user_name=:uname");
+                $stmt = $pdo->prepare("SELECT avatar, type FROM users WHERE user_name=:uname");
                 $stmt->bindParam(':uname', $_SESSION["login"], PDO::PARAM_STR, 15);
                 $stmt->execute();
                 $val = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -33,7 +33,7 @@ header('Content-type: text/html');
                 $profile_link->add_attribute("href", "./profile");
                 $profile_link->add_child($img);
                 if ($val["avatar"] != null)
-                    $img->add_attribute("src", "data:image/jpg;base64," . base64_encode($val["avatar"]));
+                    $img->add_attribute("src", "data:image/".$val["type"].";base64," . ($val["avatar"]));
                 else
                     $img->add_attribute("src", "./imgs/avatar.png");
                 $img->add_attribute("alt", "Avatar");

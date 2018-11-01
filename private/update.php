@@ -12,7 +12,10 @@ if(isset($_POST))
     $stmt->bindParam(':email', $_POST["email"], PDO::PARAM_STR);
     $stmt->bindParam(':uname', $_SESSION["login"], PDO::PARAM_STR, 25);
     if($stmt->execute())
-        header("location: ../profile");
+    {
+        valid_success(-1, "Your information has been updated succesfully", "/profile");
+       // header("location: ../profile");
+    }
     else
         profile_error(-1, "Could not update your profile");
 }

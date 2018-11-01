@@ -68,7 +68,7 @@ if (!isset($_SESSION))
                 $form->add_attribute("action", "./private/update");
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 foreach ($row as $key => $value) {
-                    if ($key != "hash" && $key != "avatar" && $key != "id" && $key != "user_name") {
+                    if ($key != "hash" && $key != "avatar" && $key != "id" && $key != "user_name" && $key != "type") {
                         $fg = new Element("div", false);
                         $fg->add_class("form-group");
                         $lb = new Element("label", false);
@@ -94,6 +94,48 @@ if (!isset($_SESSION))
                 $btn->add_attribute("name", "submit");
                 $form->add_child($btn);
                 echo $form;
+                echo "<hr/>";
+            }
+            $stmt = $pdo->prepare("Select * FROM images WHERE user_id=:uname");
+            $stmt->bindParam(":uname", $_SESSION["user_id"], PDO::PARAM_STR);
+            $stmt->execute();
+            $row_div = new Element("div", false);
+            $body = array();
+
+            $articles = array();
+            while (($row = $stmt->fetch(PDO::FETCH_ASSOC))) {
+                $inter = $pdo->prepare("Select user_name, avatar FROM users WHERE id = :user_id");
+                $inter->bindParam(':user_id', $row["user_id"], PDO::PARAM_INT);
+                $inter->execute();
+                $uname = $inter->fetch(PDO::FETCH_ASSOC);
+                $pro_pic;
+                if ($uname["avatar"] == NULL)
+                    $pro_pic = "./imgs/avatar.png";
+                else
+                    $pro_pic = "data:image/" . $uname["type"] . ";base64," . $uname["avatar"];
+                $data = array(
+                    "img_src" => "data:image/".$row["type"].";base64," .$row["src"],
+                    "img_classes" => "img-thumbnail img-responsive",
+                    "img_id" => $row["id"],
+                    "user_id" => $uname["user_name"],
+                    "avatar_src" => $pro_pic,
+                );
+                $art = new Article($data);
+                $art->add_attribute("id", $row["id"] . "art");
+                array_push($articles, $art);
+            }
+            $row_div = new Element("div", false);
+            $row_div->add_class("gal-grid-thirds");
+            foreach ($articles as $key => $value) {
+
+                $col_div = new Element("div", false);
+                $col_div->add_class("gal-col");
+                $col_div->add_child($value);
+                $row_div->add_child($col_div);
+            }
+            array_push($body, $row_div);
+            foreach ($body as $key => $value) {
+                echo $value;
             }
             ?>
 
