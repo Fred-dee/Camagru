@@ -5,6 +5,8 @@ require_once('./includes/functions.php');
 if ($_SESSION["login"] == "guest") {
     index_error(-1, "You must be logged in to view this page");
 }
+//if(!isset($_GET) || $_GET["type"] != "gallery" || $_GET["type"] != "propic")
+//    index_error(-1, "Invalid Url");
 header('Content-Type: text/html');
 ?>
 <html>
@@ -53,6 +55,7 @@ header('Content-Type: text/html');
 
                     </div>
                     <canvas id="c" style="display:none;" width="500px" height="375px"></canvas>
+                    <canvas id='a' style="display:none;" width="500px" height="375px"></canvas>
                 </div>
                 <div class="col-md-6 text-center">
 
@@ -103,20 +106,22 @@ require_once './includes/footer.php';
                             var over;
                             over = document.getElementById("img_overlay");
                             var canvas = document.getElementById("c");
+                            var can2 = document.querySelector("a");
                             var button = document.getElementById("btn_snap");
 
                             button.disabled = false;
                             button.onclick = function () {
                                 canvas.getContext("2d").drawImage(video, 0, 0, 500, 375, 0, 0, 500, 375);
-                                canvas.getContext("2d").drawImage(over, 0, 0, 500, 375, 0, 0, 500, 375);
+                                //canvas.getContext("2d").drawImage(over, 0, 0, 500, 375, 0, 0, 500, 375);
+                                can2.getContext("2d").drawImage(over, 0, 0, 500, 375, 0, 0, 500, 375);
                                 var img = canvas.toDataURL("image/png");
-                                        const imgnew = document.createElement("img");
-                                        const colnew = document.createElement("div");
-                                        imgnew.setAttribute('src', img);
+                                const imgnew = document.createElement("img");
+                                const colnew = document.createElement("div");
+                                imgnew.setAttribute('src', img);
                                 colnew.setAttribute("class", "flex-col-item");
                                 colnew.appendChild(imgnew);
-                                        const btnclose = document.createElement("button");
-                                        btnclose.setAttribute("class", "close");
+                                const btnclose = document.createElement("button");
+                                btnclose.setAttribute("class", "close");
                                 btnclose.setAttribute("aria-label", "Close");
                                 btnclose.setAttribute("type", "button");
                                 btnclose.onclick = function (btnclose)

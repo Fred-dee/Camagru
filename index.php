@@ -21,6 +21,11 @@ if (!isset($_SESSION["login"])) {
     <body onload="onReady()">
 <?php require_once('./includes/navbar.php'); ?>
         <div class="container-fluid" >
+            <div class="row">
+                <div class="col-xs-12" style="text-align: center">
+                    <a href="./capture.php?type=gallery" class="btn btn-primary grey darken-3"><i class="fas fa-camera"></i></a>
+                </div>
+            </div>
         <?php
         require_once('./config/database.php');
         require_once('./includes/Article.php');
@@ -30,7 +35,7 @@ if (!isset($_SESSION["login"])) {
         $stmt->execute();
         $row_div = new Element("div", false);
         $body = array();
-
+        $counter  = 0;
         $articles = array();
         while (($row = $stmt->fetch(PDO::FETCH_ASSOC))) {
             $inter = $pdo->prepare("Select user_name, avatar FROM users WHERE id = :user_id");
@@ -77,17 +82,7 @@ if (!isset($_SESSION["login"])) {
             echo $value;
         }
         ?>
-            <div class="pagination">
-                <a href="#">&laquo;</a>
-                <a href="#">1</a>
-                <a href="#" class="active">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">6</a>
-                <a href="#">&raquo;</a>
-            </div>
-            <a href="./capture.php?type=gallery" class="btn btn-primary grey darken-3"><i class="fas fa-camera"></i></a>
+
         </div>
 <?php require_once('./includes/footer.php'); ?>
     </body>

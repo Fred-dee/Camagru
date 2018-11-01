@@ -13,7 +13,7 @@ function login_error($errno, $errmsg) {
 function index_error($errno, $errmsg) {
     $_SESSION["errors"] = array('errno' => $errno, 'errmsg' => $errmsg);
     $dir = ROOT_DIR . "/index";
-    header("location: " . $dir);
+    header("location: ./index.php");
 }
 
 function profile_error($errno, $errmsg) {
@@ -22,9 +22,9 @@ function profile_error($errno, $errmsg) {
     header("location: " . $dir);
 }
 
-function capture_error($errno, $errmsg) {
+function capture_error($errno, $errmsg, $type) {
     $_SESSION["errors"] = array('errno' => $errno, 'errmsg' => $errmsg);
-    $dir = ROOT_DIR . "/capture";
+    $dir = ROOT_DIR . "/capture?type=".$type;
     header("location: " . $dir);
 }
 

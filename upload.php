@@ -13,31 +13,31 @@ date_default_timezone_set('Africa/Harare');
 $uploadOk = 1;
 $imageFileType = strtolower(pathinfo(basename($_FILES["fileToUpload"]["name"]), PATHINFO_EXTENSION));
 if (!isset($_GET))
-    capture_error(-1, "This is not a valid request");
+    capture_error(-1, "This is not a valid request", $_GET["type"]);
 // Check if image file is a actual image or fake image
 if (isset($_POST["submit"])) {
     $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
     if ($check !== false) {
         $uploadOk = 1;
     } else {
-        capture_error(-1, "File is not an image.");
+        capture_error(-1, "File is not an image.", $_GET["type"]);
         $uploadOk = 0;
     }
 }
 
 // Check file size
 if ($_FILES["fileToUpload"]["size"] > 500000) {
-    capture_error(-1, "Sorry, your file is too large.");
+    capture_error(-1, "Sorry, your file is too large.", $_GET["type"]);
     $uploadOk = 0;
 }
 // Allow certain file formats
 if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-    capture_error(-1, "Sorry, only JPG, JPEG, PNG & GIF files are allowed.");
+    capture_error(-1, "Sorry, only JPG, JPEG, PNG & GIF files are allowed.", $_GET["type"]);
     $uploadOk = 0;
 }
 // Check if $uploadOk is set to 0 by an error
 if ($uploadOk == 0) {
-    capture_error(-1, "Sorry, your file was not uploaded.");
+    capture_error(-1, "Sorry, your file was not uploaded.", $_GET["type"]);
 // if everything is ok, try to upload file
 } else {
     try {
@@ -63,6 +63,6 @@ if ($uploadOk == 0) {
         }
             
     } catch (\PDOException $e) {
-        capture_error(-1, $e->getMessage());
+        capture_error(-1, $e->getMessage(), $_GET["type"]);
     }
 }
