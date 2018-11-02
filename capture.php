@@ -52,10 +52,9 @@ header('Content-Type: text/html');
             <div class="row">
                 <div class="col-md-3">
                     <div class="flex-column" id="col-right">
-
                     </div>
-                    <canvas id="c" style="display:none;" width="500px" height="375px"></canvas>
-                    <canvas id='a' style="display:none;" width="500px" height="375px"></canvas>
+                    <canvas id="c" name="background" style="display:none;" width="500px" height="375px"></canvas>
+                    <canvas id='a'name="overlay" style="display:none;" width="500px" height="375px"></canvas>
                 </div>
                 <div class="col-md-6 text-center">
 
