@@ -4,49 +4,70 @@ if (!isset($_SESSION))
 require_once('./includes/functions.php');
 header('Content-Type: text/html');
 if ($_SESSION["login"] == "guest") {
-   // $_SESSION["errors"] = "Fuck";
-
     index_error(-1, "You must be logged in to view this page");
 }
 ?>
 <html>
     <head>
         <title>Image Upload</title>
-<?php require_once './includes/main-includes.php'; ?>
+        <?php require_once './includes/main-includes.php'; ?>
         <script src="./js/capture.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="./css/capture.css"/>
         <style>
+            #mydiv {
+                position: absolute;
+                z-index: 9;
+                background-color: #f1f1f1;
+                border: 1px solid #d3d3d3;
+                text-align: center;
+            }
 
+            #mydivheader {
+                padding: 10px;
+                cursor: move;
+                z-index: 10;
+                background-color: #2196F3;
+                color: #fff;
+            }
         </style>
     </head>
     <body>
-<?php
-require_once './includes/navbar.php';
-?>
+        <?php
+        require_once './includes/navbar.php';
+        ?>
+
         <div class="container-fluid">
+            <!-- Draggable DIV -->
+            <div id="mydiv" class="">
+                <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
+                <div id="mydivheader">Click here to move</div>
+                <p>Move</p>
+                <p>this</p>
+                <p>DIV</p>
+            </div> 
             <div class="row">
                 <div class="col-xs-12">
-<?php
-require_once("./includes/Element.php");
-$div = new Element("div", false);
-$msg;
-$class;
-if (isset($_SESSION["errors"])) {
-    $msg = $_SESSION["errors"]["errmsg"];
-    $class = "alert alert-danger";
-}
-if (isset($_SESSION["success"])) {
-    $msg = $_SESSION["success"]["message"];
-    $class = "alert alert-success";
-}
-if (isset($_SESSION["errors"]) || isset($_SESSION["success"])) {
-    $div->add_class($class);
-    $div->add_text($msg);
-    echo $div;
-    unset($_SESSION["errors"]);
-    unset($_SESSION["success"]);
-}
-?>
+                    <?php
+                    require_once("./includes/Element.php");
+                    $div = new Element("div", false);
+                    $msg;
+                    $class;
+                    if (isset($_SESSION["errors"])) {
+                        $msg = $_SESSION["errors"]["errmsg"];
+                        $class = "alert alert-danger";
+                    }
+                    if (isset($_SESSION["success"])) {
+                        $msg = $_SESSION["success"]["message"];
+                        $class = "alert alert-success";
+                    }
+                    if (isset($_SESSION["errors"]) || isset($_SESSION["success"])) {
+                        $div->add_class($class);
+                        $div->add_text($msg);
+                        echo $div;
+                        unset($_SESSION["errors"]);
+                        unset($_SESSION["success"]);
+                    }
+                    ?>
                 </div>
             </div>
             <div class="row">
@@ -59,7 +80,7 @@ if (isset($_SESSION["errors"]) || isset($_SESSION["success"])) {
                 <div class="col-md-6 text-center">
                     <form action="<?php
                     echo "./upload.php?type=" . $_GET["type"];
-?>" method="post" enctype="multipart/form-data">
+                    ?>" method="post" enctype="multipart/form-data">
                         Select image to upload:
                         <input type="file" name="fileToUpload" id="fileToUpload">
                         <input type="submit" value="Upload Image" name="submit">
@@ -77,12 +98,16 @@ if (isset($_SESSION["errors"]) || isset($_SESSION["success"])) {
                 </div>
                 <div class="col-md-3">
                     <div class="flex-column">
-                        <div class="flex-col-item">
-                            <img class="img-responsive" id="ov_1" src="./imgs/overlay.png" alt="" onclick="changeFilter(this)"/>
-                        </div>
-                        <div class="flex-col-item">
-                            <img class="img-responsive" id="ov_2" src="./imgs/overlay2.png" alt="" onclick="changeFilter(this)"/>
-                        </div>
+                        <form class="form-overlays">
+                            <div class="form-check flex-col-item">
+                                <input type="checkbox" class="form-check-input" id="ov_c1" />
+                                <label class="form-check-label" for="ov_c1"><img class="img-responsive" id="ov_1" src="./imgs/overlay.png" alt="" onclick="changeFilter(this)"/></label>
+                            </div>
+                            <div class="form-check flex-col-item">
+                                <input type="checkbox" class="form-check-input" id="ov_c2" />
+                                <label class="form-check-label" for ="ov_c2"><img class="img-responsive" id="ov_2" src="./imgs/overlay2.png" alt="" onclick="changeFilter(this)"/></label>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -92,9 +117,9 @@ if (isset($_SESSION["errors"]) || isset($_SESSION["success"])) {
         <br/>
 
 
-<?php
-require_once './includes/footer.php';
-?>
+        <?php
+        require_once './includes/footer.php';
+        ?>
         <script>
             var video = document.querySelector("#videoElement");
 

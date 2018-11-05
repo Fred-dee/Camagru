@@ -1,12 +1,12 @@
 body
 {
-	padding-top: 75px;
-	min-width: 540px;
+    padding-top: 75px;
+    min-width: 540px;
 }
 
 .container-fluid
 {
-	padding-top: 75px;
+    padding-top: 75px;
 }
 .avatar {
     vertical-align: middle;
@@ -50,42 +50,42 @@ body
 }
 
 .gal-grid {
-  display: flex;
+    display: flex;
 }
 .gal-grid .gal-col {
-  flex: 1;
+    flex: 1;
 }
 .gal-grid-thirds {
-  display: flex;
-  justify-content: space-evenly;
+    display: flex;
+    justify-content: space-evenly;
 }
 .gal-grid-thirds .gal-col {
-  width: 32%;
+    width: 32%;
 }
 
 @media (max-width: 400px) {
-  .gal-grid,
-  .gal-grid-thirds {
-    display: block;
-    .gal-col {
-      width: 100%;
-      margin: 0 0 10px 0;
+    .gal-grid,
+    .gal-grid-thirds {
+        display: block;
+        .gal-col {
+            width: 100%;
+            margin: 0 0 10px 0;
+        }
     }
-  }
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 body {
-  padding: 20px;
+    padding: 20px;
 }
 .gal-grid { 
-  margin: 0 0 20px 0;
+    margin: 0 0 20px 0;
 }
 .gal-col {
-  /*background: salmon;*/
-  padding: 20px;
+    /*background: salmon;*/
+    padding: 20px;
 }
 
 
