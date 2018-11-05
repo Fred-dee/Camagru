@@ -4,14 +4,15 @@ if (!isset($_SESSION))
 require_once('./includes/functions.php');
 header('Content-Type: text/html');
 if ($_SESSION["login"] == "guest") {
+   // $_SESSION["errors"] = "Fuck";
+
     index_error(-1, "You must be logged in to view this page");
 }
-
 ?>
 <html>
     <head>
         <title>Image Upload</title>
-        <?php require_once './includes/main-includes.php'; ?>
+<?php require_once './includes/main-includes.php'; ?>
         <script src="./js/capture.js" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="./css/capture.css"/>
         <style>
@@ -19,33 +20,33 @@ if ($_SESSION["login"] == "guest") {
         </style>
     </head>
     <body>
-        <?php
-        require_once './includes/navbar.php';
-        ?>
+<?php
+require_once './includes/navbar.php';
+?>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12">
-                    <?php
-                    require_once("./includes/Element.php");
-                    $div = new Element("div", false);
-                    $msg;
-                    $class;
-                    if (isset($_SESSION["errors"])) {
-                        $msg = $_SESSION["errors"]["errmsg"];
-                        $class = "alert alert-danger";
-                    }
-                    if (isset($_SESSION["success"])) {
-                        $msg = $_SESSION["success"]["message"];
-                        $class = "alert alert-success";
-                    }
-                    if (isset($_SESSION["errors"]) || isset($_SESSION["success"])) {
-                        $div->add_class($class);
-                        $div->add_text($msg);
-                        echo $div;
-                        unset($_SESSION["errors"]);
-                        unset($_SESSION["success"]);
-                    }
-                    ?>
+<?php
+require_once("./includes/Element.php");
+$div = new Element("div", false);
+$msg;
+$class;
+if (isset($_SESSION["errors"])) {
+    $msg = $_SESSION["errors"]["errmsg"];
+    $class = "alert alert-danger";
+}
+if (isset($_SESSION["success"])) {
+    $msg = $_SESSION["success"]["message"];
+    $class = "alert alert-success";
+}
+if (isset($_SESSION["errors"]) || isset($_SESSION["success"])) {
+    $div->add_class($class);
+    $div->add_text($msg);
+    echo $div;
+    unset($_SESSION["errors"]);
+    unset($_SESSION["success"]);
+}
+?>
                 </div>
             </div>
             <div class="row">
@@ -57,8 +58,8 @@ if ($_SESSION["login"] == "guest") {
                 </div>
                 <div class="col-md-6 text-center">
                     <form action="<?php
-                                echo "./upload.php?type=".$_GET["type"];
-                            ?>" method="post" enctype="multipart/form-data">
+                    echo "./upload.php?type=" . $_GET["type"];
+?>" method="post" enctype="multipart/form-data">
                         Select image to upload:
                         <input type="file" name="fileToUpload" id="fileToUpload">
                         <input type="submit" value="Upload Image" name="submit">
@@ -113,13 +114,13 @@ require_once './includes/footer.php';
                                 canvas.getContext("2d").drawImage(over, 0, 0, 500, 375, 0, 0, 500, 375);
                                 can2.getContext("2d").drawImage(over, 0, 0, 500, 375, 0, 0, 500, 375);
                                 var img = canvas.toDataURL("image/png");
-                                const imgnew = document.createElement("img");
-                                const colnew = document.createElement("div");
-                                imgnew.setAttribute('src', img);
+                                        const imgnew = document.createElement("img");
+                                        const colnew = document.createElement("div");
+                                        imgnew.setAttribute('src', img);
                                 colnew.setAttribute("class", "flex-col-item");
                                 colnew.appendChild(imgnew);
-                                const btnclose = document.createElement("button");
-                                btnclose.setAttribute("class", "close");
+                                        const btnclose = document.createElement("button");
+                                        btnclose.setAttribute("class", "close");
                                 btnclose.setAttribute("aria-label", "Close");
                                 btnclose.setAttribute("type", "button");
                                 btnclose.onclick = function (btnclose)
