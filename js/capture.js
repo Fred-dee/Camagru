@@ -14,19 +14,28 @@ function changeFilter(obj)
 function uploadSnaps()
 {
     carosel = document.querySelector("#col-right");
+    
+    var formData = new FormData();
+    var request = new XMLHttpRequest();
     for (var x = 0; x < carosel.childElementCount; x++)
     {
-        alert(carosel.childNodes[x].src);
+        alert(carosel.childNodes[x].childNodes[0].src);
+    }
+    
+
+}
+
+
+function clearSnaps()
+{
+    carosel = document.querySelector("#col-right");
+    while (carosel.firstChild) {
+        carosel.removeChild(carosel.firstChild);
     }
 }
 
 function removeThis(obj)
 {
     alert(obj.getAttribute("src"));
-   // objParent = document.getElementById(obj.parentNode.getAttribute("id"));
-    //alert(objParent.parentNode);
-    //objParent.parentNode.removeChild(objParent); // delete just the article
-    //var row = objParent.parentNode.parentNode;
-    //row.removeChild(objParent.parentNode); // delete the entire column
-    //document.removeChild(objParent.parentNode);
+
 }

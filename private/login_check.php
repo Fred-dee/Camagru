@@ -17,6 +17,13 @@
 			$password = htmlspecialchars($_POST["s_password"]);
 			$cpass = htmlspecialchars($_POST["s_cpassword"]);
 			$username= htmlspecialchars($_POST["s_username"]);
+            $uppercase = preg_match('@[A-Z]@', $password);
+            $lowercase = preg_match('@[a-z]@', $password);
+            $number    = preg_match('@[0-9]@', $password);
+
+            if(!$uppercase || !$lowercase || !$number || strlen($password) < 8) {
+              login_error(1, "Password should contain at least one upper case, one lowercase one digit and a special character. Password must be of length 8 and above");
+            }
 			$stmt = $pdo->prepare("SELECT * FROM users WHERE user_name= ?");
 			$stmt->execute([$username]);
 			$numrows= $stmt->rowCount();

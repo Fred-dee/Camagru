@@ -34,7 +34,7 @@
                 $to_mail = $row["email"];
                 $subject = "You have unread Comments";
                 $message = "User ".$_SESSION["login"].", has commented on your image saying:".PHP_EOL.$msg.PHP_EOL."Best\n Camagru Team";
-                $headers = 'From noreply@camagru.com';
+                $headers = 'From: noreply@camagru.com';
                 if(!mail($to_email, $subject, $message, $headers))
                     index_error(-1, "Was unable to send a notifcation");
             }

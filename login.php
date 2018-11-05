@@ -1,5 +1,8 @@
 <?php
-session_start();
+if(!isset($_SESSION))
+    session_start();
+if ($_SESSION["login"] != "guest")
+    header("location: ./index");
 header('Content-type: text/html');
 ?>
 <!DOCTYPE html>

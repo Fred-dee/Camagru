@@ -52,11 +52,10 @@ if ($_SESSION["login"] == "guest") {
                 <div class="col-md-3">
                     <div class="flex-column" id="col-right">
                     </div>
-                    <canvas id="c" name="background" style="display:none;" width="500px" height="375px"></canvas>
-                    <canvas id='a'name="overlay" style="display:none;" width="500px" height="375px"></canvas>
+                    <canvas id="canvasVid" name="background" style="display:none;" width="500px" height="375px"></canvas>
+                    <canvas id='canvasOver'name="overlay" style="display:none;" width="500px" height="375px"></canvas>
                 </div>
                 <div class="col-md-6 text-center">
-
                     <form action="<?php
                                 echo "./upload.php?type=".$_GET["type"];
                             ?>" method="post" enctype="multipart/form-data">
@@ -73,6 +72,7 @@ if ($_SESSION["login"] == "guest") {
                         </div>
                     </div>
                     <button class="btn btn-primary grey darken-4" onclick="uploadSnaps()" id="btn_upload">Upload Snaps</button>
+                    <button class="btn btn-primary grey darken-4" onclick="clearSnaps()">Clear Snaps</button>
                 </div>
                 <div class="col-md-3">
                     <div class="flex-column">
@@ -103,14 +103,14 @@ require_once './includes/footer.php';
                             video.srcObject = stream;
                             var over;
                             over = document.getElementById("img_overlay");
-                            var canvas = document.getElementById("c");
-                            var can2 = document.querySelector("a");
+                            var canvas = document.getElementById("canvasVid");
+                            var can2 = document.querySelector("#canvasOver");
                             var button = document.getElementById("btn_snap");
 
                             button.disabled = false;
                             button.onclick = function () {
                                 canvas.getContext("2d").drawImage(video, 0, 0, 500, 375, 0, 0, 500, 375);
-                                //canvas.getContext("2d").drawImage(over, 0, 0, 500, 375, 0, 0, 500, 375);
+                                canvas.getContext("2d").drawImage(over, 0, 0, 500, 375, 0, 0, 500, 375);
                                 can2.getContext("2d").drawImage(over, 0, 0, 500, 375, 0, 0, 500, 375);
                                 var img = canvas.toDataURL("image/png");
                                 const imgnew = document.createElement("img");
