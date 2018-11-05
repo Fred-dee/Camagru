@@ -68,7 +68,7 @@ if (!isset($_SESSION))
                 $form->add_attribute("action", "./private/update");
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 foreach ($row as $key => $value) {
-                    if ($key != "hash" && $key != "avatar" && $key != "id" && $key != "user_name" && $key != "type") {
+                    if ($key != "hash" && $key != "avatar" && $key != "id" && $key != "user_name" && $key != "type" && $key != "em_subs") {
                         $fg = new Element("div", false);
                         $fg->add_class("form-group");
                         $lb = new Element("label", false);
@@ -84,6 +84,25 @@ if (!isset($_SESSION))
                         $ip->add_attribute("value", $value);
                         $fg->add_child($lb);
                         $fg->add_child($ip);
+                        $form->add_child($fg);
+                    }
+                    if($key == "em_subs")
+                    {
+                        $fg = new Element("div", false);
+                        $fg->add_class("form-check");
+                        $lb = new Element("label", false);
+                        $lb->add_attribute("for", $key);
+                        $lb->add_text("Receive email notifications");
+                        $lb->add_class("form-check-label");
+                        $ip =  new Element("input", true);
+                        $ip->add_class("form-check-input");
+                        $ip->add_attribute("name", $key);
+                        $ip->add_attribute("type", "checkbox");
+                        $ip->add_attribute("value", $value);
+                        if($value == 1)
+                            $ip->add_inlineattr("checked");
+                        $fg->add_child($ip);
+                        $fg->add_child($lb);
                         $form->add_child($fg);
                     }
                 }
@@ -124,16 +143,26 @@ if (!isset($_SESSION))
                 $art->add_attribute("id", $row["id"] . "art");
                 array_push($articles, $art);
             }
-            $row_div = new Element("div", false);
-            $row_div->add_class("gal-grid-thirds");
+            $counter = 0;
             foreach ($articles as $key => $value) {
-
-                $col_div = new Element("div", false);
-                $col_div->add_class("gal-col");
-                $col_div->add_child($value);
-                $row_div->add_child($col_div);
+            if ($counter == 0)
+            {
+                $row_div = new Element("div", false);
+                $row_div->add_class("gal-grid-thirds");
             }
-            array_push($body, $row_div);
+
+            $col_div = new Element("div", false);
+            $col_div->add_class("gal-col");
+            $col_div->add_child($value);
+            $row_div->add_child($col_div);
+            if($counter == 2)
+            {
+                array_push($body, $row_div);
+                $counter = -1;
+            }
+            $counter++;
+        }
+        array_push($body, $row_div);
             foreach ($body as $key => $value) {
                 echo $value;
             }

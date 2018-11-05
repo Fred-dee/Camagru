@@ -57,7 +57,7 @@ body
 }
 .gal-grid-thirds {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 .gal-grid-thirds .gal-col {
   width: 32%;
@@ -84,7 +84,7 @@ body {
   margin: 0 0 20px 0;
 }
 .gal-col {
-  background: salmon;
+  /*background: salmon;*/
   padding: 20px;
 }
 

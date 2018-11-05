@@ -58,8 +58,6 @@ if (!isset($_SESSION["login"])) {
             $art->add_attribute("id", $row["id"] . "art");
             array_push($articles, $art);
         }
-        //$row_div = new Element("div", false);
-        //$row_div->add_class("gal-grid-thirds");
         foreach ($articles as $key => $value) {
             if ($counter == 0)
             {
@@ -71,7 +69,7 @@ if (!isset($_SESSION["login"])) {
             $col_div->add_class("gal-col");
             $col_div->add_child($value);
             $row_div->add_child($col_div);
-            if($counter == 3)
+            if($counter == 2)
             {
                 array_push($body, $row_div);
                 $counter = -1;
