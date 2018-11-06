@@ -17,7 +17,7 @@ if (!isset($_SESSION["login"])) {
         <meta name="author" description="mdilapi" />
         <meta charset="utf-8" />
         <?php require_once('./includes/main-includes.php'); ?>
-        <script src="js/capture.js"></script>
+        <!--<script src="js/capture.js"></script> -->
         <script src="js/likes.js"></script>
     </head>
     <body onload="onReady()">

@@ -71,3 +71,8 @@
     text-align: center;
     opacity: 1;
 }
+
+#btn_snap
+{
+    z-index: 1;
+}

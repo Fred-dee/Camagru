@@ -11,25 +11,8 @@ if ($_SESSION["login"] == "guest") {
     <head>
         <title>Image Upload</title>
         <?php require_once './includes/main-includes.php'; ?>
-        <script src="./js/capture.js" type="text/javascript"></script>
+        <script src="./js/capture.js?1500" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="./css/capture.css"/>
-        <style>
-            #mydiv {
-                position: absolute;
-                z-index: 9;
-                background-color: #f1f1f1;
-                border: 1px solid #d3d3d3;
-                text-align: center;
-            }
-
-            #mydivheader {
-                padding: 10px;
-                cursor: move;
-                z-index: 10;
-                background-color: #2196F3;
-                color: #fff;
-            }
-        </style>
     </head>
     <body>
         <?php
@@ -37,14 +20,7 @@ if ($_SESSION["login"] == "guest") {
         ?>
 
         <div class="container-fluid">
-            <!-- Draggable DIV -->
-            <div id="mydiv" class="">
-                <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
-                <div id="mydivheader">Click here to move</div>
-                <p>Move</p>
-                <p>this</p>
-                <p>DIV</p>
-            </div> 
+
             <div class="row">
                 <div class="col-xs-12">
                     <?php
@@ -135,9 +111,9 @@ if ($_SESSION["login"] == "guest") {
 
                             button.disabled = false;
                             button.onclick = function () {
-                                canvas.getContext("2d").drawImage(video, 0, 0, 500, 375, 0, 0, 500, 375);
-                                canvas.getContext("2d").drawImage(over, 0, 0, 500, 375, 0, 0, 500, 375);
-                                can2.getContext("2d").drawImage(over, 0, 0, 500, 375, 0, 0, 500, 375);
+                                canvas.getContext("2d").drawImage(video, 0, 0, 500, 375);
+                                canvas.getContext("2d").drawImage(over, 0, 0, 500, 375);
+                                can2.getContext("2d").drawImage(over, 0, 0, 500, 375);
                                 var img = canvas.toDataURL("image/png");
                                         const imgnew = document.createElement("img");
                                         const colnew = document.createElement("div");

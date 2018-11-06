@@ -35,10 +35,12 @@ function removeThis(obj)
 {
     alert(obj.getAttribute("src"));
 }
+
+
 window.addEventListener("DOMContentLoaded", function () {
+var videlem = document.getElementById("videoElement");
 
-
-    function dragElement(elmnt){
+    function dragElement(elmnt, videlem){
         var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
         if (document.getElementById(elmnt.id + "header")) {
             // if present, the header is where you move the DIV from:
@@ -70,6 +72,11 @@ window.addEventListener("DOMContentLoaded", function () {
             // set the element's new position:
             elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
             elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            //alert(document.querySelector("#videoElement").style.top);
+            
+            alert(window.getComputedStyle(videlm).getPropertyValue("top"));
+            if(parseInt(elmnt.style.top) < parseInt(videlem.style.top))
+                elmnt.style.top = videlem.style.top;
         }
 
         function closeDragElement() {
@@ -80,10 +87,11 @@ window.addEventListener("DOMContentLoaded", function () {
     }
     // Make the DIV element draggable:
     var icons = document.querySelectorAll(".icon");
-    alert(icons.length);
+    //alert(icons.length);
     for(var x = 0; x < icons.length; x++)
     {
-        dragElement(icons[x]);
+        //alert("I am dragging");
+        dragElement(icons[x], videlem);
     }
     //icons.forEach(dragElement(this));
     //dragElement(document.getElementsByClassName("icon"));
