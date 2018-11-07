@@ -91,6 +91,16 @@
 				array_push($this->_attributes, array(trim($att_name) => trim($value)));
 			}
 		}
+        
+        public function add_attributes($attrs = array())
+        {
+            //var_dump($attrs);
+            foreach($attrs as $key => $value)
+            {
+                //echo $key."    ".$value;
+                array_push($this->_attributes, array(trim($key) => trim($value)));
+            }
+        }
 		
         public function add_inlineattr($attr)
         {

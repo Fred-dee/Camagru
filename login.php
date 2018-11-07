@@ -29,7 +29,7 @@ header('Content-type: text/html');
                     </div>
                     <input class="form-control btn btn-primary" name="submit" type="submit" value="Login" />
                 </form>
-                <a href="./forgot.php">Forgot Password?</a>
+                <a href="./forgot?reset=forgot">Forgot Password?</a>
                 <?php
                 if (isset($_SESSION["errors"])) {
                     if ($_SESSION["errors"]["errno"] == 0) {

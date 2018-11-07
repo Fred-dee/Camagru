@@ -39,6 +39,13 @@ function valid_success($code, $msg, $location)
     exit();
 }
 
+function general_error($code, $msg, $location)
+{
+    $_SESSION["errors"] = array('errno' => $code, 'errmsg' => $msg);
+    $dir = ROOT_DIR.$location;
+    header("location: ".$dir);
+    exit();
+}
 
 function debug_to_console($data) {
     $output = $data;
