@@ -24,25 +24,7 @@ if (!isset($_SESSION["login"])) {
         <?php require_once('./includes/navbar.php'); ?>
         <div class="container-fluid" >
             <?php
-            require_once("./includes/Element.php");
-            $div = new Element("div", false);
-            $msg;
-            $class;
-            if (isset($_SESSION["errors"])){
-                $msg = $_SESSION["errors"]["errmsg"];
-                $class = "alert alert-danger";
-            }
-            if (isset($_SESSION["success"])) {
-                $msg = $_SESSION["success"]["message"];
-                $class = "alert alert-success";
-            }
-            if (isset($_SESSION["errors"]) || isset($_SESSION["success"])) {
-                $div->add_class($class);
-                $div->add_text($msg);
-                echo $div;
-                unset($_SESSION["errors"]);
-                unset($_SESSION["success"]);
-            }
+            output_returns();
             ?>
             <div class="row">
                 <div class="col-xs-12" style="text-align: center">

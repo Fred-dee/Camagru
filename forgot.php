@@ -15,6 +15,9 @@ require_once './includes/form_group.php';
     <body>
         <?php require_once './includes/navbar.php'?>
         <div class="container-fluid">
+            <?php
+                output_returns();
+            ?>
             <div class="row">
                 <div class = "col-md-6 col-md-offset-3">
                     <?php
@@ -38,7 +41,7 @@ require_once './includes/form_group.php';
                             
                            $btn_attrs = array(
                                 "type" => "submit",
-                                "name" => "update",
+                                "name" => "reset",
                                 "class" => "form-control btn  grey darken-4",
                                 "id" => "update",
                                 "value" => "update"
