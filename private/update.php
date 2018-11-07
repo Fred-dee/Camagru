@@ -20,6 +20,10 @@ if (isset($_POST)) {
             profile_error(-1, "Could not update your profile");
     }
     else {
+        $pass = htmlspecialchars($_POST["npsswd"]);
+        $uppercase = preg_match('@[A-Z]@', $pass);
+        $lowercase = preg_match('@[a-z]@', $pass);
+        $number = preg_match('@[0-9]@', $pass);
         if ($_POST["reset"] == "update") {
             $stmt = $pdo->prepare("SELECT hash FROM users WHERE user_name=:uname");
             $stmt->bindParam(':uname', $_SESSION["login"], PDO::PARAM_STR);
@@ -29,7 +33,6 @@ if (isset($_POST)) {
                 $hash = $stmt->fetch(PDO::FETCH_ASSOC);
                 if (($hash != null) && (password_verify($_POST["psswd"], $hash["hash"]) == true)) {
                     if ($_POST["npsswd"] == $_POST["npsswdc"]) {
-                        $pass = htmlspecialchars($_POST["npsswd"]);
                         $nhash = password_hash($pass, PASSWORD_DEFAULT);
                         $stmt = $pdo->prepare("UPDATE users SET hash=:nhash WHERE user_name = :uname");
                         $stmt->bindParam(":nhash", $nhash, PDO::PARAM_STR);
@@ -50,7 +53,6 @@ if (isset($_POST)) {
                 $stmt->execute();
                 if ($stmt->rowCount() == 1) {
                     if ($_POST["npsswd"] == $_POST["npsswdc"]) {
-                        $pass = htmlspecialchars($_POST["npsswd"]);
                         $stmt = $pdo->prepare("UPDATE users SET hash=:nhash WHERE user_name = :uname");
                         $stmt->bindParam(":nhash", password_hash($pass, PASSWORD_DEFAULT), PDO::PARAM_STR);
                         $stmt->bindParam(":uname", $_POST["username"]);
