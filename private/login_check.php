@@ -1,5 +1,5 @@
 <?php
-
+//$generatedKey = sha1(mt_rand(10000,99999).time().$email);
 if (!isset($_SESSION))
     session_start();
 require_once("../config/database.php");

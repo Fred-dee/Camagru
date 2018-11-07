@@ -123,15 +123,19 @@ if (!isset($_SESSION))
 
             $articles = array();
             while (($row = $stmt->fetch(PDO::FETCH_ASSOC))) {
-                $inter = $pdo->prepare("Select user_name, avatar FROM users WHERE id = :user_id");
+                $inter = $pdo->prepare("Select user_name, avatar, type FROM users WHERE id = :user_id");
                 $inter->bindParam(':user_id', $row["user_id"], PDO::PARAM_INT);
                 $inter->execute();
                 $uname = $inter->fetch(PDO::FETCH_ASSOC);
                 $pro_pic;
                 if ($uname["avatar"] == NULL)
+                {
                     $pro_pic = "./imgs/avatar.png";
+                }
                 else
+                {
                     $pro_pic = "data:image/" . $uname["type"] . ";base64," . $uname["avatar"];
+                }
                 $data = array(
                     "img_src" => "data:image/".$row["type"].";base64," .$row["src"],
                     "img_classes" => "img-thumbnail img-responsive",

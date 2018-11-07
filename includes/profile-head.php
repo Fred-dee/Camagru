@@ -1,10 +1,13 @@
-<?php 
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 if(!isset($_SESSION))
     session_start();
 if($_SESSION["login"] == "guest")
     index_error(-1, "You must be logged in to view this page");
-include_once('../config/database.php');
-include_once('./DIRS.php');
+require_once('./config/database.php');
+require_once('./includes/DIRS.php');
 ?>
 <div class="row">
     <div class="col-md-offset-1 col-md-3">
