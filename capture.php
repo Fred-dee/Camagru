@@ -66,7 +66,7 @@ if ($_SESSION["login"] == "guest") {
                         <video autoplay="true" id="videoElement">
                         </video>
                         <div class="overlay">
-                            <img id="img_overlay" src="./imgs/overlay.png" alt="" class="img-responsive icon" style="width: inherit; height: inherit"/>
+                            <!--<img id="img_overlay" src="./imgs/overlay.png" alt="" class="img-responsive icon" style="width: inherit; height: inherit"/> -->
                         </div>
                     </div>
                     <button class="btn btn-primary grey darken-4" onclick="uploadSnaps()" id="btn_upload">Upload Snaps</button>

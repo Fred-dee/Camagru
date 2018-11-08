@@ -35,6 +35,8 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] != "guest" && isset($_POST))
             $headers = 'From: noreply@camagru.com';
             if (!mail($to_email, $subject, $message, $headers))
                 index_error(-1, "Was unable to send a notifcation");
+			else
+				valid_success(-1, "Comment was sent", "/index");
         }
         header("location: " . ROOT_DIR . "/index");
     } catch (\PDOException $e) {

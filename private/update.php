@@ -24,6 +24,10 @@ if (isset($_POST)) {
         $uppercase = preg_match('@[A-Z]@', $pass);
         $lowercase = preg_match('@[a-z]@', $pass);
         $number = preg_match('@[0-9]@', $pass);
+		if (!$uppercase || !$lowercase || !$number || strlen($pass) < 8)
+		{
+            general_error(1, "Password should contain at least one upper case, one lowercase one digit and a special character. Password must be of length 8 and above", "/forgot?reset=".$_POST["reset"]);
+		}
         if ($_POST["reset"] == "update") {
             $stmt = $pdo->prepare("SELECT hash FROM users WHERE user_name=:uname");
             $stmt->bindParam(':uname', $_SESSION["login"], PDO::PARAM_STR);

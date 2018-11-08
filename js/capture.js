@@ -12,6 +12,16 @@ function changeFilter(obj)
     overlay.setAttribute("src", obj.src);
 }
 
+function add_filter(obj)
+{
+	document.querySelector(".overlay").appendChild(obj);
+}
+
+function remove_filter(obj)
+{
+	document.querySelector(".overlay").removeChild(obj);
+}
+
 
 function uploadSnaps()
 {
@@ -48,7 +58,36 @@ function removeThis(obj)
 
 window.addEventListener("DOMContentLoaded", function () {
     var videlem = document.getElementById("videoElement");
-
+	var checkboxes = document.querySelectorAll(".form-check-input");
+	for (var x = 0; x < checkboxes.length; x++)
+	{
+		checkboxes[x].addEventListener("change", function(obj)
+	   	{
+			var label = obj.nextElementSibling;
+			
+			if(obj.checked)
+			{
+				var img = label.firstChild.cloneNode(true);
+				img.classList.add("icon");
+				img.style.width = "inherit";
+				img.style.height = "inherit";
+				add_filter(img);
+				    var icons = document.querySelectorAll(".icon");
+				//alert(icons.length);
+				for(var x = 0; x < icons.length; x++)
+				{
+					//alert("I am dragging");
+					dragElement(icons[x], videlem);
+				}
+			}
+				
+			else
+			{
+				//remove_filter(img);
+			}
+				
+		}.bind(null, checkboxes[x]));
+	}
     function dragElement(elmnt, videlem){
         var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
         if (document.getElementById(elmnt.id + "header")) {
