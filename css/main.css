@@ -58,25 +58,31 @@ body
 .gal-grid-thirds {
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: nowrap;
 }
 .gal-grid-thirds .gal-col {
-    width: 32%;
+    flex-basis: 32%;
 }
 
-@media (max-width: 400px) {
-    .gal-grid,
-    .gal-grid-thirds {
-        display: block;
-        .gal-col {
-            width: 100%;
+@media (max-width: 400px) 
+{
+    .gal-grid, .gal-grid-thirds
+    {
+        flex-wrap: wrap;
+    }
+   .gal-grid-thirds .gal-col 
+    {
+            flex-basis: 100%;
             margin: 0 0 10px 0;
-        }
+    }
+    .gal-col{
+        background:salmon;
     }
 }
-
+/*
 * {
     box-sizing: border-box;
-}
+}*/
 body {
     padding: 20px;
 }

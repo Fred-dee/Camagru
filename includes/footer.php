@@ -1,7 +1,7 @@
 <?php
 ?>
 <!-- Footer -->
-<footer class="page-footer font-small grey darken-3 ">
+<footer class="page-footer font-small grey darken-3 fixed-bottom">
 
   <!-- Copyright -->
   <div class="footer-copyright text-center py-3">© 2018 Copyright:

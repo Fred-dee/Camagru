@@ -11,6 +11,8 @@ function changeFilter(obj)
     overlay = document.querySelector('#img_overlay');
     overlay.setAttribute("src", obj.src);
 }
+
+
 function uploadSnaps()
 {
     carosel = document.querySelector("#col-right");
@@ -18,7 +20,14 @@ function uploadSnaps()
     var request = new XMLHttpRequest();
     for (var x = 0; x < carosel.childElementCount; x++)
     {
+        formData.append("imgs", carosel.childNodes[x].childNodes[0].src);
         alert(carosel.childNodes[x].childNodes[0].src);
+    }
+    request.open("POST", "update.php", true);
+    request.send(formData);
+    while(formData.firstChild)
+    {
+        formData.removeChild(formData.firstChild);
     }
 
 
@@ -38,7 +47,7 @@ function removeThis(obj)
 
 
 window.addEventListener("DOMContentLoaded", function () {
-var videlem = document.getElementById("videoElement");
+    var videlem = document.getElementById("videoElement");
 
     function dragElement(elmnt, videlem){
         var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
