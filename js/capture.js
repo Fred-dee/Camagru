@@ -64,27 +64,22 @@ window.addEventListener("DOMContentLoaded", function () {
 		checkboxes[x].addEventListener("change", function(obj)
 	   	{
 			var label = obj.nextElementSibling;
-			
+			var img = label.firstChild.cloneNode(true);
+			var id= img.getAttribute("id");
 			if(obj.checked)
 			{
-				var img = label.firstChild.cloneNode(true);
+				
+				img.setAttribute("id", "overlay_"+id);
 				img.classList.add("icon");
 				img.style.width = "inherit";
 				img.style.height = "inherit";
 				add_filter(img);
 				    var icons = document.querySelectorAll(".icon");
-				//alert(icons.length);
 				for(var x = 0; x < icons.length; x++)
-				{
-					//alert("I am dragging");
 					dragElement(icons[x], videlem);
-				}
 			}
-				
 			else
-			{
-				//remove_filter(img);
-			}
+				remove_filter(document.querySelector("#overlay_"+id));
 				
 		}.bind(null, checkboxes[x]));
 	}
@@ -133,14 +128,4 @@ window.addEventListener("DOMContentLoaded", function () {
             document.onmousemove = null;
         }
     }
-    // Make the DIV element draggable:
-    var icons = document.querySelectorAll(".icon");
-    //alert(icons.length);
-    for(var x = 0; x < icons.length; x++)
-    {
-        //alert("I am dragging");
-        dragElement(icons[x], videlem);
-    }
-    //icons.forEach(dragElement(this));
-    //dragElement(document.getElementsByClassName("icon"));
 });

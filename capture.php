@@ -66,7 +66,6 @@ if ($_SESSION["login"] == "guest") {
                         <video autoplay="true" id="videoElement">
                         </video>
                         <div class="overlay">
-                            <!--<img id="img_overlay" src="./imgs/overlay.png" alt="" class="img-responsive icon" style="width: inherit; height: inherit"/> -->
                         </div>
                     </div>
                     <button class="btn btn-primary grey darken-4" onclick="uploadSnaps()" id="btn_upload">Upload Snaps</button>
@@ -77,11 +76,11 @@ if ($_SESSION["login"] == "guest") {
                         <form class="form-overlays">
                             <div class="form-check flex-col-item">
                                 <input type="checkbox" class="form-check-input" id="ov_c1" />
-                                <label class="form-check-label" for="ov_c1"><img class="img-responsive" id="ov_1" src="./imgs/overlay.png" alt="" onclick="changeFilter(this)"/></label>
+                                <label class="form-check-label" for="ov_c1"><img class="img-responsive" id="ov_1" src="./imgs/overlay.png" alt="" onclick=" "/></label>
                             </div>
                             <div class="form-check flex-col-item">
                                 <input type="checkbox" class="form-check-input" id="ov_c2" />
-                                <label class="form-check-label" for ="ov_c2"><img class="img-responsive" id="ov_2" src="./imgs/overlay2.png" alt="" onclick="changeFilter(this)"/></label>
+                                <label class="form-check-label" for ="ov_c2"><img class="img-responsive" id="ov_2" src="./imgs/overlay2.png" alt="" onclick=""/></label>
                             </div>
                         </form>
                     </div>
@@ -104,16 +103,19 @@ if ($_SESSION["login"] == "guest") {
                         .then(function (stream) {
                             video.srcObject = stream;
                             var over;
-                            over = document.getElementById("img_overlay");
+                            //over = document.querySelectorAll(".icon");
                             var canvas = document.getElementById("canvasVid");
                             var can2 = document.querySelector("#canvasOver");
                             var button = document.getElementById("btn_snap");
 
                             button.disabled = false;
-                            button.onclick = function () {
+                            button.onclick = function (over) {
                                 canvas.getContext("2d").drawImage(video, 0, 0, 500, 375);
-                                canvas.getContext("2d").drawImage(over, 0, 0, 500, 375);
-                                can2.getContext("2d").drawImage(over, 0, 0, 500, 375);
+								for (var x = 0; x < over.length; x++)
+								{
+									canvas.getContext("2d").drawImage(over[x], 0, 0, 500, 375);
+									can2.getContext("2d").drawImage(over[x], 0, 0, 500, 375);
+								}
                                 var img = canvas.toDataURL("image/png");
                                         const imgnew = document.createElement("img");
                                         const colnew = document.createElement("div");
@@ -138,7 +140,7 @@ if ($_SESSION["login"] == "guest") {
                                 var right = document.querySelector("#col-right");
                                 right.insertBefore(colnew, right.childNodes[0]);
 
-                            };
+                            }.bind(null, document.querySelectorAll(".icon"));
                         })
                         .catch(function (err0r) {
                             console.log("Something went wrong!");
