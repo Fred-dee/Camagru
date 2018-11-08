@@ -72,7 +72,7 @@ window.addEventListener("DOMContentLoaded", function () {
         var ml;
         var mr;
 
-        var widthinit = 0;
+        var widthinit;
         var heightinit = 0;
         var width = 0;
         var height = 0;
@@ -102,9 +102,9 @@ window.addEventListener("DOMContentLoaded", function () {
         {
             e = e || window.event;
             e.preventDefault();
-            
-            widthinit = parseInt(elmnt.style.width);
-            heightinit = parseInt(elmnt.style.height);
+            var computed = window.getComputedStyle(elmnt);
+            widthinit = parseInt(computed.getPropertyValue('width'));
+            heightinit = parseInt(computed.getPropertyValue('height'));
             cursorinitX = e.clientX;
             cursorinitY = e.clientY;
             elmnt.onmouseup = closeElementResize;
@@ -122,13 +122,11 @@ window.addEventListener("DOMContentLoaded", function () {
             movy = cursorinitY - e.clientY;
             width = widthinit + movx;
             height = heightinit + movy;
-            //widthinit = e.clientX;
-            //heightinit = e.clientY;
             // set the element's new position:
             elmnt.style.height = (height) + "px";
             elmnt.style.width = (width) + "px";
-            console.log("Current height: "+ elmnt.style.height + "  " + movx);
-            //elmnt.style.position="static";
+            console.log("Current height: "+ height + "  " + movx);
+            elmnt.style.position="static";
         }
 
         function closeElementResize(e)
