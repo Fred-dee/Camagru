@@ -62,23 +62,84 @@ window.addEventListener("DOMContentLoaded", function () {
      * 
      * -----Resize Settings and Code
      */
-    
+
     function resize(elmnt)
     {
-        var tl; var tr; var bl; var br; var ml; var mr;
-        
-        var widthl; var height;
+        var tl;
+        var tr;
+        var bl;
+        var br;
+        var ml;
+        var mr;
+
+        var widthinit = 0;
+        var heightinit = 0;
+        var width = 0;
+        var height = 0;
+        var cursorinitX;
+        var cursorinitY;
+        var movx;
+        var movy;
         var childNodes = elmnt.childNodes;
         for (var x = 1; x < childNodes.length; x++)
         {
-            childNodes[x].addEventListener("click", function(elem)
-            {
-                console.log(elem);
-            }.bind(null, childNodes[x]));
+            childNodes[x].onmousedown = resizeMouseDown;
+            //childNodes[x].addEventListener("click", resizeMouseDown);
+            /*childNodes[x].addEventListener("mousedown", function(elem, e)
+             {
+             elem.parentNode.style.position ="static";
+             console.log(elem);
+             }.bind(null, childNodes[x]));
+             childNodes[x].addEventListener("mouseup", function(elem)
+             {
+             elem.parentNode.style.position ="relative";
+             console.log(elem);
+             }.bind(null, childNodes[x]));
+             */
         }
-        
+
+        function resizeMouseDown(e)
+        {
+            e = e || window.event;
+            e.preventDefault();
+            
+            widthinit = parseInt(elmnt.style.width);
+            heightinit = parseInt(elmnt.style.height);
+            cursorinitX = e.clientX;
+            cursorinitY = e.clientY;
+            elmnt.onmouseup = closeElementResize;
+            // call a function whenever the cursor moves:
+            elmnt.onmousemove = elementResize;
+        }
+
+        function elementResize(e)
+        {
+            e = e || window.event;
+            e.preventDefault();
+            
+            // calculate the new cursor position:
+            movx = cursorinitX - e.clientX;
+            movy = cursorinitY - e.clientY;
+            width = widthinit + movx;
+            height = heightinit + movy;
+            //widthinit = e.clientX;
+            //heightinit = e.clientY;
+            // set the element's new position:
+            elmnt.style.height = (height) + "px";
+            elmnt.style.width = (width) + "px";
+            console.log("Current height: "+ elmnt.style.height + "  " + movx);
+            //elmnt.style.position="static";
+        }
+
+        function closeElementResize(e)
+        {
+            elmnt.style.position="relative";
+            elmnt.onmouseup = null;
+            elmnt.onmousemove = null;
+        }
+
     }
-    
+
     /*
      -----Checkbox Selecting Overlays-----
      */
@@ -108,7 +169,7 @@ window.addEventListener("DOMContentLoaded", function () {
                         + "<span class='resize-middleright'></span>"
                         + "<span class='resize-middleleft'></span>";
                 add_filter(greatDiv);
-                dragElement(greatDiv);
+                //dragElement(greatDiv);
                 resize(greatDiv);
             } else
                 remove_filter(document.querySelector("#overlay_" + id).parentNode);
@@ -127,7 +188,7 @@ window.addEventListener("DOMContentLoaded", function () {
         } else {
             // otherwise, move the DIV from anywhere inside the DIV:
             elmnt.onmousedown = dragMouseDown;
-            console.log(elmnt);
+            //console.log(elmnt);
         }
 
         function dragMouseDown(e) {
@@ -136,9 +197,9 @@ window.addEventListener("DOMContentLoaded", function () {
             // get the mouse cursor position at startup:
             pos3 = e.clientX;
             pos4 = e.clientY;
-            document.onmouseup = closeDragElement;
+            elmnt.onmouseup = closeDragElement;
             // call a function whenever the cursor moves:
-            document.onmousemove = elementDrag;
+            elmnt.onmousemove = elementDrag;
         }
 
         function elementDrag(e) {
@@ -152,14 +213,14 @@ window.addEventListener("DOMContentLoaded", function () {
             // set the element's new position:
             elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
             elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-            console.log(elmnt.style.top);
-            
+            //console.log(elmnt.style.top);
+
         }
 
         function closeDragElement() {
             // stop moving when mouse button is released:
-            document.onmouseup = null;
-            document.onmousemove = null;
+            elmnt.onmouseup = null;
+            elmnt.onmousemove = null;
         }
     }
 
