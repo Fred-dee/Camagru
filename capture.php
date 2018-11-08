@@ -76,7 +76,11 @@ if ($_SESSION["login"] == "guest") {
                         <form class="form-overlays">
                             <div class="form-check flex-col-item">
                                 <input type="checkbox" class="form-check-input" id="ov_c1" />
-                                <label class="form-check-label" for="ov_c1"><img class="img-responsive" id="ov_1" src="./imgs/overlay.png" alt="" onclick=" "/></label>
+                                <label class="form-check-label" for="ov_c1">
+
+                                    <img class="img-responsive " id="ov_1" src="./imgs/overlay.png" alt="" onclick=" "/>
+
+                                </label>
                             </div>
                             <div class="form-check flex-col-item">
                                 <input type="checkbox" class="form-check-input" id="ov_c2" />

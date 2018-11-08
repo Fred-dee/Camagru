@@ -76,3 +76,80 @@
 {
     z-index: 1;
 }
+
+
+.resizable
+{
+    margin: 0;
+    padding: 0;
+    width: inherit;
+    height: inherit; 
+    background-color: red;
+    position:relative;
+}
+
+.resizable img
+{
+    width:100%;
+    height:100%;
+}
+
+span[class^="resize-"]
+{
+    position:absolute;
+    width: 5px;
+    height:5px;
+    background-color: black;
+}
+
+span[class^="resize-middle"]:hover
+{
+    cursor: e-resize;
+}
+
+
+.resize-bottomleft
+{
+    left:0;
+    bottom:0;
+}
+.resize-bottomright
+{
+    right:0;
+    bottom:0;
+}
+
+.resize-middleleft
+{
+    left:0;
+    top:50%;
+}
+
+.resize-middleright
+{
+    right:0;
+    top:50%;
+}
+
+.resize-topleft
+{
+    top:0;
+    left:0;
+}
+
+.resize-topleft, .resize-bottomright:hover
+{
+    cursor:nw-resize;
+}
+
+.resize-topright, .resize-bottomleft:hover
+{
+    cursor:ne-resize;
+}
+
+.resize-topright
+{
+    top:0;
+    right:0;
+}
+
