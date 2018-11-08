@@ -57,7 +57,11 @@ function removeThis(obj)
 
 
 window.addEventListener("DOMContentLoaded", function () {
-    var videlem = document.getElementById("videoElement");
+    
+	
+	/*
+			-----Checkbox Selecting Overlays-----
+	*/
 	var checkboxes = document.querySelectorAll(".form-check-input");
 	for (var x = 0; x < checkboxes.length; x++)
 	{
@@ -66,6 +70,7 @@ window.addEventListener("DOMContentLoaded", function () {
 			var label = obj.nextElementSibling;
 			var img = label.firstChild.cloneNode(true);
 			var id= img.getAttribute("id");
+			var videlem = document.getElementById("videoElement");
 			if(obj.checked)
 			{
 				
@@ -74,15 +79,17 @@ window.addEventListener("DOMContentLoaded", function () {
 				img.style.width = "inherit";
 				img.style.height = "inherit";
 				add_filter(img);
-				    var icons = document.querySelectorAll(".icon");
-				for(var x = 0; x < icons.length; x++)
-					dragElement(icons[x], videlem);
+				dragElement(img, videlem);
 			}
 			else
 				remove_filter(document.querySelector("#overlay_"+id));
 				
 		}.bind(null, checkboxes[x]));
 	}
+	
+	/*
+			-----Drag Element Section-----
+	*/
     function dragElement(elmnt, videlem){
         var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
         if (document.getElementById(elmnt.id + "header")) {
@@ -128,4 +135,60 @@ window.addEventListener("DOMContentLoaded", function () {
             document.onmousemove = null;
         }
     }
+	
+	
+	/*
+			------Navigator.mediaDevices-----
+	*/
+	var video = document.querySelector("#videoElement");
+
+	if (navigator.mediaDevices.getUserMedia) {
+		navigator.mediaDevices.getUserMedia({video: true})
+				.then(function (stream) {
+					video.srcObject = stream;
+					//var over;
+					//over = document.querySelectorAll(".icon");
+					var canvas = document.getElementById("canvasVid");
+					var can2 = document.querySelector("#canvasOver");
+					var button = document.getElementById("btn_snap");
+
+					button.disabled = false;
+					button.onclick = function () {
+						var over = document.querySelectorAll(".icon");
+						canvas.getContext("2d").drawImage(video, 0, 0, 500, 375);
+						for (var x = 0; x < over.length; x++)
+						{
+							canvas.getContext("2d").drawImage(over[x], 0, 0, 500, 375);
+							can2.getContext("2d").drawImage(over[x], 0, 0, 500, 375);
+						}
+						var img = canvas.toDataURL("image/png");
+								const imgnew = document.createElement("img");
+								const colnew = document.createElement("div");
+								imgnew.setAttribute('src', img);
+						colnew.setAttribute("class", "flex-col-item");
+						colnew.appendChild(imgnew);
+								const btnclose = document.createElement("button");
+								btnclose.setAttribute("class", "close");
+						btnclose.setAttribute("aria-label", "Close");
+						btnclose.setAttribute("type", "button");
+						btnclose.onclick = function (btnclose)
+						{
+							objParent = btnclose.parentNode;
+							row = objParent.parentNode;
+							row.removeChild(objParent);
+						}.bind(null, btnclose);
+						ico = document.createElement("span");
+						ico.setAttribute("aria-hidden", "true");
+						ico.innerHTML = "&times;";
+						btnclose.appendChild(ico);
+						colnew.appendChild(btnclose);
+						var right = document.querySelector("#col-right");
+						right.insertBefore(colnew, right.childNodes[0]);
+
+					};
+				})
+				.catch(function (err0r) {
+					console.log("Something went wrong!");
+				});
+	}
 });
