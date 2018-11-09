@@ -65,40 +65,41 @@ window.addEventListener("DOMContentLoaded", function () {
 
     function resize(elmnt)
     {
-        var widthinit;
+        var widthinit = 0;
         var heightinit = 0;
         var width = 0;
         var height = 0;
-        var cursorinitX;
-        var cursorinitY;
+        var cursorinitX = 0;
+        var cursorinitY = 0;
         var movx;
         var movy;
         var childNodes = elmnt.childNodes;
         for (var x = 1; x < childNodes.length; x++)
         {
-            //childNodes[x].onmousedown = resizeMouseDown.bind(this);
-			childNodes[x].addEventListener("mousedown", function(event)
-		  	{
-				event = event || window.event;
-				event.preventDefault();
-				var computed = window.getComputedStyle(elmnt);
-				widthinit = parseInt(computed.getPropertyValue('width'));
-				heightinit = parseInt(computed.getPropertyValue('height'));
-				cursorinitX = event.clientX;
-				cursorinitY = event.clientY;
-				document.onmouseup = closeElementResize;
-				// call a function whenever the cursor moves:
-				document.onmousemove = elementResize(event, this);
-			}.bind(childNodes[x]));
+            childNodes[x].onmousedown = resizeMouseDown.bind(childNodes[x]);
         }
+		
+		function resizeMouseDown(event)
+		{
+			event = event || window.event;
+			event.preventDefault();
+			var computed = window.getComputedStyle(elmnt);
+			widthinit = parseInt(computed.getPropertyValue('width'));
+			heightinit = parseInt(computed.getPropertyValue('height'));
+			cursorinitX = event.clientX;
+			cursorinitY = event.clientY;
+			elmnt.onmouseup = closeElementResize;
+			// call a function whenever the cursor moves:
+			elmnt.onmousemove = elementResize(event, this);
+		}
 		
         function elementResize(e, obj)
         {
-            e = e || window.event;
-            e.preventDefault();
+            //e = e || window.event;
+            //e.preventDefault();
             
             // calculate the new cursor position:
-			//elmnt.style.position="static";
+			elmnt.style.position="static";
 			var trimmedName = (" " + obj.className + " ").replace(/[\n\t]/g, " "); 
 			if (trimmedName.indexOf(" resize-middleright ") > -1)
 			{
@@ -108,18 +109,20 @@ window.addEventListener("DOMContentLoaded", function () {
 			console.log(movx);
             width = widthinit + movx;
             height = heightinit + movy;
+			cursorinitX = e.clientX;
+			cursorinitY = e.clientY;
             // set the element's new position:
             elmnt.style.height = (height) + "px";
             elmnt.style.width = (width) + "px";
-			elmnt.style.position="relative";
+			//elmnt.style.position="relative";
             
         }
 
         function closeElementResize(e)
         {
             elmnt.style.position="relative";
-            document.onmouseup = null;
-            document.onmousemove = null;
+            elmnt.onmouseup = null;
+            elmnt.onmousemove = null;
         }
 
     }
