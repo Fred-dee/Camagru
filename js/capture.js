@@ -90,7 +90,7 @@ window.addEventListener("DOMContentLoaded", function () {
 			cursorinitY = event.clientY;
 			elmnt.onmouseup = closeElementResize;
 			// call a function whenever the cursor moves:
-			elmnt.onmousemove = elementResize(event, this);
+			elmnt.ondrag = elementResize(event, this);
 		}
 		
         function elementResize(e, obj)
@@ -105,6 +105,7 @@ window.addEventListener("DOMContentLoaded", function () {
 			{
 				movy = 0;
 				movx = cursorinitX - e.clientX;
+				console.log(cursorinitX);
 			}
 			console.log(movx);
             width = widthinit + movx;
@@ -156,8 +157,8 @@ window.addEventListener("DOMContentLoaded", function () {
                         + "<span class='resize-middleright'></span>"
                         + "<span class='resize-middleleft'></span>";
                 add_filter(greatDiv);
-                //dragElement(greatDiv);
-                resize(greatDiv);
+                dragElement(greatDiv);
+                //resize(greatDiv);
             } else
                 remove_filter(document.querySelector("#overlay_" + id).parentNode);
 
