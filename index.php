@@ -4,6 +4,7 @@ if (!isset($_SESSION)) {
 }
 require_once('./includes/Article.php');
 require_once('./includes/Element.php');
+require_once('./config/database.php');
 header('Content-type: text/html');
 if (!isset($_SESSION["login"])) {
     $_SESSION["login"] = "guest";
@@ -32,11 +33,18 @@ if (!isset($_SESSION["login"])) {
                 </div>
             </div>
             <?php
-            require_once('./config/database.php');
-            //require_once('./includes/Article.php');
-            // require_once('./includes/Element.php');
-            $pdo = DB::getConnection();
-            $stmt = $pdo->prepare("Select * FROM images LIMIT 10");
+            
+
+			$pdo = DB::getConnection();
+			$pageno;
+			if(isset($_GET["page"]))
+			{
+				$pageno = intval(htmlspecialchars($_GET["page"]));
+				
+			}
+          	$pageno = 6*$pageno;
+            $stmt = $pdo->prepare("Select * FROM images LIMIT 6 OFFSET :off");
+			$stmt->bindParam(':off', $pageno, PDO::PARAM_INT);
             $stmt->execute();
             $row_div = new Element("div", false);
             $body = array();
