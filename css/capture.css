@@ -84,8 +84,12 @@
     padding: 0;
     width: inherit;
     height: inherit; 
-    background-color: red;
-    position:relative;
+	top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /*background-color: red;*/
+    position:absolute;
 }
 
 .resizable img
@@ -97,14 +101,14 @@
 span[class^="resize-"]
 {
     position:absolute;
-    width: 5px;
-    height:5px;
+    width: 10px;
+    height:10px;
     background-color: black;
 }
 
 span[class^="resize-middle"]:hover
 {
-    cursor: e-resize;
+    cursor: ew-resize;
 }
 
 
@@ -139,12 +143,12 @@ span[class^="resize-middle"]:hover
 
 .resize-topleft, .resize-bottomright:hover
 {
-    cursor:nw-resize;
+    cursor:nwse-resize;
 }
 
 .resize-topright, .resize-bottomleft:hover
 {
-    cursor:ne-resize;
+    cursor:nesw-resize;
 }
 
 .resize-topright

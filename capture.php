@@ -77,14 +77,27 @@ if ($_SESSION["login"] == "guest") {
                             <div class="form-check flex-col-item">
                                 <input type="checkbox" class="form-check-input" id="ov_c1" />
                                 <label class="form-check-label" for="ov_c1">
-
-                                    <img class="img-responsive " id="ov_1" src="./imgs/overlay.png" alt="" onclick=" "/>
+                                    <img class="img-responsive " id="ov_1" src="./imgs/overlay.png" alt="" onclick=""/>
 
                                 </label>
                             </div>
                             <div class="form-check flex-col-item">
                                 <input type="checkbox" class="form-check-input" id="ov_c2" />
-                                <label class="form-check-label" for ="ov_c2"><img class="img-responsive" id="ov_2" src="./imgs/overlay2.png" alt="" onclick=""/></label>
+                                <label class="form-check-label" for ="ov_c2">
+									<img class="img-responsive" id="ov_2" src="./imgs/overlay2.png" alt="" onclick=""/>
+								</label>
+                            </div>
+							<div class="form-check flex-col-item">
+                                <input type="checkbox" class="form-check-input" id="ov_c3" />
+                                <label class="form-check-label" for ="ov_c2">
+									<img class="img-responsive" id="ov_3" src="./imgs/2-2-sunglasses-picture-thumb.png" alt="" onclick=""/>
+								</label>
+                            </div>
+							<div class="form-check flex-col-item">
+                                <input type="checkbox" class="form-check-input" id="ov_c4" />
+                                <label class="form-check-label" for ="ov_c2">
+									<img class="img-responsive" id="ov_4" src="./imgs/lips.png" alt="" onclick=""/>
+								</label>
                             </div>
                         </form>
                     </div>

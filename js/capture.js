@@ -65,13 +65,6 @@ window.addEventListener("DOMContentLoaded", function () {
 
     function resize(elmnt)
     {
-        var tl;
-        var tr;
-        var bl;
-        var br;
-        var ml;
-        var mr;
-
         var widthinit;
         var heightinit = 0;
         var width = 0;
@@ -83,57 +76,50 @@ window.addEventListener("DOMContentLoaded", function () {
         var childNodes = elmnt.childNodes;
         for (var x = 1; x < childNodes.length; x++)
         {
-            childNodes[x].onmousedown = resizeMouseDown;
-            //childNodes[x].addEventListener("click", resizeMouseDown);
-            /*childNodes[x].addEventListener("mousedown", function(elem, e)
-             {
-             elem.parentNode.style.position ="static";
-             console.log(elem);
-             }.bind(null, childNodes[x]));
-             childNodes[x].addEventListener("mouseup", function(elem)
-             {
-             elem.parentNode.style.position ="relative";
-             console.log(elem);
-             }.bind(null, childNodes[x]));
-             */
+            //childNodes[x].onmousedown = resizeMouseDown.bind(this);
+			childNodes[x].addEventListener("mousedown", function(event)
+		  	{
+				event = event || window.event;
+				event.preventDefault();
+				var computed = window.getComputedStyle(elmnt);
+				widthinit = parseInt(computed.getPropertyValue('width'));
+				heightinit = parseInt(computed.getPropertyValue('height'));
+				cursorinitX = event.clientX;
+				cursorinitY = event.clientY;
+				document.onmouseup = closeElementResize;
+				// call a function whenever the cursor moves:
+				document.onmousemove = elementResize(event, this);
+			}.bind(childNodes[x]));
         }
-
-        function resizeMouseDown(e)
-        {
-            e = e || window.event;
-            e.preventDefault();
-            var computed = window.getComputedStyle(elmnt);
-            widthinit = parseInt(computed.getPropertyValue('width'));
-            heightinit = parseInt(computed.getPropertyValue('height'));
-            cursorinitX = e.clientX;
-            cursorinitY = e.clientY;
-            elmnt.onmouseup = closeElementResize;
-            // call a function whenever the cursor moves:
-            elmnt.onmousemove = elementResize;
-        }
-
-        function elementResize(e)
+		
+        function elementResize(e, obj)
         {
             e = e || window.event;
             e.preventDefault();
             
             // calculate the new cursor position:
-            movx = cursorinitX - e.clientX;
-            movy = cursorinitY - e.clientY;
+			//elmnt.style.position="static";
+			var trimmedName = (" " + obj.className + " ").replace(/[\n\t]/g, " "); 
+			if (trimmedName.indexOf(" resize-middleright ") > -1)
+			{
+				movy = 0;
+				movx = cursorinitX - e.clientX;
+			}
+			console.log(movx);
             width = widthinit + movx;
             height = heightinit + movy;
             // set the element's new position:
             elmnt.style.height = (height) + "px";
             elmnt.style.width = (width) + "px";
-            console.log("Current height: "+ height + "  " + movx);
-            elmnt.style.position="static";
+			elmnt.style.position="relative";
+            
         }
 
         function closeElementResize(e)
         {
             elmnt.style.position="relative";
-            elmnt.onmouseup = null;
-            elmnt.onmousemove = null;
+            document.onmouseup = null;
+            document.onmousemove = null;
         }
 
     }
@@ -147,7 +133,7 @@ window.addEventListener("DOMContentLoaded", function () {
         checkboxes[x].addEventListener("change", function (obj)
         {
             var label = obj.nextElementSibling;
-            var img = label.firstChild.cloneNode(true);
+            var img = label.querySelector("img").cloneNode(true);
             var greatDiv = document.createElement("div");
             greatDiv.classList.add("resizable");
             var id = img.getAttribute("id");
@@ -195,7 +181,7 @@ window.addEventListener("DOMContentLoaded", function () {
             // get the mouse cursor position at startup:
             pos3 = e.clientX;
             pos4 = e.clientY;
-            elmnt.onmouseup = closeDragElement;
+            document.onmouseup = closeDragElement;
             // call a function whenever the cursor moves:
             elmnt.onmousemove = elementDrag;
         }
