@@ -173,8 +173,8 @@ window.addEventListener("DOMContentLoaded", function () {
                         + "<span class='resize-middleright'></span>"
                         + "<span class='resize-middleleft'></span>";
                 add_filter(greatDiv);
-                //dragElement(greatDiv);
-                resize(greatDiv);
+                dragElement(greatDiv);
+                //resize(greatDiv);
             } else
                 remove_filter(document.querySelector("#overlay_" + id).parentNode);
 
@@ -247,11 +247,21 @@ window.addEventListener("DOMContentLoaded", function () {
                     button.disabled = false;
                     button.onclick = function () {
                         var over = document.querySelectorAll(".icon");
+						var screen  = document.querySelector("body");
+						
+						var vidstyle = window.getComputedStyle(video);
+						var xpos = vidstyle.getPropertyValue('left');
+						
+						var rect = video.getBoundingClientRect();
+						console.log(rect.top, rect.right, rect.bottom, rect.left);
                         canvas.getContext("2d").drawImage(video, 0, 0, 500, 375);
                         for (var x = 0; x < over.length; x++)
                         {
-                            canvas.getContext("2d").drawImage(over[x], 0, 0, 500, 375);
-                            can2.getContext("2d").drawImage(over[x], 0, 0, 500, 375);
+							var rect_ov = over[x].getBoundingClientRect();
+							var offT = rect_ov.top - rect.top;
+							var offL = rect_ov.left - rect.left;
+                            canvas.getContext("2d").drawImage(over[x], offL, offT, 500, 375);
+                            can2.getContext("2d").drawImage(over[x], offL, offT, 500, 375);
                         }
                         var img = canvas.toDataURL("image/png");
                                 const imgnew = document.createElement("img");
