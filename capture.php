@@ -47,13 +47,13 @@ if ($_SESSION["login"] == "guest") {
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-sm-12 col-sm-offset-12 col-md-3">
                     <div class="flex-column" id="col-right">
                     </div>
                     <canvas id="canvasVid" name="background" style="display:none;" width="500px" height="375px"></canvas>
                     <canvas id='canvasOver'name="overlay" style="display:none;" width="500px" height="375px"></canvas>
                 </div>
-                <div class="col-md-6 text-center">
+                <div class="col-sm-12 col-md-6 text-center">
                     <form action="<?php
                     echo "./upload.php?type=" . $_GET["type"];
                     ?>" method="post" enctype="multipart/form-data">
@@ -71,7 +71,7 @@ if ($_SESSION["login"] == "guest") {
                     <button class="btn btn-primary grey darken-4" onclick="uploadSnaps()" id="btn_upload">Upload Snaps</button>
                     <button class="btn btn-primary grey darken-4" onclick="clearSnaps()">Clear Snaps</button>
                 </div>
-                <div class="col-md-3">
+                <div class="col-sm-12 col-md-3">
                     <div class="flex-column">
                         <form class="form-overlays">
                             <div class="form-check flex-col-item">

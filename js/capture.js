@@ -63,6 +63,8 @@ window.addEventListener("DOMContentLoaded", function () {
      * -----Resize Settings and Code
      */
 
+
+
     function resize(elmnt)
     {
         var widthinit = 0;
@@ -78,50 +80,64 @@ window.addEventListener("DOMContentLoaded", function () {
         {
             childNodes[x].onmousedown = resizeMouseDown.bind(childNodes[x]);
         }
-		
-		function resizeMouseDown(event)
-		{
-			event = event || window.event;
-			event.preventDefault();
-			var computed = window.getComputedStyle(elmnt);
-			widthinit = parseInt(computed.getPropertyValue('width'));
-			heightinit = parseInt(computed.getPropertyValue('height'));
-			cursorinitX = event.clientX;
-			cursorinitY = event.clientY;
-			elmnt.onmouseup = closeElementResize;
-			// call a function whenever the cursor moves:
-			elmnt.ondrag = elementResize(event, this);
-		}
-		
+
+        function resizeMouseDown(event)
+        {
+            event = event || window.event;
+            event.preventDefault();
+            var computed = window.getComputedStyle(elmnt);
+            widthinit = parseInt(computed.getPropertyValue('width'));
+            heightinit = parseInt(computed.getPropertyValue('height'));
+            cursorinitX = event.clientX;
+            cursorinitY = event.clientY;
+            elmnt.onmouseup = closeElementResize;
+            // call a function whenever the cursor moves:
+            elmnt.ondrag = elementResize(event, this);
+        }
+
         function elementResize(e, obj)
         {
             //e = e || window.event;
             //e.preventDefault();
-            
+
             // calculate the new cursor position:
-			elmnt.style.position="static";
-			var trimmedName = (" " + obj.className + " ").replace(/[\n\t]/g, " "); 
-			if (trimmedName.indexOf(" resize-middleright ") > -1)
-			{
-				movy = 0;
-				movx = cursorinitX - e.clientX;
-				console.log(cursorinitX);
-			}
-			console.log(movx);
+            elmnt.style.position = "static";
+            var trimmedName = (" " + obj.className + " ").replace(/[\n\t]/g, " ");
+            if (trimmedName.indexOf(" resize-middleright ") > -1)
+            {
+                movy = 0;
+                movx = cursorinitX - e.clientX;
+                console.log(cursorinitX);
+            }
+            else if(trimmedName.indexOf(" resize-middleleft ") > -1)
+            {
+                
+            }
+            else if (trimmedName.indexOf(" resize-bottomleft ") > -1 || trimmedName.indexOf(" resize-topleft ") > -1)
+            {
+                
+            }
+            else
+            {
+                movy = cursorinitY - e.clientY;
+                movx = cursorinitX - e.clientX;
+            }
+                
+            console.log(movx);
             width = widthinit + movx;
             height = heightinit + movy;
-			cursorinitX = e.clientX;
-			cursorinitY = e.clientY;
+            cursorinitX = e.clientX;
+            cursorinitY = e.clientY;
             // set the element's new position:
             elmnt.style.height = (height) + "px";
             elmnt.style.width = (width) + "px";
-			//elmnt.style.position="relative";
-            
+            //elmnt.style.position="relative";
+
         }
 
         function closeElementResize(e)
         {
-            elmnt.style.position="relative";
+            elmnt.style.position = "relative";
             elmnt.onmouseup = null;
             elmnt.onmousemove = null;
         }
@@ -157,8 +173,8 @@ window.addEventListener("DOMContentLoaded", function () {
                         + "<span class='resize-middleright'></span>"
                         + "<span class='resize-middleleft'></span>";
                 add_filter(greatDiv);
-                dragElement(greatDiv);
-                //resize(greatDiv);
+                //dragElement(greatDiv);
+                resize(greatDiv);
             } else
                 remove_filter(document.querySelector("#overlay_" + id).parentNode);
 
