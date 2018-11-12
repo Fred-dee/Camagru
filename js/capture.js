@@ -28,11 +28,28 @@ function uploadSnaps()
     carosel = document.querySelector("#col-right");
     var formData = new FormData();
     var request = new XMLHttpRequest();
-	var overlays = new Array();
-    for (var x = 0; x < carosel.childElementCount; x++)
+	var images = new Array();
+    for (var x = 0; x < carosel.childElementCount; x++) // flex-col-item
     {
-        formData.append("imgs", carosel.childNodes[x].childNodes[0].src);
-        alert(carosel.childNodes[x].childNodes[0].src);
+		var pure_image = carosel.childNodes[x].querySelector("img[name='pure_image']");
+		var overlays = carosel.childNodes[x].querySelectorAll("img[name='img_over']");
+		
+		images.push(pure_image.getAttribute("src"));
+		for(var i = 0; i < overlays.length; i++)
+			images.push(overlays[i].getAttribute("src"));
+		images = JSON.stringify(images);
+		formData.append("images", images)
+		request.onreadystatechange = function ()
+		{
+            if (this.readyState == 4 && this.status == 200) {
+				formData = new FormData();
+				images = new Array();
+				
+				console.log(this.responseText);
+            }
+        };
+		request.open("POST", "merge.php", true);
+    	request.send(formData);
     }
     /*request.open("POST", "update.php", true);
     request.send(formData);
@@ -266,6 +283,7 @@ window.addEventListener("DOMContentLoaded", function () {
 							var tmp_overlay = document.createElement("img");
 							tmp_overlay.setAttribute("src", src);
 							tmp_overlay.setAttribute("style", "display:none");
+							tmp_overlay.setAttribute("name", "img_over")
 							img_overlays.push(tmp_overlay);
 						}
                         var img = canvas.toDataURL("image/png");
