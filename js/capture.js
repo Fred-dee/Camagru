@@ -28,35 +28,30 @@ function uploadSnaps()
     carosel = document.querySelector("#col-right");
     var formData = new FormData();
     var request = new XMLHttpRequest();
-	var images = new Array();
+    var images = new Array();
     for (var x = 0; x < carosel.childElementCount; x++) // flex-col-item
     {
-		var pure_image = carosel.childNodes[x].querySelector("img[name='pure_image']");
-		var overlays = carosel.childNodes[x].querySelectorAll("img[name='img_over']");
-		
-		images.push(pure_image.getAttribute("src"));
-		for(var i = 0; i < overlays.length; i++)
-			images.push(overlays[i].getAttribute("src"));
-		images = JSON.stringify(images);
-		formData.append("images", images)
-		request.onreadystatechange = function ()
-		{
+        var pure_image = carosel.childNodes[x].querySelector("img[name='pure_image']");
+        var overlays = carosel.childNodes[x].querySelectorAll("img[name='img_over']");
+
+        images.push(pure_image.getAttribute("src"));
+        for (var i = 0; i < overlays.length; i++)
+            images.push(overlays[i].getAttribute("src"));
+        images = JSON.stringify(images);
+        formData.append("images", images)
+        request.onreadystatechange = function ()
+        {
             if (this.readyState == 4 && this.status == 200) {
-				formData = new FormData();
-				images = new Array();
-				
-				console.log(this.responseText);
+                formData = new FormData();
+                images = new Array();
+                carosel.removeChild(carosel.childNodes[x]);
+                console.log(this.responseText);
             }
         };
-		request.open("POST", "merge.php", true);
-    	request.send(formData);
+        request.open("POST", "merge.php", true);
+        request.send(formData);
     }
-    /*request.open("POST", "update.php", true);
-    request.send(formData);
-    while (formData.firstChild)
-    {
-        formData.removeChild(formData.firstChild);
-    }*/
+
 
 
 }
@@ -82,7 +77,6 @@ window.addEventListener("DOMContentLoaded", function () {
      */
 
 
-
     function resize(elmnt)
     {
 
@@ -93,7 +87,7 @@ window.addEventListener("DOMContentLoaded", function () {
         var movx;
         var movy;
         var childNodes = elmnt.childNodes;
-		
+
         for (var x = 1; x < childNodes.length; x++)
         {
             childNodes[x].onmousedown = resizeMouseDown.bind(childNodes[x]);
@@ -103,14 +97,14 @@ window.addEventListener("DOMContentLoaded", function () {
         {
             event = event || window.event;
             event.preventDefault();
-			
-            
+
+
             //widthinit = parseInt(computed.getPropertyValue('width'));
             //heightinit = parseInt(computed.getPropertyValue('height'));
-			
+
             cursorinitX = event.clientX;
             cursorinitY = event.clientY;
-			
+
             elmnt.onmouseup = closeElementResize.bind(this, event);
             // call a function whenever the cursor moves:
             elmnt.onmousemove = elementResize.bind(this, event);
@@ -121,32 +115,39 @@ window.addEventListener("DOMContentLoaded", function () {
             e = e || window.event;
             e.preventDefault();
 
-			var computed = window.getComputedStyle(elmnt);
-			var widthinit = parseFloat(computed.getPropertyValue('width'));
-			var heightinit = parseFloat(computed.getPropertyValue('height'));
-			//console.log(cursorinitX + " " + cursorinitY);
-			
-			var className = ((" " + this.className + " ").replace(/[\n\t]/g, " "));
-			if (className.indexOf(" resize-middleright") > -1)
-			{
-					movx = cursorinitX - e.clientX;
-					movy = 0;
-					console.log(movx);
-			}		
-			cursorinitX = e.clientX;
-			cursorinitY = e.clientY;
-			width = widthinit + movx;
-			height =  heightinit + movy;
-			
-			elmnt.style.width = width + "px";
-			elmnt.style.height = height + "px";
-			
+            var computed = window.getComputedStyle(elmnt);
+            var widthinit = parseFloat(computed.getPropertyValue('width'));
+            var heightinit = parseFloat(computed.getPropertyValue('height'));
+
+            var rectangle = elmnt.getBoundingClientRect();
+
+            console.log(rectangle);
+
+            var className = ((" " + this.className + " ").replace(/[\n\t]/g, " "));
+            /*if (className.indexOf(" resize-middleright") > -1)
+             {
+             movx = cursorinitX - e.clientX;
+             movy = 0;
+             console.log(movx);
+             }*/
+            movx = cursorinitX - e.clientX;
+            movy = cursorinitY - e.clientY;
+            cursorinitX = e.clientX;
+            cursorinitY = e.clientY;
+            width = widthinit + movx;
+            height = heightinit + movy;
+
+            console.log("width: " + width + " height" + height);
+
+            elmnt.style.width = elmnt.style.width + "px";
+            elmnt.style.height = height + "px";
+
         }
 
         function closeElementResize(e)
         {
-			this.onmouseup = null;
-			this.onmousemove = null;
+            this.onmouseup = null;
+            this.onmousemove = null;
         }
 
     }
@@ -180,9 +181,9 @@ window.addEventListener("DOMContentLoaded", function () {
                         + "<span class='resize-middleright'></span>"
                         + "<span class='resize-middleleft'></span>";
                 add_filter(greatDiv);
-				//resize(greatDiv);
-                dragElement(greatDiv);
-                
+                resize(greatDiv);
+                //dragElement(greatDiv);
+
             } else
                 remove_filter(document.querySelector("#overlay_" + id).parentNode);
 
@@ -255,46 +256,47 @@ window.addEventListener("DOMContentLoaded", function () {
                     button.disabled = false;
                     button.onclick = function () {
                         var over = document.querySelectorAll(".icon");
-						var screen  = document.querySelector("body");
+                        var screen = document.querySelector("body");
 
-						
-						var rect = video.getBoundingClientRect();
-						var canvases = new Array();
-						var img_overlays = new Array();
+
+                        var rect = video.getBoundingClientRect();
+                        var canvases = new Array();
+                        var img_overlays = new Array();
                         canvas.getContext("2d").drawImage(video, 0, 0, 500, 375);
-						var img_pure = document.createElement("img");
-						img_pure.setAttribute("src",canvas.toDataURL("image/png"));
-						img_pure.setAttribute("name", "pure_image");
-						img_pure.setAttribute("style", "display:none");
-						console.log(img_pure);
+                        var img_pure = document.createElement("img");
+                        img_pure.setAttribute("src", canvas.toDataURL("image/png"));
+                        img_pure.setAttribute("name", "pure_image");
+                        img_pure.setAttribute("style", "display:none");
+                        console.log(img_pure);
                         for (var x = 0; x < over.length; x++)
                         {
-							var tmp_canvas = document.createElement("canvas");
-							var rect_ov = over[x].getBoundingClientRect();
-							var offT = rect_ov.top - rect.top;
-							var offL = rect_ov.left - rect.left;
+                            var tmp_canvas = document.createElement("canvas");
+                            var rect_ov = over[x].getBoundingClientRect();
+                            var offT = rect_ov.top - rect.top;
+                            var offL = rect_ov.left - rect.left;
                             canvas.getContext("2d").drawImage(over[x], offL, offT, 500, 375);
                             tmp_canvas.getContext("2d").drawImage(over[x], offL, offT, 500, 375);
-							canvases.push(tmp_canvas);
+                            canvases.push(tmp_canvas);
                         }
-						for (var x = 0; x < canvases.length; x++)
-						{
-							var src = canvases[x].toDataURL("image/png");
-							var tmp_overlay = document.createElement("img");
-							tmp_overlay.setAttribute("src", src);
-							tmp_overlay.setAttribute("style", "display:none");
-							tmp_overlay.setAttribute("name", "img_over")
-							img_overlays.push(tmp_overlay);
-						}
+                        for (var x = 0; x < canvases.length; x++)
+                        {
+                            var src = canvases[x].toDataURL("image/png");
+                            var tmp_overlay = document.createElement("img");
+                            tmp_overlay.setAttribute("src", src);
+                            tmp_overlay.setAttribute("style", "display:none");
+                            tmp_overlay.setAttribute("name", "img_over")
+                            img_overlays.push(tmp_overlay);
+                        }
                         var img = canvas.toDataURL("image/png");
-						const imgnew = document.createElement("img");
-						const colnew = document.createElement("div");
-						imgnew.setAttribute('src', img);
+                        var imgnew = document.createElement("img");
+                        var colnew = document.createElement("div");
+                        imgnew.setAttribute('src', img);
+                        imgnew.setAttribute('name', "final_image");
                         colnew.setAttribute("class", "flex-col-item");
                         colnew.appendChild(imgnew);
-						colnew.appendChild(img_pure);
-						const btnclose = document.createElement("button");
-						btnclose.setAttribute("class", "close");
+                        colnew.appendChild(img_pure);
+                        var btnclose = document.createElement("button");
+                        btnclose.setAttribute("class", "close");
                         btnclose.setAttribute("aria-label", "Close");
                         btnclose.setAttribute("type", "button");
                         btnclose.onclick = function (btnclose)
@@ -308,11 +310,11 @@ window.addEventListener("DOMContentLoaded", function () {
                         ico.innerHTML = "&times;";
                         btnclose.appendChild(ico);
                         colnew.appendChild(btnclose);
-						for (var x = 0; x < img_overlays.length; x++)
-						{
-							colnew.appendChild(img_overlays[x]);
-							console.log(img_overlays[x]);
-						}
+                        for (var x = 0; x < img_overlays.length; x++)
+                        {
+                            colnew.appendChild(img_overlays[x]);
+                            console.log(img_overlays[x]);
+                        }
                         var right = document.querySelector("#col-right");
                         right.insertBefore(colnew, right.childNodes[0]);
 

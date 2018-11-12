@@ -28,33 +28,29 @@ if (!isset($_SESSION["login"])) {
             output_returns();
             ?>
             <div class="row">
-				<div class="col-xs-4" style="text-align: center">
-					<a  class="btn btn-primary grey darken-3">
-						Prev
-					</a>
-				</div>
+                <div class="col-xs-4" style="text-align: center">
+                    <a  class="btn btn-primary grey darken-3">
+                        Prev
+                    </a>
+                </div>
                 <div class="col-xs-3" style="text-align: center">
                     <a href="./capture.php?type=gallery" class="btn btn-primary grey darken-3"><i class="fas fa-camera"></i></a>
                 </div>
-				<div class="col-xs-4" style="text-align: center">
-					<a  class="btn btn-primary grey darken-3">
-						Next
-					</a>
-				</div>
+                <div class="col-xs-4" style="text-align: center">
+                    <a  class="btn btn-primary grey darken-3">
+                        Next
+                    </a>
+                </div>
             </div>
             <?php
-            
-
-			$pdo = DB::getConnection();
-			$pageno;
-			if(isset($_GET["page"]))
-			{
-				$pageno = intval(htmlspecialchars($_GET["page"]));
-				
-			}
-          	$pageno = 6*$pageno;
+            $pdo = DB::getConnection();
+            $pageno = 0;
+            if (isset($_GET["page"])) {
+                $pageno = intval(htmlspecialchars($_GET["page"]));
+            }
+            $pageno = 6 * $pageno;
             $stmt = $pdo->prepare("Select * FROM images LIMIT 6 OFFSET :off");
-			$stmt->bindParam(':off', $pageno, PDO::PARAM_INT);
+            $stmt->bindParam(':off', $pageno, PDO::PARAM_INT);
             $stmt->execute();
             $row_div = new Element("div", false);
             $body = array();
@@ -104,6 +100,6 @@ if (!isset($_SESSION["login"])) {
             ?>
 
         </div>
-        <?php require_once('./includes/footer.php'); ?>
+            <?php require_once('./includes/footer.php'); ?>
     </body>
 </html>

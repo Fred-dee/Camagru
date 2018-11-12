@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+
+            .resizable
+            {
+                margin: 0;
+                padding: 0;
+                width: 500px;
+                height: 375px; 
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                position:absolute;
+            }
+
+            .resizable img
+            {
+                width:100%;
+                height:100%;
+            }
+
+            span[class^="resize-"]
+            {
+                position:absolute;
+                width: 5px;
+                height:5px;
+                background-color: black;
+                z-index: 10;
+            }
+
+            span[class^="resize-middle"]:hover
+            {
+                cursor: ew-resize;
+            }
+
+
+            .resize-bottomleft
+            {
+                left:0;
+                bottom:0;
+            }
+            .resize-bottomright
+            {
+                right:0;
+                bottom:0;
+            }
+
+            .resize-middleleft
+            {
+                left:0;
+                top:50%;
+            }
+
+            .resize-middleright
+            {
+                right:0;
+                top:50%;
+            }
+
+            .resize-topleft
+            {
+                top:0;
+                left:0;
+            }
+
+            .resize-topleft, .resize-bottomright:hover
+            {
+                cursor:nwse-resize;
+            }
+
+            .resize-topright, .resize-bottomleft:hover
+            {
+                cursor:nesw-resize;
+            }
+
+            .resize-topright
+            {
+                top:0;
+                right:0;
+            }
+        </style>
+        <script src="./test.js">
+        </script>
+    </head>
+    <body>
+        <div class="resizable">
+            <span class='resize-topright'></span>
+            <span class='resize-topleft'></span>
+            <span class='resize-bottomleft'></span>
+            <span class='resize-bottomright'></span>
+            <span class='resize-middleright'></span>
+            <span class='resize-middleleft'></span>
+            <img src="./imgs/2-2-sunglasses-picture-thumb.png">
+        </div>
+    </body>
+</html>
