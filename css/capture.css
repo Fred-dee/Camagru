@@ -81,14 +81,13 @@
 .resizable
 {
     margin: 0;
-    padding: 0;
+	padding: 0;
     width: inherit;
     height: inherit; 
 	top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    /*background-color: red;*/
     position:absolute;
 }
 
@@ -104,6 +103,7 @@ span[class^="resize-"]
     width: 10px;
     height:10px;
     background-color: black;
+	z-index: 10;
 }
 
 span[class^="resize-middle"]:hover

@@ -28,9 +28,19 @@ if (!isset($_SESSION["login"])) {
             output_returns();
             ?>
             <div class="row">
-                <div class="col-xs-12" style="text-align: center">
+				<div class="col-xs-4" style="text-align: center">
+					<a  class="btn btn-primary grey darken-3">
+						Prev
+					</a>
+				</div>
+                <div class="col-xs-3" style="text-align: center">
                     <a href="./capture.php?type=gallery" class="btn btn-primary grey darken-3"><i class="fas fa-camera"></i></a>
                 </div>
+				<div class="col-xs-4" style="text-align: center">
+					<a  class="btn btn-primary grey darken-3">
+						Next
+					</a>
+				</div>
             </div>
             <?php
             

@@ -28,17 +28,18 @@ function uploadSnaps()
     carosel = document.querySelector("#col-right");
     var formData = new FormData();
     var request = new XMLHttpRequest();
+	var overlays = new Array();
     for (var x = 0; x < carosel.childElementCount; x++)
     {
         formData.append("imgs", carosel.childNodes[x].childNodes[0].src);
         alert(carosel.childNodes[x].childNodes[0].src);
     }
-    request.open("POST", "update.php", true);
+    /*request.open("POST", "update.php", true);
     request.send(formData);
     while (formData.firstChild)
     {
         formData.removeChild(formData.firstChild);
-    }
+    }*/
 
 
 }
@@ -67,8 +68,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
     function resize(elmnt)
     {
-        var widthinit = 0;
-        var heightinit = 0;
+
         var width = 0;
         var height = 0;
         var cursorinitX = 0;
@@ -76,6 +76,7 @@ window.addEventListener("DOMContentLoaded", function () {
         var movx;
         var movy;
         var childNodes = elmnt.childNodes;
+		
         for (var x = 1; x < childNodes.length; x++)
         {
             childNodes[x].onmousedown = resizeMouseDown.bind(childNodes[x]);
@@ -85,61 +86,50 @@ window.addEventListener("DOMContentLoaded", function () {
         {
             event = event || window.event;
             event.preventDefault();
-            var computed = window.getComputedStyle(elmnt);
-            widthinit = parseInt(computed.getPropertyValue('width'));
-            heightinit = parseInt(computed.getPropertyValue('height'));
+			
+            
+            //widthinit = parseInt(computed.getPropertyValue('width'));
+            //heightinit = parseInt(computed.getPropertyValue('height'));
+			
             cursorinitX = event.clientX;
             cursorinitY = event.clientY;
-            elmnt.onmouseup = closeElementResize;
+			
+            elmnt.onmouseup = closeElementResize.bind(this, event);
             // call a function whenever the cursor moves:
-            elmnt.ondrag = elementResize(event, this);
+            elmnt.onmousemove = elementResize.bind(this, event);
         }
 
-        function elementResize(e, obj)
+        function elementResize(e)
         {
-            //e = e || window.event;
-            //e.preventDefault();
+            e = e || window.event;
+            e.preventDefault();
 
-            // calculate the new cursor position:
-            elmnt.style.position = "static";
-            var trimmedName = (" " + obj.className + " ").replace(/[\n\t]/g, " ");
-            if (trimmedName.indexOf(" resize-middleright ") > -1)
-            {
-                movy = 0;
-                movx = cursorinitX - e.clientX;
-                console.log(cursorinitX);
-            }
-            else if(trimmedName.indexOf(" resize-middleleft ") > -1)
-            {
-                
-            }
-            else if (trimmedName.indexOf(" resize-bottomleft ") > -1 || trimmedName.indexOf(" resize-topleft ") > -1)
-            {
-                
-            }
-            else
-            {
-                movy = cursorinitY - e.clientY;
-                movx = cursorinitX - e.clientX;
-            }
-                
-            console.log(movx);
-            width = widthinit + movx;
-            height = heightinit + movy;
-            cursorinitX = e.clientX;
-            cursorinitY = e.clientY;
-            // set the element's new position:
-            elmnt.style.height = (height) + "px";
-            elmnt.style.width = (width) + "px";
-            //elmnt.style.position="relative";
-
+			var computed = window.getComputedStyle(elmnt);
+			var widthinit = parseFloat(computed.getPropertyValue('width'));
+			var heightinit = parseFloat(computed.getPropertyValue('height'));
+			//console.log(cursorinitX + " " + cursorinitY);
+			
+			var className = ((" " + this.className + " ").replace(/[\n\t]/g, " "));
+			if (className.indexOf(" resize-middleright") > -1)
+			{
+					movx = cursorinitX - e.clientX;
+					movy = 0;
+					console.log(movx);
+			}		
+			cursorinitX = e.clientX;
+			cursorinitY = e.clientY;
+			width = widthinit + movx;
+			height =  heightinit + movy;
+			
+			elmnt.style.width = width + "px";
+			elmnt.style.height = height + "px";
+			
         }
 
         function closeElementResize(e)
         {
-            elmnt.style.position = "relative";
-            elmnt.onmouseup = null;
-            elmnt.onmousemove = null;
+			this.onmouseup = null;
+			this.onmousemove = null;
         }
 
     }
@@ -173,8 +163,9 @@ window.addEventListener("DOMContentLoaded", function () {
                         + "<span class='resize-middleright'></span>"
                         + "<span class='resize-middleleft'></span>";
                 add_filter(greatDiv);
+				//resize(greatDiv);
                 dragElement(greatDiv);
-                //resize(greatDiv);
+                
             } else
                 remove_filter(document.querySelector("#overlay_" + id).parentNode);
 
@@ -201,7 +192,7 @@ window.addEventListener("DOMContentLoaded", function () {
             // get the mouse cursor position at startup:
             pos3 = e.clientX;
             pos4 = e.clientY;
-            document.onmouseup = closeDragElement;
+            elmnt.onmouseup = closeDragElement;
             // call a function whenever the cursor moves:
             elmnt.onmousemove = elementDrag;
         }
@@ -217,7 +208,7 @@ window.addEventListener("DOMContentLoaded", function () {
             // set the element's new position:
             elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
             elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-            //console.log(elmnt.style.top);
+            console.log("I am dragged");
 
         }
 
@@ -248,29 +239,44 @@ window.addEventListener("DOMContentLoaded", function () {
                     button.onclick = function () {
                         var over = document.querySelectorAll(".icon");
 						var screen  = document.querySelector("body");
-						
-						var vidstyle = window.getComputedStyle(video);
-						var xpos = vidstyle.getPropertyValue('left');
+
 						
 						var rect = video.getBoundingClientRect();
-						console.log(rect.top, rect.right, rect.bottom, rect.left);
+						var canvases = new Array();
+						var img_overlays = new Array();
                         canvas.getContext("2d").drawImage(video, 0, 0, 500, 375);
+						var img_pure = document.createElement("img");
+						img_pure.setAttribute("src",canvas.toDataURL("image/png"));
+						img_pure.setAttribute("name", "pure_image");
+						img_pure.setAttribute("style", "display:none");
+						console.log(img_pure);
                         for (var x = 0; x < over.length; x++)
                         {
+							var tmp_canvas = document.createElement("canvas");
 							var rect_ov = over[x].getBoundingClientRect();
 							var offT = rect_ov.top - rect.top;
 							var offL = rect_ov.left - rect.left;
                             canvas.getContext("2d").drawImage(over[x], offL, offT, 500, 375);
-                            can2.getContext("2d").drawImage(over[x], offL, offT, 500, 375);
+                            tmp_canvas.getContext("2d").drawImage(over[x], offL, offT, 500, 375);
+							canvases.push(tmp_canvas);
                         }
+						for (var x = 0; x < canvases.length; x++)
+						{
+							var src = canvases[x].toDataURL("image/png");
+							var tmp_overlay = document.createElement("img");
+							tmp_overlay.setAttribute("src", src);
+							tmp_overlay.setAttribute("style", "display:none");
+							img_overlays.push(tmp_overlay);
+						}
                         var img = canvas.toDataURL("image/png");
-                                const imgnew = document.createElement("img");
-                                const colnew = document.createElement("div");
-                                imgnew.setAttribute('src', img);
+						const imgnew = document.createElement("img");
+						const colnew = document.createElement("div");
+						imgnew.setAttribute('src', img);
                         colnew.setAttribute("class", "flex-col-item");
                         colnew.appendChild(imgnew);
-                                const btnclose = document.createElement("button");
-                                btnclose.setAttribute("class", "close");
+						colnew.appendChild(img_pure);
+						const btnclose = document.createElement("button");
+						btnclose.setAttribute("class", "close");
                         btnclose.setAttribute("aria-label", "Close");
                         btnclose.setAttribute("type", "button");
                         btnclose.onclick = function (btnclose)
@@ -284,6 +290,11 @@ window.addEventListener("DOMContentLoaded", function () {
                         ico.innerHTML = "&times;";
                         btnclose.appendChild(ico);
                         colnew.appendChild(btnclose);
+						for (var x = 0; x < img_overlays.length; x++)
+						{
+							colnew.appendChild(img_overlays[x]);
+							console.log(img_overlays[x]);
+						}
                         var right = document.querySelector("#col-right");
                         right.insertBefore(colnew, right.childNodes[0]);
 
