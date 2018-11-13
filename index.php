@@ -9,6 +9,8 @@ header('Content-type: text/html');
 if (!isset($_SESSION["login"])) {
     $_SESSION["login"] = "guest";
 }
+$_SESSION["getData"] = -1;
+$_SESSION["returnNull"] = false;
 ?>
 <!DOCTYPE html>
 <html>
@@ -20,6 +22,7 @@ if (!isset($_SESSION["login"])) {
         <?php require_once('./includes/main-includes.php'); ?>
         <!--<script src="js/capture.js"></script> -->
         <script src="js/likes.js"></script>
+        <script src="./js/infintescroll.js"></script>
     </head>
     <body onload="onReady()">
         <?php require_once('./includes/navbar.php'); ?>
@@ -27,23 +30,14 @@ if (!isset($_SESSION["login"])) {
             <?php
             output_returns();
             ?>
-            <div class="row">
-                <div class="col-xs-4" style="text-align: center">
-                    <a  class="btn btn-primary grey darken-3">
-                        Prev
-                    </a>
-                </div>
-                <div class="col-xs-3" style="text-align: center">
-                    <a href="./capture.php?type=gallery" class="btn btn-primary grey darken-3"><i class="fas fa-camera"></i></a>
-                </div>
-                <div class="col-xs-4" style="text-align: center">
-                    <a  class="btn btn-primary grey darken-3">
-                        Next
-                    </a>
-                </div>
-            </div>
+
             <?php
-            $pdo = DB::getConnection();
+            $body = getData();
+            
+            foreach($body as $key => $value)
+                echo $value;
+            echo $_SESSION["getData"];
+/*            $pdo = DB::getConnection();
             $pageno = 0;
             if (isset($_GET["page"])) {
                 $pageno = intval(htmlspecialchars($_GET["page"]));
@@ -96,7 +90,7 @@ if (!isset($_SESSION["login"])) {
             array_push($body, $row_div);
             foreach ($body as $key => $value) {
                 echo $value;
-            }
+            }*/
             ?>
 
         </div>
