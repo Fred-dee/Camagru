@@ -8,7 +8,9 @@ require_once('./config/database.php');
 require_once('./includes/functions.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $data = getData();
+    $data = array();
+    if($_SESSION["returnNull"] == false)
+        $data = getData();
     if (!empty($data)) {
         $arr_conv = array();
         foreach ($data as $key => $value) {

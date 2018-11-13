@@ -84,15 +84,14 @@ window.addEventListener("DOMContentLoaded", function () {
             if (this.readyState == 4 && this.status == 200)
             {
                 //var data = JSON.parse(this.responseText);
-                /*if (this.responseText != "")
-                 //document.querySelector('.container-fluid').innerHTML += (this.responseText);
-                 else
-                 if(this.responseText == "")
-                 window.removeEventListener("scroll", scrollListen);
-                 //console.log(data[0]);*/
+                if (this.responseText != "")
+                    document.querySelector('.container-fluid').innerHTML += (this.responseText);
+                else
+                    window.removeEventListener("scroll", scrollListen);
+                //console.log(data[0]);
                 if (this.responseText == "")
                     window.removeEventListener("scroll", scrollListen);
-                console.log(this.responseText);
+                //console.log(this.responseText);
                 //await sleep(5000);
             }
         };
@@ -101,15 +100,15 @@ window.addEventListener("DOMContentLoaded", function () {
         request.send();
     }
     window.addEventListener("scroll", scrollListen);
-    
+
     function scrollListen() {
 
         var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-        var h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-        console.log(h + " the offset " + (window.pageYOffset + window.innerHeight));
+        var h = Math.max(document.documentElement.scrollHeight, window.innerHeight || 0) - document.documentElement.clientHeight;
+        //console.log(h + " the offset " + (window.pageYOffset));
         if (window.pageYOffset >= h) {
-            //loadMore();
-            //document.documentElement.innerHTML += "<div style'height: 50px; width: 50px; background-color:red;'>Added</div>";
+            loadMore();
+            //document.querySelector(".container-fluid").innerHTML += "<div style'height: 50px; width: 50px; background-color:red;'>Added</div>";
         }
     }
 });

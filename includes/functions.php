@@ -109,6 +109,7 @@ function getData() {
         $body = array();
         $counter = 0;
         $articles = array();
+        //debug_to_console($stmt->rowCount());
         while (($row = $stmt->fetch(PDO::FETCH_ASSOC))) {
             $inter = $pdo->prepare("Select user_name, avatar, type FROM users WHERE id = :user_id");
             $inter->bindParam(':user_id', $row["user_id"], PDO::PARAM_INT);
@@ -146,7 +147,8 @@ function getData() {
             }
             $counter++;
         }
-        array_push($body, $row_div);
+        if($counter != 0)
+            array_push($body, $row_div);
         return $body;
     } else
         return (array());
