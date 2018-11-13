@@ -89,8 +89,8 @@ window.addEventListener("DOMContentLoaded", function () {
                 else
                     window.removeEventListener("scroll", scrollListen);
                 //console.log(data[0]);
-                if (this.responseText == "")
-                    window.removeEventListener("scroll", scrollListen);
+                /*if (this.responseText == "")
+                    window.removeEventListener("scroll", scrollListen);*/
                 //console.log(this.responseText);
                 //await sleep(5000);
             }
