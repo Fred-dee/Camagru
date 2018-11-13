@@ -8,6 +8,7 @@
     border-color: red;
     max-height: 100%;
     overflow: auto;
+	background-color: red;
 }
 
 .flex-col-item
@@ -22,6 +23,34 @@
     margin-bottom: 1rem;
     border: 20px;
     border-color: aqua;
+	
+}
+@media (max-width: 400px)
+{
+	.flex-col
+	{
+		display: flex;
+
+		flex-direction: row;
+		border: 25px;
+		border-color: red;
+		max-height: 100%;
+		overflow: auto;
+	}
+
+	.flex-col-item
+	{
+		display: flex;
+		flex-grow: 1;
+		width: 250px;
+		max-width: 250px;
+		max-height: 250px;
+		overflow: auto;
+		margin-top: 1rem;
+		margin-bottom: 1rem;
+		border: 20px;
+		border-color: aqua;
+	}
 }
 
 .flex-col-item img

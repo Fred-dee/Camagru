@@ -44,13 +44,13 @@ function uploadSnaps()
             if (this.readyState == 4 && this.status == 200) {
                 formData = new FormData();
                 images = new Array();
-                carosel.removeChild(carosel.childNodes[x]);
                 console.log(this.responseText);
             }
         };
         request.open("POST", "merge.php", true);
         request.send(formData);
     }
+	clearSnaps();
 
 
 
@@ -181,8 +181,8 @@ window.addEventListener("DOMContentLoaded", function () {
                         + "<span class='resize-middleright'></span>"
                         + "<span class='resize-middleleft'></span>";
                 add_filter(greatDiv);
-                resize(greatDiv);
-                //dragElement(greatDiv);
+                //resize(greatDiv);
+                dragElement(greatDiv);
 
             } else
                 remove_filter(document.querySelector("#overlay_" + id).parentNode);

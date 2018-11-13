@@ -71,8 +71,8 @@ if ($_SESSION["login"] == "guest") {
                     <button class="btn btn-primary grey darken-4" onclick="uploadSnaps()" id="btn_upload">Upload Snaps</button>
                     <button class="btn btn-primary grey darken-4" onclick="clearSnaps()">Clear Snaps</button>
                 </div>
-                <div class="col-sm-12 col-md-3">
-                    <div class="flex-column">
+                <div class="col-sm-12 col-md-3 flex-column">
+                    <div class="">
                         <form class="form-overlays">
                             <div class="form-check flex-col-item">
                                 <input type="checkbox" class="form-check-input" id="ov_c1" />
