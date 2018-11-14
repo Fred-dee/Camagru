@@ -20,6 +20,7 @@ $_SESSION["returnNull"] = false;
         <meta name="author" description="mdilapi" />
         <meta charset="utf-8" />
         <?php require_once('./includes/main-includes.php'); ?>
+		<link rel="stylesheet" href="./css/gallery.css" type="text/css"/>
         <script src="js/likes.js"></script>
         <script src="./js/infintescroll.js"></script>
     </head>

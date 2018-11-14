@@ -19,6 +19,7 @@ if (!isset($_SESSION))
         <?php
         require_once('./includes/main-includes.php');
         ?>
+		<link type="text/css" rel="stylesheet" href="./css/gallery.css">
     </head>
     <body>
         <?php
