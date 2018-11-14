@@ -50,7 +50,7 @@ function uploadSnaps()
         request.open("POST", "merge.php", true);
         request.send(formData);
     }
-	clearSnaps();
+    clearSnaps();
 
 
 
@@ -70,6 +70,49 @@ function removeThis(obj)
 
 
 window.addEventListener("DOMContentLoaded", function () {
+    var video = document.querySelector("#videoElement");
+
+    var vidStream;
+    document.querySelector("input[name='clear_input']").addEventListener("click", function () {
+        this.parentNode.reset();
+        video.setAttribute("src", "");
+        video.parentNode.style.display = "none";
+        video = document.querySelector("#videoElement");
+        video.style.display = "block";
+    });
+    /*
+     * navigator.mediaDevices.getUserMedia({video: true})
+     .then(function (stream) {
+     video.srcObject = stream;
+     */
+    document.querySelector("input[type='file']").addEventListener("change", function ()
+    {
+        files = this.files;
+        if (files.length != 0)
+        {
+            video.style.display = "none";
+            video = document.querySelector("#img_input");
+            var reader = new FileReader();
+            reader.readAsDataURL(files[0]);
+            video.parentNode.style.display = "block";
+            reader.addEventListener("load", function () {
+                video.src = reader.result;
+            }, false);
+
+            if (files[0]) {
+                reader.readAsDataURL(files[0]);
+            }
+
+            console.log("I have an image");
+        } else
+        {
+            /*video.setAttribute("src", "");
+            video.parentNode.style.display = "none";
+            video = document.querySelector("#videoElement");
+            video.style.display = "block"; */
+        }
+    });
+
 
     /*
      * 
@@ -241,23 +284,25 @@ window.addEventListener("DOMContentLoaded", function () {
     /*
      ------Navigator.mediaDevices-----
      */
-    var video = document.querySelector("#videoElement");
+
 
     if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices.getUserMedia({video: true})
                 .then(function (stream) {
+                    vidStream = stream;
                     video.srcObject = stream;
-                    //var over;
-                    //over = document.querySelectorAll(".icon");
+                })
+                .catch(function (err0r) {
+                    console.log("Something went wrong!");
+                })
+                .finally(function () {
                     var canvas = document.getElementById("canvasVid");
                     var can2 = document.querySelector("#canvasOver");
                     var button = document.getElementById("btn_snap");
-
                     button.disabled = false;
                     button.onclick = function () {
                         var over = document.querySelectorAll(".icon");
                         var screen = document.querySelector("body");
-
 
                         var rect = video.getBoundingClientRect();
                         var canvases = new Array();
@@ -319,9 +364,6 @@ window.addEventListener("DOMContentLoaded", function () {
                         right.insertBefore(colnew, right.childNodes[0]);
 
                     };
-                })
-                .catch(function (err0r) {
-                    console.log("Something went wrong!");
                 });
     }
 });

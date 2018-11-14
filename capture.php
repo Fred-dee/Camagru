@@ -58,13 +58,23 @@ if ($_SESSION["login"] == "guest") {
                     echo "./upload.php?type=" . $_GET["type"];
                     ?>" method="post" enctype="multipart/form-data">
                         Select image to upload:
-                        <input type="file" name="fileToUpload" id="fileToUpload">
-                        <input type="submit" value="Upload Image" name="submit">
+                        <input type="file" name="fileToUpload" id="fileToUpload" accept=".jpg, .jpeg, .png, .gif" />
+                        <input type="submit" value="Upload Image" name="submit" >
+                        <input type="button" value="clear" name="clear_input" class="btn btn-primary amber darken-4"/>
                     </form>
                     <button class="btn btn-primary grey darken-4" onclick="" id="btn_snap">Snap</button>
                     <div class="contained">
                         <video autoplay="true" id="videoElement">
                         </video>
+                        <div class="resizable" id="input_resize" style="display:none">
+                            <img id="img_input" src="" alt ="" class ="icon" style="display:inherit">
+                            <span class='resize-topright'></span>
+                            <span class='resize-topleft'></span>
+                            <span class='resize-bottomleft'></span>
+                            <span class='resize-bottomright'></span>
+                            <span class='resize-middleright'></span>
+                            <span class='resize-middleleft'></span>
+                        </div>
                         <div class="overlay">
                         </div>
                     </div>
@@ -84,20 +94,20 @@ if ($_SESSION["login"] == "guest") {
                             <div class="form-check flex-col-item">
                                 <input type="checkbox" class="form-check-input" id="ov_c2" />
                                 <label class="form-check-label" for ="ov_c2">
-									<img class="img-responsive" id="ov_2" src="./imgs/overlay2.png" alt="" onclick=""/>
-								</label>
+                                    <img class="img-responsive" id="ov_2" src="./imgs/overlay2.png" alt="" onclick=""/>
+                                </label>
                             </div>
-							<div class="form-check flex-col-item">
+                            <div class="form-check flex-col-item">
                                 <input type="checkbox" class="form-check-input" id="ov_c3" />
                                 <label class="form-check-label" for ="ov_c2">
-									<img class="img-responsive" id="ov_3" src="./imgs/2-2-sunglasses-picture-thumb.png" alt="" onclick=""/>
-								</label>
+                                    <img class="img-responsive" id="ov_3" src="./imgs/2-2-sunglasses-picture-thumb.png" alt="" onclick=""/>
+                                </label>
                             </div>
-							<div class="form-check flex-col-item">
+                            <div class="form-check flex-col-item">
                                 <input type="checkbox" class="form-check-input" id="ov_c4" />
                                 <label class="form-check-label" for ="ov_c2">
-									<img class="img-responsive" id="ov_4" src="./imgs/lips.png" alt="" onclick=""/>
-								</label>
+                                    <img class="img-responsive" id="ov_4" src="./imgs/lips.png" alt="" onclick=""/>
+                                </label>
                             </div>
                         </form>
                     </div>

@@ -16,9 +16,7 @@ $_SESSION["returnNull"] = false;
 <html>
     <head>
         <title>Index</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="author" description="mdilapi" />
-        <meta charset="utf-8" />
+
         <?php require_once('./includes/main-includes.php'); ?>
 		<link rel="stylesheet" href="./css/gallery.css" type="text/css"/>
         <script src="js/likes.js"></script>
