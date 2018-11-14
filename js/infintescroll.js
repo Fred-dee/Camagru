@@ -104,9 +104,20 @@ window.addEventListener("DOMContentLoaded", function () {
     function scrollListen() {
 
         var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-        var h = Math.max(document.documentElement.scrollHeight, window.innerHeight || 0) - document.documentElement.clientHeight;
-        console.log(h + " the offset " + (window.pageYOffset) + "the window,innerHeight: " + window.innerHeight);
-		console.log(document.querySelector('.container-fluid').offsetHeight - document.querySelector('footer').clientHeight - document.querySelector('nav').clientHeight);
+		/*var h;
+		if(document.querySelector('.container-fluid').scrollHeight > window.innerHeight)
+		{
+			h = document.querySelector('.container-fluid').scrollHeight;
+			console.log("went with the scroll height");
+		}
+		else
+		{
+			h = window.innerHeight;
+			console.log("went with the innerHeight");
+		}
+		h -= document.documentElement.clientHeight;*/
+        var h = Math.max(document.querySelector('.container-fluid').scrollHeight, window.innerHeight || 0) - document.documentElement.clientHeight;
+        console.log(h + " the offset " + (window.pageYOffset) + " the window,innerHeight: " + window.innerHeight);
         if (window.pageYOffset >= h) {
             loadMore();
             //document.querySelector(".container-fluid").innerHTML += "<div style'height: 50px; width: 50px; background-color:red;'>Added</div>";
