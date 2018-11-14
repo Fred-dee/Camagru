@@ -53,7 +53,6 @@ class Article extends Element {
 
 
         $heart_span = new Element("i", false);
-        $heart_span->add_attribute("style", "font-size: 50px");
         $heart_span->add_text($num_likes);
         $like_button = new Element("button", false);
         //Liked or not //
@@ -66,7 +65,7 @@ class Article extends Element {
             $stmt->bindParam(":u_id", $_SESSION["user_id"], PDO::PARAM_INT, 11);
             $stmt->execute();
             if ($stmt->rowCount() == 1)
-                $heart_span->add_class("fas fa-heart");
+                $heart_span->add_class("fas fa-heart heart-ico");
             else
                 $heart_span->add_class("far fa-heart");
         }

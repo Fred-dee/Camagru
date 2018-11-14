@@ -5,7 +5,11 @@ article
 	height: 100%;
 	
 }
-
+.like-btn
+{
+	border: 0px;
+	margin: 0px;
+}
 form > *
 {
 	max-width: inherit;
@@ -25,6 +29,7 @@ article .img-wrapper
 article .comment_section
 {
 	max-height: 20%;
+	text-align: right;
 }
 .gal-grid {
     display: flex;
