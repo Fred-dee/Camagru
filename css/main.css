@@ -23,32 +23,6 @@ body
     height: 250px;
     border-radius: 50%;
 }
-.pagination {
-    display: inline-block;
-}
-
-.pagination a {
-    color: black;
-    float: left;
-    padding: 8px 16px;
-    text-decoration: none;
-}
-
-.pagination a.active {
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 5px;
-}
-
-.pagination a:hover:not(.active) {
-    background-color: #ddd;
-    border-radius: 5px;
-}
-
-.my-collapse
-{
-    display: none;
-}
 
 .gal-grid {
     display: flex;
@@ -60,6 +34,7 @@ body
     display: flex;
     justify-content: space-evenly;
     flex-wrap: nowrap;
+	max-width: inherit;
 }
 .gal-grid-thirds .gal-col {
     flex-basis: 32%;

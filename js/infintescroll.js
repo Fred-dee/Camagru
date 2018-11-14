@@ -86,8 +86,8 @@ window.addEventListener("DOMContentLoaded", function () {
                 //var data = JSON.parse(this.responseText);
                 if (this.responseText != "")
                     document.querySelector('.container-fluid').innerHTML += (this.responseText);
-                else
-                    window.removeEventListener("scroll", scrollListen);
+                //else
+                  //  window.removeEventListener("scroll", scrollListen);
                 //console.log(data[0]);
                 /*if (this.responseText == "")
                     window.removeEventListener("scroll", scrollListen);*/
@@ -105,11 +105,11 @@ window.addEventListener("DOMContentLoaded", function () {
 
         var w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
         var h = Math.max(document.documentElement.scrollHeight, window.innerHeight || 0) - document.documentElement.clientHeight;
-        //console.log(h + " the offset " + (window.pageYOffset));
+        console.log(h + " the offset " + (window.pageYOffset) + "the window,innerHeight: " + window.innerHeight);
+		console.log(document.querySelector('.container-fluid').offsetHeight - document.querySelector('footer').clientHeight - document.querySelector('nav').clientHeight);
         if (window.pageYOffset >= h) {
             loadMore();
             //document.querySelector(".container-fluid").innerHTML += "<div style'height: 50px; width: 50px; background-color:red;'>Added</div>";
         }
     }
 });
-

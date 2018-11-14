@@ -8,11 +8,11 @@ if(!isset($_SESSION))
   <!-- Copyright -->
   <?php
   
-  if (basename($_SERVER['PHP_SELF']) != "capture.php")
+  if (basename($_SERVER['PHP_SELF']) != "capture.php" && basename($_SERVER['PHP_SELF']) != "login.php" )
   {
   ?>    
   <div class="row bg-transparent text-dark" >
-      <div class="col-sm-2 text-center col-sm-offset-5">
+      <div class="col-xs-2 text-center col-xs-offset-5">
           <a href="./capture.php?type=gallery" class="btn btn-primary grey darken-3 "><i class="fas fa-camera"></i></a>
       </div>
     </div>

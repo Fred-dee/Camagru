@@ -16,7 +16,8 @@ header('Content-type: text/html');
             <?php require_once('./includes/navbar.php'); ?>
         </div>
         <div class="row" style="position: relative">
-            <div class ="col-md-6 col-lg-offset-1 col-lg-5">
+			<!--col-md-6 col-lg-offset-1 col-lg-5-->
+            <div class ="col-sm-6 ">
                 <h1>Login</h1>
                 <form method="post" action="./private/login_check">
                     <div class="form-group">
@@ -40,7 +41,7 @@ header('Content-type: text/html');
                 ?>
             </div>
 
-            <div class="col-md-6 col-lg-5">
+            <div class="col-sm-6">
                 <h1>Sign up</h1>
                 <form method="POST" action="./private/login_check">
                     <div class="form-group">

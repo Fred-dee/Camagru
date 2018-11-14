@@ -9,7 +9,7 @@ require_once('./includes/functions.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = array();
-    if($_SESSION["returnNull"] == false)
+    //if($_SESSION["returnNull"] == false)
         $data = getData();
     if (!empty($data)) {
         $arr_conv = array();
