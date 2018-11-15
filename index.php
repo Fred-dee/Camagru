@@ -35,7 +35,12 @@ $_SESSION["returnNull"] = false;
             foreach($body as $key => $value)
                 echo $value;
             ?>
-
+			<!--<div class ="row ">
+				<div class="col-xs-2 col-xs-offset-5">
+					<!-- <img class="img-responsive" src="./imgs/loading-png-transparent.png" alt="" style="width:10px; height:10px;"/> 
+					Loading
+				</div>
+			</div> -->
         </div>
             <?php require_once('./includes/footer.php'); ?>
     </body>

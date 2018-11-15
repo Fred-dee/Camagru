@@ -3,77 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/*
- *     $(window).scroll(function() {
- 
- if($(window).scrollTop() + $(window).height() >= $(document).height()) {
- 
- var last_id = $(".post-id:last").attr("id");
- 
- loadMoreData(last_id);
- 
- }
- 
- });
- 
- 
- function loadMoreData(last_id){
- 
- $.ajax(
- 
- {
- 
- url: '/loadMoreData.php?last_id=' + last_id,
- 
- type: "get",
- 
- beforeSend: function()
- 
- {
- 
- $('.ajax-load').show();
- 
- }
- 
- })
- 
- .done(function(data)
- 
- {
- 
- $('.ajax-load').hide();
- 
- $("#post-data").append(data);
- 
- })
- 
- .fail(function(jqXHR, ajaxOptions, thrownError)
- 
- {
- 
- alert('server not responding...');
- 
- });
- 
- }
- 
- function sleep(ms) {
- return new Promise(resolve => setTimeout(resolve, ms));
- }
- 
- async function demo() {
- console.log('Taking a break...');
- await sleep(2000);
- console.log('Two seconds later');
- }
- 
- demo();
- */
-window.addEventListener("DOMContentLoaded", function () {
 
-    /*function sleep(ms) {
-     return new Promise(resolve => setTimeout(resolve, ms));
-     }*/
+window.addEventListener("DOMContentLoaded", function () {
 
     function loadMore()
     {
@@ -85,15 +16,12 @@ window.addEventListener("DOMContentLoaded", function () {
             {
                 //var data = JSON.parse(this.responseText);
                 if (this.responseText != "")
-                    document.querySelector('.container-fluid').innerHTML += (this.responseText);
-                //else
-                  //  window.removeEventListener("scroll", scrollListen);
-                //console.log(data[0]);
-                /*if (this.responseText == "")
-                    window.removeEventListener("scroll", scrollListen);*/
-                //console.log(this.responseText);
-                //await sleep(5000);
-            }
+			 	{   
+					document.querySelector('.container-fluid').innerHTML += (this.responseText);
+
+            	}
+			}
+				
         };
 
         request.open("POST", "./loadmore.php", true);

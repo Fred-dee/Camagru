@@ -70,21 +70,22 @@ function removeThis(obj)
 
 
 window.addEventListener("DOMContentLoaded", function () {
+	
     var video = document.querySelector("#videoElement");
-
+	document.querySelector("input[type='submit']").disabled = true;
+	document.querySelector("input[name='clear_input']").disabled = true;
     var vidStream;
-    document.querySelector("input[name='clear_input']").addEventListener("click", function () {
+	var reader = new FileReader();
+	document.querySelector("input[name='clear_input']").addEventListener("click", function () {
         this.parentNode.reset();
         video.setAttribute("src", "");
         video.parentNode.style.display = "none";
         video = document.querySelector("#videoElement");
         video.style.display = "block";
+		document.querySelector("input[type='submit']").disabled = true;
+		this.disabled = true;
     });
-    /*
-     * navigator.mediaDevices.getUserMedia({video: true})
-     .then(function (stream) {
-     video.srcObject = stream;
-     */
+
     document.querySelector("input[type='file']").addEventListener("change", function ()
     {
         files = this.files;
@@ -92,8 +93,8 @@ window.addEventListener("DOMContentLoaded", function () {
         {
             video.style.display = "none";
             video = document.querySelector("#img_input");
-            var reader = new FileReader();
-            reader.readAsDataURL(files[0]);
+       		
+            //reader.readAsDataURL(files[0]);
             video.parentNode.style.display = "block";
             reader.addEventListener("load", function () {
                 video.src = reader.result;
@@ -102,15 +103,11 @@ window.addEventListener("DOMContentLoaded", function () {
             if (files[0]) {
                 reader.readAsDataURL(files[0]);
             }
-
-            console.log("I have an image");
-        } else
-        {
-            /*video.setAttribute("src", "");
-            video.parentNode.style.display = "none";
-            video = document.querySelector("#videoElement");
-            video.style.display = "block"; */
+			document.querySelector("input[type='submit']").disabled = false;
+			document.querySelector("input[name='clear_input']").disabled = false;
         }
+
+			
     });
 
 

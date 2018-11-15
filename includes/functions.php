@@ -102,7 +102,7 @@ function getData() {
     //debug_to_console($_SESSION["returnNull"]);
     if ($_SESSION["returnNull"] == false) {
         $pageno = 6 * $pageno;
-        $stmt = $pdo->prepare("Select * FROM images LIMIT 6 OFFSET :off");
+        $stmt = $pdo->prepare("Select * FROM images ORDER BY `creation_date` DESC LIMIT 6 OFFSET :off");
         $stmt->bindParam(':off', $pageno, PDO::PARAM_INT);
         $stmt->execute();
         $row_div = new Element("div", false);

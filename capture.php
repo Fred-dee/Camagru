@@ -54,13 +54,15 @@ if ($_SESSION["login"] == "guest") {
                     <canvas id='canvasOver'name="overlay" style="display:none;" width="500px" height="375px"></canvas>
                 </div>
                 <div class="col-sm-12 col-md-6 text-center">
-                    <form action="<?php
+                    <form class="form-inline" action="<?php
                     echo "./upload.php?type=" . $_GET["type"];
                     ?>" method="post" enctype="multipart/form-data">
-                        Select image to upload:
-                        <input type="file" name="fileToUpload" id="fileToUpload" accept=".jpg, .jpeg, .png, .gif" />
-                        <input type="submit" value="Upload Image" name="submit" >
-                        <input type="button" value="clear" name="clear_input" class="btn btn-primary amber darken-4"/>
+						<div class="form-group">
+							<label for="fileToUpload"><i class="fa fa-upload">Browse..</i></label>
+                        	<input class="form-control" type="file" name="fileToUpload" id="fileToUpload" accept=".jpg, .jpeg, .png, .gif" style="visibility:hidden"/>
+						</div>
+                        <input class ="form-control btn btn-primary amber darken-3" type="submit" value="Upload Plain Image" name="submit" >
+                        <input class="form-control btn btn-primary amber darken-4" type="button" value="Clear Selection" name="clear_input" />
                     </form>
                     <button class="btn btn-primary grey darken-4" onclick="" id="btn_snap">Snap</button>
                     <div class="contained">
@@ -68,12 +70,6 @@ if ($_SESSION["login"] == "guest") {
                         </video>
                         <div class="resizable" id="input_resize" style="display:none">
                             <img id="img_input" src="" alt ="" class ="icon" style="display:inherit">
-                            <span class='resize-topright'></span>
-                            <span class='resize-topleft'></span>
-                            <span class='resize-bottomleft'></span>
-                            <span class='resize-bottomright'></span>
-                            <span class='resize-middleright'></span>
-                            <span class='resize-middleleft'></span>
                         </div>
                         <div class="overlay">
                         </div>

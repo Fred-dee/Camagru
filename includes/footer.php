@@ -8,7 +8,7 @@ if(!isset($_SESSION))
   <!-- Copyright -->
   <?php
   
-  if (basename($_SERVER['PHP_SELF']) != "capture.php" && basename($_SERVER['PHP_SELF']) != "login.php" )
+  if (basename($_SERVER['PHP_SELF']) == "index.php")
   {
   ?>    
   <div class="row bg-transparent text-dark" >
