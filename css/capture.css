@@ -4,11 +4,9 @@
     width: 100%;
     height: 100%;
     flex-direction: column;
-    border: 25px;
-    border-color: red;
+
     max-height: 100%;
     overflow: auto;
-	background-color: red;
 }
 
 .flex-col-item
@@ -25,17 +23,21 @@
     border-color: aqua;
 	
 }
-@media (max-width: 400px)
+@media (max-width: 480px)
 {
-	.flex-col
+	.flex-col 
 	{
 		display: flex;
-
 		flex-direction: row;
-		border: 25px;
-		border-color: red;
 		max-height: 100%;
 		overflow: auto;
+		background-color: aqua;
+	}
+	
+	.flex-col form
+	{
+		flex-direction: row;
+		flex-wrap: nowrap;
 	}
 
 	.flex-col-item
@@ -45,7 +47,6 @@
 		width: 250px;
 		max-width: 250px;
 		max-height: 250px;
-		overflow: auto;
 		margin-top: 1rem;
 		margin-bottom: 1rem;
 		border: 20px;
