@@ -29,7 +29,20 @@ function uploadSnaps()
     var formData = new FormData();
     var request = new XMLHttpRequest();
     var images = new Array();
-    for (var x = 0; x < carosel.childElementCount; x++) // flex-col-item
+	var limit;
+	var path;
+	
+	if (window.location.href.includes("type=propic"))
+	{
+		path = "merge.php?type=propic";
+		limit = 1;
+	}
+	else
+	{
+		limit = carosel.childElementCount;
+		path = "merge.php";
+	}
+    for (var x = 0; x < limit; x++) // flex-col-item
     {
         var pure_image = carosel.childNodes[x].querySelector("img[name='pure_image']");
         var overlays = carosel.childNodes[x].querySelectorAll("img[name='img_over']");
@@ -53,7 +66,7 @@ function uploadSnaps()
                 console.log(this.responseText);
             }
         };
-        request.open("POST", "merge.php", true);
+        request.open("POST", path, true);
         request.send(formData);
     }
     clearSnaps();

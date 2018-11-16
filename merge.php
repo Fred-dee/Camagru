@@ -46,11 +46,23 @@ if(isset($_POST["images"]))
 		$imgdir = "./imgs/trial".$_SESSSION["user_id"].".png";
 		imagepng($full_thing, $imgdir);
 		$final_image = base64_encode(file_get_contents($imgdir));
-		$stmt = $pdo->prepare("INSERT INTO `images` (`user_id`, `src`, `creation_date`, `type`) VALUES (:uid, :src, NOW(), 'png')");
-		$stmt->bindParam(":uid", $_SESSION["user_id"], PDO::PARAM_INT);
-		$stmt->bindParam(":src", $final_image, PDO::PARAM_STR);
-		$stmt->execute();
-		//imagedestroy($imgdir);
+		if(isset($_GET) && $_GET["type"] == "propic")
+		{
+
+			$stmt = $pdo->prepare("UPDATE users SET `avatar`=:img, `type`='png'WHERE id=:uid");
+			$stmt->bindParam(":img", $final_image, PDO::PARAM_STR);
+			$stmt->bindParam(":uid", $_SESSION["user_id"]);
+			$stmt->execute();
+		}
+		else
+		{
+			$stmt = $pdo->prepare("INSERT INTO `images` (`user_id`, `src`, `creation_date`, `type`) VALUES (:uid, :src, NOW(), 'png')");
+			$stmt->bindParam(":uid", $_SESSION["user_id"], PDO::PARAM_INT);
+			$stmt->bindParam(":src", $final_image, PDO::PARAM_STR);
+			$stmt->execute();
+		}
+		imagedestroy($full_thing);
+		unlink($imgdir);
 		echo "success";
 	}catch(\PDOException $e)
 	{

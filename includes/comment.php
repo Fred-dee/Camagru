@@ -37,7 +37,8 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] != "guest" && isset($_POST))
             $message = "User " . $_SESSION["login"] . ", has commented on your image saying:" . PHP_EOL . $msg . PHP_EOL . "Best\n Camagru Team";
 			$message = str_replace("\n.", "\n..", $message);
             $headers = 'From: noreply@camagru.com';
-            if (!mail($to_email, $subject, $message, $headers))
+			$bool = mail($to_email, $subject, $message, $headers);
+            if ($bool == false)
                 index_error(-1, "Was unable to send a notifcation");
 			else
 				valid_success(-1, "Comment was sent", "/index");

@@ -45,7 +45,7 @@ window.addEventListener("DOMContentLoaded", function () {
 		}
 		h -= document.documentElement.clientHeight;*/
         var h = Math.max(document.querySelector('.container-fluid').scrollHeight, window.innerHeight || 0) - document.documentElement.clientHeight;
-        console.log(h + " the offset " + (window.pageYOffset) + " the window,innerHeight: " + window.innerHeight);
+        //console.log(h + " the offset " + (window.pageYOffset) + " the window,innerHeight: " + window.innerHeight);
         if (window.pageYOffset >= h) {
             loadMore();
             //document.querySelector(".container-fluid").innerHTML += "<div style'height: 50px; width: 50px; background-color:red;'>Added</div>";

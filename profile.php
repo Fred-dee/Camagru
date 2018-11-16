@@ -2,6 +2,9 @@
 header('Content-Type: text/html');
 if (!isset($_SESSION))
     session_start();
+require_once('./config/database.php');
+require_once('./includes/Article.php');
+require_once('./includes/Element.php');
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,6 +22,7 @@ if (!isset($_SESSION))
         <?php
         require_once('./includes/main-includes.php');
         ?>
+		<script type="text/javascript" src="./js/profile.js"></script>
 		<link type="text/css" rel="stylesheet" href="./css/gallery.css">
     </head>
     <body>
@@ -30,37 +34,12 @@ if (!isset($_SESSION))
             require_once('./includes/profile-head.php');
             ?>
             <hr/>
-            <div class="row">
-                <div class ="col-xs-12">
-                    <?php
-                    require_once("./includes/Element.php");
-                    $div = new Element("div", false);
-                    $msg;
-                    $class;
-                    if (isset($_SESSION["errors"])) {
-                        $msg = $_SESSION["errors"]["errmsg"];
-                        $class = "alert alert-danger";
-                    }
-                    if (isset($_SESSION["success"])) {
-                        $msg = $_SESSION["success"]["message"];
-                        $class = "alert alert-success";
-                    }
-                    if (isset($_SESSION["errors"]) || isset($_SESSION["success"])) {
-                        $div->add_class($class);
-                        $div->add_text($msg);
-                        echo $div;
-                        unset($_SESSION["errors"]);
-                        unset($_SESSION["success"]);
-                    }
-                    ?>
-                </div>
-            </div>
+ 			<?php output_returns(); ?>
             <?php
-            require_once('./config/database.php');
-            require_once('./includes/Article.php');
-            require_once('./includes/Element.php');
+
 
             $pdo = DB::getConnection();
+			/*START PROGILE HEAD INFORMATION*/
             $stmt = $pdo->prepare("SELECT * FROM users WHERE user_name=:uname");
             $stmt->bindParam(":uname", $_SESSION["login"], PDO::PARAM_STR, 15);
             if (($result = $stmt->execute())) {
@@ -116,6 +95,7 @@ if (!isset($_SESSION))
                 echo $form;
                 echo "<hr/>";
             }
+			/*END PROFILE HEAD FORM*/
             $stmt = $pdo->prepare("Select * FROM images WHERE user_id=:uname");
             $stmt->bindParam(":uname", $_SESSION["user_id"], PDO::PARAM_STR);
             $stmt->execute();
@@ -168,7 +148,7 @@ if (!isset($_SESSION))
             $counter++;
         }
         array_push($body, $row_div);
-            foreach ($body as $key => $value) {
+		foreach ($body as $key => $value) {
                 echo $value;
             }
             ?>

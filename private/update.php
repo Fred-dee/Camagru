@@ -8,6 +8,8 @@ if (isset($_POST)) {
     $pdo = DB::getConnection();
     if (isset($_POST["reset"]) == null){
         $bool = intval($_POST["em_subs"]);
+		if ($bool != 1)
+			$bool = 0;
         $stmt = $pdo->prepare("UPDATE users SET first_name = :fname, last_name = :lname, email = :email, em_subs = :sub WHERE user_name = :uname");
         $stmt->bindParam(':fname', $_POST["first_name"], PDO::PARAM_STR, 25);
         $stmt->bindParam(':lname', $_POST["last_name"], PDO::PARAM_STR, 25);
@@ -15,7 +17,7 @@ if (isset($_POST)) {
         $stmt->bindParam(':uname', $_SESSION["login"], PDO::PARAM_STR, 25);
         $stmt->bindParam(':sub', $bool, PDO::PARAM_INT);
         if ($stmt->execute()) {
-            valid_success(-1, "Your information has been updated succesfully", "/profile");
+            valid_success(-1, "Your information has been updated succesfully".$bool, "/profile");
         } else
             profile_error(-1, "Could not update your profile");
     }
