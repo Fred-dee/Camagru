@@ -33,7 +33,13 @@ function uploadSnaps()
     {
         var pure_image = carosel.childNodes[x].querySelector("img[name='pure_image']");
         var overlays = carosel.childNodes[x].querySelectorAll("img[name='img_over']");
-
+		if (!(images instanceof Array))
+			images = new Array();
+		else
+		{
+			while(images.length != 0)
+				images.pop();
+		}
         images.push(pure_image.getAttribute("src"));
         for (var i = 0; i < overlays.length; i++)
             images.push(overlays[i].getAttribute("src"));

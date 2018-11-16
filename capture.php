@@ -11,7 +11,7 @@ if ($_SESSION["login"] == "guest") {
     <head>
         <title>Image Upload</title>
         <?php require_once './includes/main-includes.php'; ?>
-        <script src="./js/capture.js?1500" type="text/javascript"></script>
+        <script src="./js/capture.js?" type="text/javascript"></script>
         <link rel="stylesheet" type="text/css" href="./css/capture.css"/>
     </head>
     <body>
