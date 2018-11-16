@@ -20,7 +20,7 @@ if(isset($_POST["images"]))
 	imagesavealpha(full_thing , true);
 	$fw = imagesx($full_thing);
 	$fh = imagesx($full_thing);
-	echo "The Width is: ".$fw." and the Height is: ".$fh;
+	//echo "The Width is: ".$fw." and the Height is: ".$fh;
 	//ob_start();
 	foreach($all as $key => $value)
 	{
@@ -32,30 +32,30 @@ if(isset($_POST["images"]))
 		imagesavealpha($img, true);
 		$w = imagesx($img);
 		$h = imagesy($img);
-		
-		/*if($w > $fw || $h > $fw)
-		{
-			$aspect = $w/$h;
-			if ($w > $height)
-			{
-				$w = $fw;
-				$h = intval($fh / $aspect);
-			}
-			else
-			{
-				$h = $fh;
-				$w = intval($fh / $aspect);
-			}
-		}*/
 		$img = imagescale($img, $fw, $fh, IMG_GAUSSIAN);
 		$w = imagesx($img);
 		$h = imagesy($img);
-		echo "The Width is: ".$w." and the Height is: ".$h;
+		//echo "The Width is: ".$w." and the Height is: ".$h;
 		imagecopyresampled($full_thing, $img, 0, 0, 0, 0, $fw, $fh, $fw, $fh);
 		
 		
 	}
-	imagepng($full_thing, "./imgs/trial.png");
+
+	try
+	{
+		$imgdir = "./imgs/trial".$_SESSSION["user_id"].".png";
+		imagepng($full_thing, $imgdir);
+		$final_image = base64_encode(file_get_contents($imgdir));
+		$stmt = $pdo->prepare("INSERT INTO `images` (`user_id`, `src`, `creation_date`, `type`) VALUES (:uid, :src, NOW(), 'png')");
+		$stmt->bindParam(":uid", $_SESSION["user_id"], PDO::PARAM_INT);
+		$stmt->bindParam(":src", $final_image, PDO::PARAM_STR);
+		$stmt->execute();
+		//imagedestroy($imgdir);
+		echo "success";
+	}catch(\PDOException $e)
+	{
+		echo $e->getMessage();
+	}
 	//echo "success";
 	//echo (base64_encode(file_get_contents($full_thing)));
 }
