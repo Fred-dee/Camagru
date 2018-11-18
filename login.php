@@ -2,7 +2,14 @@
 if (!isset($_SESSION))
     session_start();
 if ($_SESSION["login"] != "guest")
+{
     header("location: ./index");
+    exit();
+}
+if (isset($_GET["autok"]))
+{
+
+}
 header('Content-type: text/html');
 ?>
 <!DOCTYPE html>

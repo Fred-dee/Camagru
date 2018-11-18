@@ -5,6 +5,9 @@ if (!isset($_SESSION)) {
 require_once('./includes/Article.php');
 require_once('./includes/Element.php');
 require_once('./config/database.php');
+require_once('./includes/mailer.php');
+
+
 header('Content-type: text/html');
 if (!isset($_SESSION["login"])) {
     $_SESSION["login"] = "guest";
@@ -27,6 +30,8 @@ $_SESSION["returnNull"] = false;
         <div class="container-fluid" >
             <?php
             output_returns();
+            $mail =  new Mailer();
+            echo $mail->get_setting("smtp_server");
             ?>
 
             <?php
@@ -35,12 +40,6 @@ $_SESSION["returnNull"] = false;
             foreach($body as $key => $value)
                 echo $value;
             ?>
-			<!--<div class ="row ">
-				<div class="col-xs-2 col-xs-offset-5">
-					<!-- <img class="img-responsive" src="./imgs/loading-png-transparent.png" alt="" style="width:10px; height:10px;"/> 
-					Loading
-				</div>
-			</div> -->
         </div>
             <?php require_once('./includes/footer.php'); ?>
     </body>

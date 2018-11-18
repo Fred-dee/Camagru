@@ -1,10 +1,11 @@
 <?php
+        //require_once '../includes/functions.php';
 	class DB
 	{
 		private static $host = 'localhost';
 		private static $db   = 'db_camagru';
 		private static $user = 'root';
-		private static $pass = 'password'; //password
+		private static $pass = ''; //password
 		private static $charset = 'utf8mb4';
 		public static $pdo = null;
 		
@@ -40,7 +41,8 @@
 			try {
 				 self::$pdo = new PDO($dsn, self::$user, self::$pass, $options);
 			} catch (\PDOException $e) {
-				 throw new \PDOException($e->getMessage(), (int)$e->getCode());
+				 //throw new \PDOException($e->getMessage(), (int)$e->getCode());
+                                 general_error((int)$e->getCode(), $e->getMessage(),"/index");
 			}
 		}
 	}

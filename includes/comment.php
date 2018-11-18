@@ -8,6 +8,7 @@ error_reporting(E_ALL);
 include_once('./functions.php');
 include_once('../config/database.php');
 include_once('./DIRS.php');
+require_once './mailer.php';
 if (isset($_SESSION["login"]) && $_SESSION["login"] != "guest" && isset($_POST)) {
     $img_id = (int) htmlspecialchars($_POST["img_id"]);
     $type = "comment";
@@ -35,13 +36,31 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] != "guest" && isset($_POST))
             $to_mail = $row["email"];
             $subject = "You have unread Comments";
             $message = "User " . $_SESSION["login"] . ", has commented on your image saying:" . PHP_EOL . $msg . PHP_EOL . "Best\n Camagru Team";
-			$message = str_replace("\n.", "\n..", $message);
+            $message = str_replace("\n.", "\n..", $message);
             $headers = 'From: noreply@camagru.com';
-			$bool = mail($to_email, $subject, $message, $headers);
+            
+            $myMail = new Mailer();
+            
+            $arr_var = array(
+                "to" => $row["email"],
+                "subject" => "You have unread Comments",
+                "message" => $message,
+                "from" => "noreply@camagru.com",
+                "isSMTP" => true,
+                "username" => "fred.dilapisho@gmail.com",
+                "password" => "Dilapisho#15",
+                "smtp_port" => 587,
+                "server" => "smtp.gmail.com"
+                
+            );
+            $myMail->set_variables($arr_var);
+            //$bool = mail($to_email, $subject, $message, $headers);
+            $bool = $myMail->send();
+            //$mail->get_setting("smtp_server");
             if ($bool == false)
-                index_error(-1, "Was unable to send a notifcation");
-			else
-				valid_success(-1, "Comment was sent", "/index");
+                index_error(-1, "Was unable to send a notifcation ".$myMail->get_setting("smtp_server"));
+            else
+                valid_success(-1, "Comment was sent", "/index");
         }
         header("location: " . ROOT_DIR . "/index");
     } catch (\PDOException $e) {
