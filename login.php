@@ -17,6 +17,7 @@ header('Content-type: text/html');
     <head>
         <title>Login/Sign-up</title>
         <?php require_once('./includes/main-includes.php'); ?>
+        <script src="./js/login.js" type="text/javascript"></script>
     </head>
     <body class="container-fluid">
         <div class="row">
@@ -26,7 +27,7 @@ header('Content-type: text/html');
 			<!--col-md-6 col-lg-offset-1 col-lg-5-->
             <div class ="col-xs-12 col-md-offset-1 col-md-5 col-lg-offset col-lg-5">
                 <h1>Login</h1>
-                <form method="post" action="./private/login_check">
+                <form method="post" action="./private/login_check" id ="form_login">
                     <div class="form-group">
                         <label for="lusername">Username/email</label>
                         <input class= "form-control"type="text" name="lusername" required />
@@ -50,7 +51,7 @@ header('Content-type: text/html');
 
             <div class="col-xs-12 col-md-5">
                 <h1>Sign up</h1>
-                <form method="POST" action="./private/login_check">
+                <form method="POST" action="./private/login_check" id="form_register">
                     <div class="form-group">
                         <label for="s_fname">First Name:</label>
                         <input class="form-control" type="text" name="s_fname" id="s_fname" required />
