@@ -6,10 +6,10 @@ require_once("../config/database.php");
 require_once("../includes/functions.php");
 if (isset($_POST)) {
     $pdo = DB::getConnection();
-    if (isset($_POST["reset"]) == null){
+    if (isset($_POST["reset"]) == null) {
         $bool = intval($_POST["em_subs"]);
-		if ($bool != 1)
-			$bool = 0;
+        if ($bool != 1)
+            $bool = 0;
         $stmt = $pdo->prepare("UPDATE users SET first_name = :fname, last_name = :lname, email = :email, em_subs = :sub WHERE user_name = :uname");
         $stmt->bindParam(':fname', $_POST["first_name"], PDO::PARAM_STR, 25);
         $stmt->bindParam(':lname', $_POST["last_name"], PDO::PARAM_STR, 25);
@@ -17,7 +17,7 @@ if (isset($_POST)) {
         $stmt->bindParam(':uname', $_SESSION["login"], PDO::PARAM_STR, 25);
         $stmt->bindParam(':sub', $bool, PDO::PARAM_INT);
         if ($stmt->execute()) {
-            valid_success(-1, "Your information has been updated succesfully".$bool, "/profile");
+            valid_success(-1, "Your information has been updated succesfully" . $bool, "/profile");
         } else
             profile_error(-1, "Could not update your profile");
     }
@@ -26,10 +26,9 @@ if (isset($_POST)) {
         $uppercase = preg_match('@[A-Z]@', $pass);
         $lowercase = preg_match('@[a-z]@', $pass);
         $number = preg_match('@[0-9]@', $pass);
-		if (!$uppercase || !$lowercase || !$number || strlen($pass) < 8)
-		{
-            general_error(1, "Password should contain at least one upper case, one lowercase one digit and a special character. Password must be of length 8 and above", "/forgot?reset=".$_POST["reset"]);
-		}
+        if (!$uppercase || !$lowercase || !$number || strlen($pass) < 8) {
+            general_error(1, "Password should contain at least one upper case, one lowercase one digit and a special character. Password must be of length 8 and above", "/forgot?reset=" . $_POST["reset"]);
+        }
         if ($_POST["reset"] == "update") {
             $stmt = $pdo->prepare("SELECT hash FROM users WHERE user_name=:uname");
             $stmt->bindParam(':uname', $_SESSION["login"], PDO::PARAM_STR);
@@ -67,7 +66,7 @@ if (isset($_POST)) {
                     } else
                         general_error(-1, "The new passwords you have entered do not match.", "/forgot?reset=reset");
                 } else
-                    general_error(-1, "Invalid Username", "/forgot?reset=reset");
+                    general_error(-1, "Invalid Username:".$stmt->rowCount()." ".$_POST["username"], "/forgot?reset=reset");
             } catch (\PDOexception $e) {
                 general_error((int) $e->getCode(), $e->getMessage(), "/forgot?reset=reset");
             }

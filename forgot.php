@@ -50,22 +50,21 @@ require_once './config/database.php';
                         );
                     } elseif ($_GET["reset"] == "forgot") {
                         if (isset($_GET["bar"])) {
-                            
+
                             $link = $_GET["bar"];
-                            $split = preg_split("/##/", base64_decode($link));
-                            try 
-                            {
+                            $split = preg_split("/delimiter/", base64_decode($link));
+                            try {
                                 $stmt = $pdo->prepare("SELECT forgot_key FROM `users` WHERE user_name=:uid");
-                                $stmt->bindParam(":uid",$split[0], PDO::PARAM_STR);
+                                $stmt->bindParam(":uid", $split[0], PDO::PARAM_STR);
                                 $stmt->execute();
-                                
+
                                 $saved_key = $stmt->fetch(PDO::FETCH_ASSOC);
-                                if (!password_verify($split[1], $saved_key["forgot_key"]))
-                                {
-                                        throw new \PDOException("Incorrect URL: ".$split[1], -1);
+                                //if (!password_verify($split[1], $saved_key["forgot_key"]))
+                                if (!$split[1] === $saved_key["forgot_key"]) {
+                                    throw new \PDOException("Incorrect URL: " . $split[1], -1);
                                 }
                             } catch (\PDOException $ex) {
-                                echo "<script>alert('".$ex->getMessage()."')</script>";
+                                echo "<script>alert('" . $ex->getMessage() . "')</script>";
                                 exit();
                             }
                             $first_attrs = array(
@@ -73,7 +72,6 @@ require_once './config/database.php';
                                 "name" => "username",
                                 "class" => "form-control",
                                 "id" => "username",
-                                "disabled" => "true",
                                 "value" => $split[0]
                             );
                             $fl = array("for" => "username");
@@ -88,6 +86,10 @@ require_once './config/database.php';
                         }
                     }
                     $fg = new form_group($first_attrs, $fl, $ft);
+                    if ($_GET["reset"] == "forgot") {
+                        $arr = $fg->get_children();
+                        $arr[1]->add_inlineattr("readonly");
+                    }
                     $form->add_child($fg);
                     $attrs = array(
                         "type" => "password",
@@ -116,6 +118,6 @@ require_once './config/database.php';
                 </div>
             </div>
         </div>
-<?php require_once './includes/footer.php' ?>
+                    <?php require_once './includes/footer.php' ?>
     </body>
 </html>
