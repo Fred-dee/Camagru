@@ -48,7 +48,7 @@ header('Content-type: text/html');
                 ?>
             </div>
 
-            <div class="col-xs-12 col-md-5 >
+            <div class="col-xs-12 col-md-5">
                 <h1>Sign up</h1>
                 <form method="POST" action="./private/login_check">
                     <div class="form-group">
