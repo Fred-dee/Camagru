@@ -15,7 +15,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 			$stmt = $pdo->prepare("DELETE FROM images WHERE id=:iid");
 			$stmt->bindParam(":iid", $_POST["img_id"], PDO::PARAM_INT);
 			$stmt->execute();
-			echo "Successfully removed image"
+			echo "Successfully removed image";
 			//valid_success(1, "Succefully removed image.", "/profile");
 		}
 		catch(\PDOException $e)

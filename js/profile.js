@@ -26,7 +26,14 @@ window.addEventListener("DOMContentLoaded", function(){
 		request.onreadystatechange = function()
 		{
 			if (this.readyState == 4 && this.status == 200)
-			{}
+			{
+				if (this.responseText == "Successfully removed image")
+				{
+					document.removeChild(this.parentNode);
+				}
+				else
+					console.log(this.responseText);
+			}
 		}
 		
 		request.open("POST", "./includes/deleteimg.php", true);
