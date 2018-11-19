@@ -38,7 +38,7 @@ header('Content-type: text/html');
                     </div>
                     <input class="form-control btn btn-primary" name="submit" type="submit" value="Login" />
                 </form>
-                <a href="./forgot?reset=forgot">Forgot Password?</a>
+                <a href="./forgot?reset=forgot" name="forgot_link">Forgot Password?</a>
                 <?php
                 if (isset($_SESSION["errors"])) {
                     if ($_SESSION["errors"]["errno"] == 0) {
@@ -62,7 +62,7 @@ header('Content-type: text/html');
                     </div>
                     <div class="form-group">
                         <label for="s_username">User Name:</label>
-                        <input class="form-control" type="text" name="s_username" id="s_username" required />
+                        <input class="form-control" type="text" name="s_username" id="s_username" required minlength="4"/>
                     </div>
                     <div class="form-group">
                         <label for="s_email">Email:</label>

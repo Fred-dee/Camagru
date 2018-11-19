@@ -5,6 +5,7 @@ header("Content-Type: tect/html");
 require_once './includes/functions.php';
 require_once './includes/Element.php';
 require_once './includes/form_group.php';
+require_once './config/database.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,6 +29,7 @@ require_once './includes/form_group.php';
                     $btn_attrs = array();
                     $fl = array();
                     $ft;
+                    $pdo = DB::getConnection();
                     if (isset($_GET["reset"]) && $_GET["reset"] == "update") {
                         $first_attrs = array(
                             "type" => "password",
@@ -47,22 +49,43 @@ require_once './includes/form_group.php';
                             "value" => "update"
                         );
                     } elseif ($_GET["reset"] == "forgot") {
-                        $first_attrs = array(
-                            "type" => "text",
-                            "name" => "username",
-                            "class" => "form-control",
-                            "id" => "username",
-                            "required" => "true"
-                        );
-                        $fl = array("for" => "username");
-                        $ft = "Username: ";
-                        $btn_attrs = array(
-                            "type" => "submit",
-                            "name" => "reset",
-                            "class" => "form-control btn  grey darken-4",
-                            "id" => "reset",
-                            "value" => "reset"
-                        );
+                        if (isset($_GET["bar"])) {
+                            
+                            $link = $_GET["bar"];
+                            $split = preg_split("/##/", base64_decode($link));
+                            try 
+                            {
+                                $stmt = $pdo->prepare("SELECT forgot_key FROM `users` WHERE user_name=:uid");
+                                $stmt->bindParam(":uid",$split[0], PDO::PARAM_STR);
+                                $stmt->execute();
+                                
+                                $saved_key = $stmt->fetch(PDO::FETCH_ASSOC);
+                                if (!password_verify($split[1], $saved_key["forgot_key"]))
+                                {
+                                        throw new \PDOException("Incorrect URL: ".$split[1], -1);
+                                }
+                            } catch (\PDOException $ex) {
+                                echo "<script>alert('".$ex->getMessage()."')</script>";
+                                exit();
+                            }
+                            $first_attrs = array(
+                                "type" => "text",
+                                "name" => "username",
+                                "class" => "form-control",
+                                "id" => "username",
+                                "disabled" => "true",
+                                "value" => $split[0]
+                            );
+                            $fl = array("for" => "username");
+                            $ft = "Username: ";
+                            $btn_attrs = array(
+                                "type" => "submit",
+                                "name" => "reset",
+                                "class" => "form-control btn  grey darken-4",
+                                "id" => "reset",
+                                "value" => "reset"
+                            );
+                        }
                     }
                     $fg = new form_group($first_attrs, $fl, $ft);
                     $form->add_child($fg);
@@ -73,7 +96,7 @@ require_once './includes/form_group.php';
                         "id" => "npsswd",
                         "required" => "true"
                     );
-                    $fg = new form_group($attrs, array("for" => "npsswd"), "Password:");
+                    $fg = new form_group($attrs, array("for" => "npsswd"), "New Password:");
                     $form->add_child($fg);
 
                     $attrs = array(
