@@ -83,6 +83,8 @@ if (isset($_POST["submit"])) {
                         login_error(0, "Please follow the link in your mail to verify your account [Mail might be in spam folder]");
                     $_SESSION["login"] = $username;
                     $_SESSION["user_id"] = (int) $row["id"];
+					$now = new DateTime();
+					$_SESSION["SESSION_KEY"] = password_hash($_SESSION["login"].$now->format('Y-m-d-H-i-s'), PASSWORD_DEFAULT);
                     header("location: ../index");
                     exit();
                 } else

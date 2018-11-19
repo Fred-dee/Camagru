@@ -37,6 +37,7 @@ if ($_SESSION["login"] == "guest") {
 							<label for="fileToUpload"><i class="fa fa-upload">Browse..</i></label>
                         	<input class="form-control" type="file" name="fileToUpload" id="fileToUpload" accept=".jpg, .jpeg, .png, .gif" style="visibility:hidden"/>
 						</div>
+						<input name="session_key" value="<?php echo $_SESSION['SESSION_KEY']?>" hidden/>
                         <input class ="form-control btn btn-primary amber darken-3" type="submit" value="Upload Plain Image" name="submit" >
                         <input class="form-control btn btn-primary amber darken-4" type="button" value="Clear Selection" name="clear_input" />
                     </form>

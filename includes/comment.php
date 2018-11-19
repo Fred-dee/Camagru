@@ -37,7 +37,7 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] != "guest" && isset($_POST))
             $subject = "You have unread Comments";
             $message = "User " . $_SESSION["login"] . ", has commented on your image saying:" . PHP_EOL . $msg . PHP_EOL . "Best\n Camagru Team";
             $message = str_replace("\n.", "\n..", $message);
-            $headers = 'From: noreply@camagru.com';
+            $headers = 'FROM: fred.dilapisho@gmail.com';
             
             $myMail = new Mailer();
             
@@ -51,14 +51,13 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] != "guest" && isset($_POST))
                 "password" => "Dilapisho#15",
                 "smtp_port" => 587,
                 "server" => "smtp.gmail.com"
-                
             );
-            $myMail->set_variables($arr_var);
-            //$bool = mail($to_email, $subject, $message, $headers);
-            $bool = $myMail->send();
-            //$mail->get_setting("smtp_server");
+            //$myMail->set_variables($arr_var);
+            $bool = mail($to_mail, $subject, $message, $headers);
+            //$bool = $myMail->send();
+           	//$mail->get_setting("smtp_server");
             if ($bool == false)
-                index_error(-1, "Was unable to send a notifcation ".$myMail->get_setting("smtp_server"));
+                index_error(-1, "Was unable to send a notifcation ".$row["email"]);
             else
                 valid_success(-1, "Comment was sent", "/index");
         }

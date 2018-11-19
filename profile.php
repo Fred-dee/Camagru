@@ -48,7 +48,7 @@ require_once('./includes/Element.php');
                 $form->add_attribute("action", "./private/update");
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 foreach ($row as $key => $value) {
-                    if ($key != "hash" && $key != "avatar" && $key != "id" && $key != "user_name" && $key != "type" && $key != "em_subs") {
+                    if ($key != "hash" && $key != "avatar" && $key != "id" && $key != "user_name" && $key != "type" && $key != "em_subs" && $key != "verified" && $key != "verification_key") {
                         $fg = new Element("div", false);
                         $fg->add_class("form-group");
                         $lb = new Element("label", false);
@@ -125,6 +125,13 @@ require_once('./includes/Element.php');
                     "avatar_src" => $pro_pic,
                 );
                 $art = new Article($data);
+				$btn_del =  new Element("button", false);
+				$btn_del->add_text("Delete");
+				$arr = array (
+					"class" => "btn btn-primary grey darken-4 delete-par",
+				);
+				$btn_del->add_attributes($arr);
+				$art->add_child($btn_del);
                 $art->add_attribute("id", $row["id"] . "art");
                 array_push($articles, $art);
             }
