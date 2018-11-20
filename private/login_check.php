@@ -31,12 +31,14 @@ if (isset($_POST["submit"])) {
             if ($numrows != 0) {
                 login_error(1, "Username already exists");
             } else {
-                if (cpass != password) {
+                if ($cpass != $password) {
                     login_error(1, "Passwords do not match");
                 } else {
                     $hashed = password_hash($password, PASSWORD_DEFAULT);
                     $now = new DateTime();
-                    $verification_code = password_hash($username.$email.$fname.$now->format('Y-m-d-H-i-s'), PASSWORD_DEFAULT);
+					$len = 10;
+					$strong = 10;
+                    $verification_code = openssl_random_pseudo_bytes($len, $strong);
                     $stmt = $pdo->prepare("INSERT INTO users (`user_name`, `first_name`, `last_name`, `email`, `hash`, `verification_key`) VALUES
                         (:uname, :fname, :lname, :email, :hash, :veri)
                         ");
@@ -48,17 +50,18 @@ if (isset($_POST["submit"])) {
                     $stmt->bindParam(':veri', $verification_code, PDO::PARAM_STR);
                     try {
                         $stmt->execute();
-                        $_SESSION["login"] = $username;
+                        //$_SESSION["login"] = $username;
                         $stmt = $pdo->prepare("SELECT id FROM users WHERE user_name=:uname");
                         $stmt->bindParam(':uname', $username, PDO::PARAM_STR, 15);
                         $stmt->execute();
                         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-                        $_SESSION["user_id"] = (int) $row["id"];
-                        
+                        //$_SESSION["user_id"] = (int) $row["id"];
+                        $link = "localhost:8080/Camagru/private/activate.php?bar=". base64_encode($username."delimiter".$verification_code);
                         /*
                          * Remember to send out an email here with verification auth details
                          */
-                        header("location: ../index");
+                        //header("location: ../index");
+						valid_success(1, "Activation Email sent, please check your mail: ".$link , "/index");
                         exit();
                     } catch (PDOException $e) {
                         login_error(1, $e->getMessage());

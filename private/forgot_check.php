@@ -2,6 +2,9 @@
 
 if (!isset($_SESSION))
     session_start();
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 require_once('../config/database.php');
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -29,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         } else
             echo json_encode(array("status" => "failure", "data" => "Was unable to generate a link"));
     } catch (\PDOException $ex) {
-        echo json_encode(array("status" => "error", "data" => $e->getMessage()));
+        echo json_encode(array("status" => "error", "data" => $ex->getMessage()));
     }
 }
 ?>
