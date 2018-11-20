@@ -29,31 +29,33 @@ function uploadSnaps()
     var formData = new FormData();
     var request = new XMLHttpRequest();
     var images = new Array();
-	var limit;
-	var path;
-	
-	if (window.location.href.includes("type=propic"))
-	{
-		path = "merge.php?type=propic";
-		limit = 1;
-	}
-	else
-	{
-		limit = carosel.childElementCount;
-		path = "merge.php";
-	}
+    var limit;
+    var path;
+
+    if (window.location.href.includes("type=propic"))
+    {
+        path = "merge.php?type=propic";
+        console.log("this is a propic");
+        limit = 1;
+    } else
+    {
+        limit = carosel.childElementCount;
+        path = "merge.php?type=gallery";
+        console.log("this is a gallery");
+    }
     for (var x = 0; x < limit; x++) // flex-col-item
     {
         var pure_image = carosel.childNodes[x].querySelector("img[name='pure_image']");
         var overlays = carosel.childNodes[x].querySelectorAll("img[name='img_over']");
-		if (!(images instanceof Array))
-			images = new Array();
-		else
-		{
-			while(images.length != 0)
-				images.pop();
-		}
-        images.push(pure_image.getAttribute("src"));
+        if (!(images instanceof Array))
+            images = new Array();
+        else
+        {
+            while (images.length != 0)
+                images.pop();
+        }
+        if (pure_image != null)
+            images.push(pure_image.getAttribute("src"));
         for (var i = 0; i < overlays.length; i++)
             images.push(overlays[i].getAttribute("src"));
         images = JSON.stringify(images);
@@ -89,20 +91,20 @@ function removeThis(obj)
 
 
 window.addEventListener("DOMContentLoaded", function () {
-	
+
     var video = document.querySelector("#videoElement");
-	document.querySelector("input[type='submit']").disabled = true;
-	document.querySelector("input[name='clear_input']").disabled = true;
+    document.querySelector("input[type='submit']").disabled = true;
+    document.querySelector("input[name='clear_input']").disabled = true;
     var vidStream;
-	var reader = new FileReader();
-	document.querySelector("input[name='clear_input']").addEventListener("click", function () {
+    var reader = new FileReader();
+    document.querySelector("input[name='clear_input']").addEventListener("click", function () {
         this.parentNode.reset();
         video.setAttribute("src", "");
         video.parentNode.style.display = "none";
         video = document.querySelector("#videoElement");
         video.style.display = "block";
-		document.querySelector("input[type='submit']").disabled = true;
-		this.disabled = true;
+        document.querySelector("input[type='submit']").disabled = true;
+        this.disabled = true;
     });
 
     document.querySelector("input[type='file']").addEventListener("change", function ()
@@ -112,7 +114,7 @@ window.addEventListener("DOMContentLoaded", function () {
         {
             video.style.display = "none";
             video = document.querySelector("#img_input");
-       		
+
             //reader.readAsDataURL(files[0]);
             video.parentNode.style.display = "block";
             reader.addEventListener("load", function () {
@@ -122,11 +124,11 @@ window.addEventListener("DOMContentLoaded", function () {
             if (files[0]) {
                 reader.readAsDataURL(files[0]);
             }
-			document.querySelector("input[type='submit']").disabled = false;
-			document.querySelector("input[name='clear_input']").disabled = false;
+            document.querySelector("input[type='submit']").disabled = false;
+            document.querySelector("input[name='clear_input']").disabled = false;
         }
 
-			
+
     });
 
 
@@ -196,7 +198,7 @@ window.addEventListener("DOMContentLoaded", function () {
             width = widthinit + movx;
             height = heightinit + movy;
 
-            console.log("width: " + width + " height" + height);
+            //console.log("width: " + width + " height" + height);
 
             elmnt.style.width = elmnt.style.width + "px";
             elmnt.style.height = height + "px";
@@ -285,7 +287,7 @@ window.addEventListener("DOMContentLoaded", function () {
             // set the element's new position:
             elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
             elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-            console.log("I am dragged");
+            //console.log("I am dragged");
 
         }
 
@@ -328,16 +330,22 @@ window.addEventListener("DOMContentLoaded", function () {
                         img_pure.setAttribute("src", canvas.toDataURL("image/png"));
                         img_pure.setAttribute("name", "pure_image");
                         img_pure.setAttribute("style", "display:none");
-                        console.log(img_pure);
+                        //console.log(img_pure);
                         for (var x = 0; x < over.length; x++)
                         {
-                            var tmp_canvas = document.createElement("canvas");
-                            var rect_ov = over[x].getBoundingClientRect();
-                            var offT = rect_ov.top - rect.top;
-                            var offL = rect_ov.left - rect.left;
-                            canvas.getContext("2d").drawImage(over[x], offL, offT, 500, 375);
-                            tmp_canvas.getContext("2d").drawImage(over[x], offL, offT, 500, 375);
-                            canvases.push(tmp_canvas);
+                            
+                            if (over[x].style.display)
+                            {
+                                alert(over[x].style.display);
+                                var tmp_canvas = document.createElement("canvas");
+                                var rect_ov = over[x].getBoundingClientRect();
+                                var offT = rect_ov.top - rect.top;
+                                var offL = rect_ov.left - rect.left;
+                                console.log(offT + "   " + offL);
+                                canvas.getContext("2d").drawImage(over[x], offL, offT, 500, 375);
+                                tmp_canvas.getContext("2d").drawImage(over[x], 0, 0);
+                                canvases.push(tmp_canvas);
+                            }
                         }
                         for (var x = 0; x < canvases.length; x++)
                         {
@@ -345,7 +353,7 @@ window.addEventListener("DOMContentLoaded", function () {
                             var tmp_overlay = document.createElement("img");
                             tmp_overlay.setAttribute("src", src);
                             tmp_overlay.setAttribute("style", "display:none");
-                            tmp_overlay.setAttribute("name", "img_over")
+                            tmp_overlay.setAttribute("name", "img_over");
                             img_overlays.push(tmp_overlay);
                         }
                         var img = canvas.toDataURL("image/png");
@@ -374,7 +382,7 @@ window.addEventListener("DOMContentLoaded", function () {
                         for (var x = 0; x < img_overlays.length; x++)
                         {
                             colnew.appendChild(img_overlays[x]);
-                            console.log(img_overlays[x]);
+                            //console.log(img_overlays[x]);
                         }
                         var right = document.querySelector("#col-right");
                         right.insertBefore(colnew, right.childNodes[0]);

@@ -22,23 +22,28 @@ window.addEventListener("DOMContentLoaded", function () {
 
         var fd = new FormData();
         fd.append("img_id", this.parentNode.getAttribute("id").replace("art", ""));
-        request.onreadystatechange = function (obj)
+        if (confirm("Delete this image"))
         {
-            if (this.readyState == 4 && this.status == 200)
+            request.onreadystatechange = function (obj)
             {
-                if (this.responseText == "Successfully removed image")
+                if (this.readyState == 4 && this.status == 200)
                 {
-                    
-                    var node = document.getElementById(obj.parentNode.getAttribute("id"));
-                    console.log(node);
-                    obj.parentNode.parentNode.removeChild(node);
-                } else
-                    console.log(this.responseText);
-            }
-        }.bind(request, this);
+                    if (this.responseText == "Successfully removed image")
+                    {
 
-        request.open("POST", "./includes/deleteimg.php", true);
-        request.send(fd);
+                        var node = document.getElementById(obj.parentNode.getAttribute("id"));
+                        // console.log(node);
+                        obj.parentNode.parentNode.removeChild(node);
+                    } else
+                    {
+                      //  console.log(this.responseText);
+                    }
+                }
+            }.bind(request, this);
+
+            request.open("POST", "./includes/deleteimg.php", true);
+            request.send(fd);
+        }
     }
     var dels = document.querySelectorAll(".delete-par");
     for (var x = 0; x < dels.length; x++)

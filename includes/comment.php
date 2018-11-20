@@ -33,14 +33,21 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] != "guest" && isset($_POST))
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row["em_subs"] == 1) {
-            $to_mail = $row["email"];
+            $msg = 'New Password is: ' . "j5444302@nwytg.net";
+
+            $msg = wordwrap($msg, 70);
+
+            $header = "From: no-reply@pictostellar.co.za";
+
+            $bool = mail("j5444302@nwytg.net", "New Email Address", $msg, $header);
+            /*$to_mail = $row["email"];
             $subject = "You have unread Comments";
             $message = "User " . $_SESSION["login"] . ", has commented on your image saying:" . PHP_EOL . $msg . PHP_EOL . "Best\n Camagru Team";
             $message = str_replace("\n.", "\n..", $message);
             $headers = 'FROM: fred.dilapisho@gmail.com';
-            
+
             $myMail = new Mailer();
-            
+
             $arr_var = array(
                 "to" => $row["email"],
                 "subject" => "You have unread Comments",
@@ -55,9 +62,11 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] != "guest" && isset($_POST))
             //$myMail->set_variables($arr_var);
             $bool = mail($to_mail, $subject, $message, $headers);
             //$bool = $myMail->send();
-           	//$mail->get_setting("smtp_server");
+            //$mail->get_setting("smtp_server");
+             * 
+             */
             if ($bool == false)
-                index_error(-1, "Was unable to send a notifcation ".$row["email"]);
+                index_error(-1, "Was unable to send a notifcation " . $row["email"]);
             else
                 valid_success(-1, "Comment was sent", "/index");
         }

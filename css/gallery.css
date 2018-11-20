@@ -38,7 +38,7 @@ article .comment_section
 }
 .gal-grid-thirds {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     flex-wrap: nowrap;
     max-width: inherit;
     max-height: 50%;
