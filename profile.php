@@ -41,7 +41,7 @@ require_once('./includes/Element.php');
             $pdo = DB::getConnection();
 			/*START PROGILE HEAD INFORMATION*/
             $stmt = $pdo->prepare("SELECT "
-                    . "`first_name` AS `First Name`, `last_name` AS `Last Name`,  `email` as `Email Address`, em_subs  FROM users WHERE user_name=:uname");
+                    . "`user_name` AS `Username`, `first_name` AS `First Name`, `last_name` AS `Last Name`,  `email` as `Email Address`, em_subs  FROM users WHERE user_name=:uname");
             $stmt->bindParam(":uname", $_SESSION["login"], PDO::PARAM_STR, 15);
             if (($result = $stmt->execute())) {
                 $form = new Element("form", false);

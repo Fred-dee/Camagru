@@ -11,13 +11,30 @@ if (isset($_POST)) {
         if ($bool != 1)
             $bool = 0;
         $stmt = $pdo->prepare("UPDATE users SET first_name = :fname, last_name = :lname, email = :email, em_subs = :sub WHERE user_name = :uname");
-        $stmt->bindParam(':fname', $_POST["first_name"], PDO::PARAM_STR, 25);
-        $stmt->bindParam(':lname', $_POST["last_name"], PDO::PARAM_STR, 25);
-        $stmt->bindParam(':email', $_POST["email"], PDO::PARAM_STR);
+        $stmt->bindParam(':fname', $_POST["First_Name"], PDO::PARAM_STR, 25);
+        $stmt->bindParam(':lname', $_POST["Last_Name"], PDO::PARAM_STR, 25);
+        $stmt->bindParam(':email', $_POST["Email_Address"], PDO::PARAM_STR);
         $stmt->bindParam(':uname', $_SESSION["login"], PDO::PARAM_STR, 25);
         $stmt->bindParam(':sub', $bool, PDO::PARAM_INT);
         if ($stmt->execute()) {
-            valid_success(-1, "Your information has been updated succesfully" . $bool, "/profile");
+			$append = "";
+			if($_POST["Username"] != $_SESSION["login"])
+			{
+				$stmt = $pdo->prepare("SELECT * FROM `users` WHERE user_name= :uname");
+				$stmt->bindParam(":uname", $_POST["Username"], PDO::PARAM_STR);
+				$stmt->execute();
+				if($stmt->rowCount() == 0)
+				{
+					$stmt = $pdo->prepare("UPDATE `users` SET user_name=:uname WHERE user_name=:old_name");
+					$stmt->bindParam(":uname", $_POST["Username"], PDO::PARAM_STR, 15);
+					$stmt->bindParam(":old_name", $_SESSION["login"], PDO::PARAM_STR, 15);
+					$stmt->execute();
+					$_SESSION["login"] = htmlspecialchars($_POST["Username"]);
+				}
+				else
+					$append = ". However we were unable to change your username as a user by that name already exists.";
+			}
+            valid_success(-1, "Your information has been updated succesfully".$append, "/profile");
         } else
             profile_error(-1, "Could not update your profile");
     }
