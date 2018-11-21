@@ -14,4 +14,5 @@ header('Content-Type: text/html');
 <link rel="stylesheet" href="./css/mdb.min.css" type="text/css" />
 <link rel="stylesheet" href="./css/main.css" type="text/css" />
 <script src="./js/links.js" type="text/javascript" ></script>
+<script src="./js/alert_gen.js" type="text/javascript"></script>
 <!--<link rel="manifest" href="./manifest.webmanifest">-->

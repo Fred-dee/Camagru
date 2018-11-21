@@ -51,6 +51,7 @@ window.addEventListener("DOMContentLoaded", function () {
                         numlikes -= 1;
                     }
                     span.textContent = numlikes.toString();
+					genAlert("alert-success", "Liked");
                 }
                 // make an error div
             }

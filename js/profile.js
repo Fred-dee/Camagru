@@ -34,6 +34,7 @@ window.addEventListener("DOMContentLoaded", function () {
                         var node = document.getElementById(obj.parentNode.getAttribute("id"));
                         // console.log(node);
                         obj.parentNode.parentNode.removeChild(node);
+						genAlert("alert-success", "Image Succesfully Deleted");
                     } else
                     {
                       //  console.log(this.responseText);
