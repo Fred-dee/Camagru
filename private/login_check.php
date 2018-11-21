@@ -60,8 +60,18 @@ if (isset($_POST["submit"])) {
                         /*
                          * Remember to send out an email here with verification auth details
                          */
-                        //header("location: ../index");
-						valid_success(1, "Activation Email sent, please check your mail: ".$link , "/index");
+                       	$to_mail = $email;
+						$header = "FROM: noreply@camagru.com";
+						$msg = "Welcome to Camagru:".PHP_EOL."Your username is: ".$username.PHP_EOL."To activate your account please follow the following link:".PHP_EOL.$link.PHP_EOL."Best\nCamagru Team";
+						$msg = str_replace("\n.", "\n..", $msg);
+						$subject = "Account Activation";
+						$bool = mail($to_mail, $subject, $msg, $header);
+						if ($bool)
+							valid_success(1, "Activation Email sent, please check your mail: ", "/index");
+						else
+							general_error(-1, "Account Created, Could not send activation email.", "/index");
+						
+						
                         exit();
                     } catch (PDOException $e) {
                         login_error(1, $e->getMessage());

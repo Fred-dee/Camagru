@@ -27,7 +27,7 @@ window.addEventListener("DOMContentLoaded", function ()
             request.onreadystatechange = function ()
             {
                 if (this.readyState == 4 && this.status == 200) {
-
+					console.log(this.responseText);
                     var response = JSON.parse(this.responseText);
                     if (response["status"] == "success")
                     {

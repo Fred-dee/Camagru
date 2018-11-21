@@ -36,7 +36,7 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] != "guest" && isset($_POST))
             $subject = "You have unread Comments";
             $message = "User " . $_SESSION["login"] . ", has commented on your image saying:" . PHP_EOL . $msg . PHP_EOL . "Best\nCamagru Team";
             $message = str_replace("\n.", "\n..", $message);
-            $headers = 'FROM: fred.dilapisho@gmail.com';
+            $headers = 'FROM: noreply@camagru.com';
 
             $bool = mail($to_mail, $subject, $message, $headers);
 
