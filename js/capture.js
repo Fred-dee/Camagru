@@ -97,6 +97,8 @@ window.addEventListener("DOMContentLoaded", function () {
     document.querySelector("input[name='clear_input']").disabled = true;
     var vidStream;
     var reader = new FileReader();
+    var btnDrag = document.querySelector("#toggleDrag");
+    var btnResize = document.querySelector("#toggleResize");
     document.querySelector("input[name='clear_input']").addEventListener("click", function () {
         this.parentNode.reset();
         video.setAttribute("src", "");
@@ -297,6 +299,13 @@ window.addEventListener("DOMContentLoaded", function () {
             elmnt.onmousemove = null;
         }
     }
+    
+    function removeListners(elmnt)
+    {
+        elmnt.onmouseup = null;
+        elmnt.onmousemove = null;
+        elmnt.onmousedown = null;
+    }
 
 
     /*
@@ -333,19 +342,19 @@ window.addEventListener("DOMContentLoaded", function () {
                         //console.log(img_pure);
                         for (var x = 0; x < over.length; x++)
                         {
-                            
 
-                                var tmp_canvas = document.createElement("canvas");
-                                var rect_ov = over[x].getBoundingClientRect();
-                                var offT = rect_ov.top - rect.top;
-                                var offL = rect_ov.left - rect.left;
-                                console.log(rect_ov.width+ "  " +rect_ov.height);
-                                tmp_canvas.width = rect_ov.width;
-                                tmp_canvas.height = rect_ov.height;
-                                tmp_canvas.getContext("2d").drawImage(over[x], offL, offT, rect_ov.width, rect_ov.height);
-                                canvas.getContext("2d").drawImage(over[x], offL, offT, 500, 375);
-                                
-                                canvases.push(tmp_canvas);
+
+                            var tmp_canvas = document.createElement("canvas");
+                            var rect_ov = over[x].getBoundingClientRect();
+                            var offT = rect_ov.top - rect.top;
+                            var offL = rect_ov.left - rect.left;
+                            console.log(rect_ov.width + "  " + rect_ov.height);
+                            tmp_canvas.width = rect_ov.width;
+                            tmp_canvas.height = rect_ov.height;
+                            tmp_canvas.getContext("2d").drawImage(over[x], offL, offT, rect_ov.width, rect_ov.height);
+                            canvas.getContext("2d").drawImage(over[x], offL, offT, 500, 375);
+
+                            canvases.push(tmp_canvas);
                         }
                         for (var x = 0; x < canvases.length; x++)
                         {
@@ -390,4 +399,27 @@ window.addEventListener("DOMContentLoaded", function () {
                     };
                 });
     }
+
+    /**Toogle drag and resize **/
+    btnDrag.addEventListener("click", function () {
+        btnDrag.disabled = true;
+        btnResize.disabled = false;
+        var divs = document.querySelectorAll(".resizable");
+        for (var x = 0; x < divs.length; x++)
+        {
+            removeListners(divs[x]);
+            dragElement(divs[x]);
+        }
+    });
+
+    btnResize.addEventListener("click", function () {
+        btnDrag.disabled = false;
+        btnResize.disabled = true;
+        var divs = document.querySelectorAll(".resizable");
+        for (var x = 0; x < divs.length; x++)
+        {
+            removeListners(divs[x]);
+            resize(divs[x]);
+        }
+    });
 });

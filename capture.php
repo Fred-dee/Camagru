@@ -38,8 +38,10 @@ if ($_SESSION["login"] == "guest") {
                             <input class="form-control" type="file" name="fileToUpload" id="fileToUpload" accept=".jpg, .jpeg, .png, .gif" style="visibility:hidden"/>
                         </div>
                         <input name="session_key" value="<?php echo $_SESSION['SESSION_KEY'] ?>" hidden/>
-                        <input class ="form-control btn btn-primary amber darken-3" type="submit" value="Upload Plain Image" name="submit" >
+                        <div class="form-group">
+                        <input class ="form-control btn btn-primary amber darken-3" type="submit" value="Upload Plain Image" name="submit" />
                         <input class="form-control btn btn-primary amber darken-4" type="button" value="Clear Selection" name="clear_input" />
+                        </div>
                     </form>
                     <button class="btn btn-primary grey darken-4" onclick="" id="btn_snap">Snap</button>
                     <div class="contained">
@@ -55,7 +57,8 @@ if ($_SESSION["login"] == "guest") {
                     <button class="btn btn-primary grey darken-4" onclick="clearSnaps()">Clear Snaps</button>
                 </div>
                 <div class="col-sm-12 col-md-3 flex-col">
-
+                    <button class="btn btn-primary btn-amber darken-4" id="toggleDrag" disabled="">Drag Mode</button>
+                    <button class="btn btn-primary btn-amber darken-3" id="toggleResize" >Resize Mode</button>
                     <form class="form-overlays">
                         <div class="form-check-inline flex-col-item">
                             <input type="checkbox" class="form-check-input" id="ov_c1" />
