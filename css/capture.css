@@ -21,37 +21,37 @@
     margin-bottom: 1rem;
     border: 20px;
     border-color: aqua;
-	
+
 }
 @media (max-width: 480px)
 {
-	.flex-col 
-	{
-		display: flex;
-		flex-direction: row;
-		max-height: 100%;
-		overflow: auto;
-		background-color: aqua;
-	}
-	
-	.flex-col form
-	{
-		flex-direction: row;
-		flex-wrap: nowrap;
-	}
+    .flex-col 
+    {
+        display: flex;
+        flex-direction: row;
+        max-height: 100%;
+        overflow: auto;
+        background-color: aqua;
+    }
 
-	.flex-col-item
-	{
-		display: flex;
-		flex-grow: 1;
-		width: 250px;
-		max-width: 250px;
-		max-height: 250px;
-		margin-top: 1rem;
-		margin-bottom: 1rem;
-		border: 20px;
-		border-color: aqua;
-	}
+    .flex-col form
+    {
+        flex-direction: row;
+        flex-wrap: nowrap;
+    }
+
+    .flex-col-item
+    {
+        display: flex;
+        flex-grow: 1;
+        width: 250px;
+        max-width: 250px;
+        max-height: 250px;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 20px;
+        border-color: aqua;
+    }
 }
 
 .flex-col-item img
@@ -102,9 +102,20 @@
     opacity: 1;
 }
 
+input[name='submit']
+{
+    position: relative;
+    z-index: 5;
+}
+input[name='clear_input']
+{
+    position: relative;
+    z-index: 5;
+}
 #btn_snap
 {
-    z-index: 1;
+    position:relative;
+    z-index: 5;
 }
 
 

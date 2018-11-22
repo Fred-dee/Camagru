@@ -29,7 +29,7 @@ if ($_SESSION["login"] == "guest") {
                     <canvas id="canvasVid" name="background" style="display:none;" width="500px" height="375px"></canvas>
                     <canvas id='canvasOver'name="overlay" style="display:none;" width="500px" height="375px"></canvas>
                 </div>
-                <div class="col-sm-12 col-md-6 text-center">
+                <div class="col-sm-12 col-md-6 text-center" id="center_display">
                     <form class="form-inline" action="<?php
                     echo "./upload.php?type=" . $_GET["type"];
                     ?>" method="post" enctype="multipart/form-data">
@@ -39,8 +39,8 @@ if ($_SESSION["login"] == "guest") {
                         </div>
                         <input name="session_key" value="<?php echo $_SESSION['SESSION_KEY'] ?>" hidden/>
                         <div class="form-group">
-                        <input class ="form-control btn btn-primary amber darken-3" type="submit" value="Upload Plain Image" name="submit" />
-                        <input class="form-control btn btn-primary amber darken-4" type="button" value="Clear Selection" name="clear_input" />
+                            <input class ="form-control btn btn-primary amber darken-3" type="submit" value="Upload Plain Image" name="submit" />
+                            <input class="form-control btn btn-primary amber darken-4" type="button" value="Clear Selection" name="clear_input" />
                         </div>
                     </form>
                     <button class="btn btn-primary grey darken-4" onclick="" id="btn_snap">Snap</button>

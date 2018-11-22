@@ -162,8 +162,8 @@ window.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
 
 
-            //widthinit = parseInt(computed.getPropertyValue('width'));
-            //heightinit = parseInt(computed.getPropertyValue('height'));
+            widthinit = parseInt(computed.getPropertyValue('width'));
+            heightinit = parseInt(computed.getPropertyValue('height'));
 
             cursorinitX = event.clientX;
             cursorinitY = event.clientY;
@@ -179,12 +179,12 @@ window.addEventListener("DOMContentLoaded", function () {
             e.preventDefault();
 
             var computed = window.getComputedStyle(elmnt);
-            var widthinit = parseFloat(computed.getPropertyValue('width'));
-            var heightinit = parseFloat(computed.getPropertyValue('height'));
+            //var widthinit = parseFloat(computed.getPropertyValue('width'));
+            //var heightinit = parseFloat(computed.getPropertyValue('height'));
 
             var rectangle = elmnt.getBoundingClientRect();
 
-            console.log(rectangle);
+            //console.log(rectangle);
 
             var className = ((" " + this.className + " ").replace(/[\n\t]/g, " "));
             /*if (className.indexOf(" resize-middleright") > -1)
