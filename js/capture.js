@@ -334,18 +334,18 @@ window.addEventListener("DOMContentLoaded", function () {
                         for (var x = 0; x < over.length; x++)
                         {
                             
-                            if (over[x].style.display)
-                            {
-                                alert(over[x].style.display);
+
                                 var tmp_canvas = document.createElement("canvas");
                                 var rect_ov = over[x].getBoundingClientRect();
                                 var offT = rect_ov.top - rect.top;
                                 var offL = rect_ov.left - rect.left;
-                                console.log(offT + "   " + offL);
+                                console.log(rect_ov.width+ "  " +rect_ov.height);
+                                tmp_canvas.width = rect_ov.width;
+                                tmp_canvas.height = rect_ov.height;
+                                tmp_canvas.getContext("2d").drawImage(over[x], offL, offT, rect_ov.width, rect_ov.height);
                                 canvas.getContext("2d").drawImage(over[x], offL, offT, 500, 375);
-                                tmp_canvas.getContext("2d").drawImage(over[x], 0, 0);
+                                
                                 canvases.push(tmp_canvas);
-                            }
                         }
                         for (var x = 0; x < canvases.length; x++)
                         {
