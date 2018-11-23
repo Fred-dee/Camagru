@@ -65,7 +65,7 @@ function uploadSnaps()
             if (this.readyState == 4 && this.status == 200) {
                 formData = new FormData();
                 images = new Array();
-                console.log(this.responseText);
+                genAlert("alert-success", "Images successfully uploaded");
             }
         };
         request.open("POST", path, true);
@@ -99,8 +99,8 @@ window.addEventListener("DOMContentLoaded", function () {
     var reader = new FileReader();
     var btnDrag = document.querySelector("#toggleDrag");
     var btnResize = document.querySelector("#toggleResize");
-    document.querySelector("input[name='clear_input']").addEventListener("click", function () {
-        this.parentNode.reset();
+	document.querySelector("input[name='clear_input']").addEventListener("click", function () {
+        this.parentNode.parentNode.reset();
         video.setAttribute("src", "");
         video.parentNode.style.display = "none";
         video = document.querySelector("#videoElement");
@@ -139,12 +139,13 @@ window.addEventListener("DOMContentLoaded", function () {
      * -----Resize Settings and Code
      */
 
+	
 
     function resize(elmnt)
     {
 
-        var width = 0;
-        var height = 0;
+        var widthStart = 0;
+        var heightStart = 0;
         var cursorinitX = 0;
         var cursorinitY = 0;
         var movx;
@@ -153,58 +154,26 @@ window.addEventListener("DOMContentLoaded", function () {
 
         for (var x = 1; x < childNodes.length; x++)
         {
-            childNodes[x].onmousedown = resizeMouseDown.bind(childNodes[x]);
+			if(childNodes[x].tagName != "img")
+            childNodes[x].addEventListener("mousedown", resizeMouseDown.bind(childNodes[x]), false);
+			else
+				console.log("I habe an img child");
         }
 
-        function resizeMouseDown(event)
+        function resizeMouseDown(e)
         {
-            event = event || window.event;
-            event.preventDefault();
-
-
-            widthinit = parseInt(computed.getPropertyValue('width'));
-            heightinit = parseInt(computed.getPropertyValue('height'));
-
-            cursorinitX = event.clientX;
-            cursorinitY = event.clientY;
-
-            elmnt.onmouseup = closeElementResize.bind(this, event);
-            // call a function whenever the cursor moves:
-            elmnt.onmousemove = elementResize.bind(this, event);
+			cursorinitX = e.clientX;
+			cursorinitY = e.clientY;
+			widthStart = parseInt(document.defaultView.getComputedStyle(elmnt).width, 10);
+			heightStart = parseInt(document.defaultView.getComputedStyle(elmnt).height, 10);
+			this.addEventListener("mousemove", elementResize.bind(this), false);
+			this.addEventListener("mouseup", closeElementResize.bind(this), false);
         }
 
         function elementResize(e)
         {
-            e = e || window.event;
-            e.preventDefault();
-
-            var computed = window.getComputedStyle(elmnt);
-            //var widthinit = parseFloat(computed.getPropertyValue('width'));
-            //var heightinit = parseFloat(computed.getPropertyValue('height'));
-
-            var rectangle = elmnt.getBoundingClientRect();
-
-            //console.log(rectangle);
-
-            var className = ((" " + this.className + " ").replace(/[\n\t]/g, " "));
-            /*if (className.indexOf(" resize-middleright") > -1)
-             {
-             movx = cursorinitX - e.clientX;
-             movy = 0;
-             console.log(movx);
-             }*/
-            movx = cursorinitX - e.clientX;
-            movy = cursorinitY - e.clientY;
-            cursorinitX = e.clientX;
-            cursorinitY = e.clientY;
-            width = widthinit + movx;
-            height = heightinit + movy;
-
-            //console.log("width: " + width + " height" + height);
-
-            elmnt.style.width = elmnt.style.width + "px";
-            elmnt.style.height = height + "px";
-
+   			elmnt.style.width = (widthStart + e.clientX - cursorinitX) + 'px';
+			elmnt.style.height = (heightStart + e.clientY - cursorinitY) + 'px';
         }
 
         function closeElementResize(e)

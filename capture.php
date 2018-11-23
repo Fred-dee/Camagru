@@ -54,7 +54,7 @@ if ($_SESSION["login"] == "guest") {
                         </div>
                     </div>
                     <button class="btn btn-primary grey darken-4" onclick="uploadSnaps()" id="btn_upload">Upload Snaps</button>
-                    <button class="btn btn-primary grey darken-4" onclick="clearSnaps()">Clear Snaps</button>
+                    <button class="btn btn-primary grey darken-4" onclick="clearSnaps()" id="btn_clearsnaps">Clear Snaps</button>
                 </div>
                 <div class="col-sm-12 col-md-3 flex-col">
                     <button class="btn btn-primary btn-amber darken-4" id="toggleDrag" disabled="">Drag Mode</button>

@@ -112,7 +112,13 @@ input[name='clear_input']
     position: relative;
     z-index: 5;
 }
-#btn_snap
+
+form
+{
+	position: relative;
+    z-index: 5;
+}
+#btn_snap, #btn_upload, #btn_clearsnaps
 {
     position:relative;
     z-index: 5;

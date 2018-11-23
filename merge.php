@@ -11,21 +11,13 @@ $pdo = DB::getConnection();
 if (isset($_POST["images"])) {
     $all = json_decode($_POST["images"]);
 
-    //$full_thing = imagecreatetruecolor(500, 375);
-    /*    $first = array_shift($all);
-      $data = explode(",", $first);
-      $data[1] = base64_decode($data[1]);
-     * 
-     */
     $full_thing = imagecreatetruecolor(500, 375);
     imagealphablending($full_thing, true);
     imagesavealpha($full_thing, true);
     $fw = imagesx($full_thing);
     $fh = imagesy($full_thing);
     $org_aspect = $fw / $fh;
-   // echo "The Width is: " . $fw . " and the Height is: " . $fh;
-    //ob_start();
-    echo "I have ".count($all)." values".PHP_EOL;
+
     foreach ($all as $key => $value) {
 
         $data = explode(",", $value);
@@ -72,25 +64,8 @@ if (isset($_POST["images"])) {
     } catch (\PDOException $e) {
         echo $e->getMessage();
     }
-    //echo "success";
-    //echo (base64_encode(file_get_contents($full_thing)));
 } else {
     echo "Failure: Invalid Method/File";
 }
 
-/*
-  $width = 268;
-  $height = 300;
-  $MAX_SIZE = 100;
-  if($width > $MAX_SIZE || $height > $MAX_SIZE) {
-  $aspect = $width / $height;
-  if($width > $height) {
-  $width = $MAX_SIZE;
-  $height = intval($MAX_SIZE / $aspect);
-  } else {
-  $height = $MAX_SIZE;
-  $width = intval($MAX_SIZE * $aspect);
-  }
-  }
- */
 ?>
