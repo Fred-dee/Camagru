@@ -168,16 +168,22 @@ window.addEventListener("DOMContentLoaded", function () {
 			heightStart = parseInt(document.defaultView.getComputedStyle(elmnt).height, 10);
 			this.addEventListener("mousemove", elementResize.bind(this), false);
 			this.addEventListener("mouseup", closeElementResize.bind(this), false);
+			
         }
 
         function elementResize(e)
         {
+			elmnt.style.position = "relative";
    			elmnt.style.width = (widthStart + e.clientX - cursorinitX) + 'px';
 			elmnt.style.height = (heightStart + e.clientY - cursorinitY) + 'px';
+			elmnt.style.position = "absolute";
         }
 
         function closeElementResize(e)
         {
+			
+			this.removeEventListener("mouseup", closeElementResize, false);
+			this.removeEventListener("mousemove", elementResize, false);
             this.onmouseup = null;
             this.onmousemove = null;
         }

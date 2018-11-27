@@ -5,6 +5,8 @@ if (!isset($_SESSION))
 require_once('./config/database.php');
 require_once('./includes/Article.php');
 require_once('./includes/Element.php');
+$_SESSION["getData"] = -1;
+$_SESSION["returnNull"] = false;
 ?>
 <!DOCTYPE html>
 <html>
@@ -23,6 +25,7 @@ require_once('./includes/Element.php');
         require_once('./includes/main-includes.php');
         ?>
 		<script type="text/javascript" src="./js/profile.js"></script>
+		<script type ="text/javascript" src="./js/infintescroll.js"></script>
 		<link type="text/css" rel="stylesheet" href="./css/gallery.css">
     </head>
     <body>
@@ -96,7 +99,13 @@ require_once('./includes/Element.php');
                 echo $form;
                 echo "<hr/>";
             }
+			$body = getData(true);
+            
+            foreach($body as $key => $value)
+                echo $value;
 			/*END PROFILE HEAD FORM*/
+			
+/*		
             $stmt = $pdo->prepare("Select * FROM images WHERE user_id=:uname");
             $stmt->bindParam(":uname", $_SESSION["user_id"], PDO::PARAM_STR);
             $stmt->execute();
@@ -159,6 +168,7 @@ require_once('./includes/Element.php');
 		foreach ($body as $key => $value) {
                 echo $value;
             }
+			*/
             ?>
 
         </div>

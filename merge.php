@@ -27,7 +27,6 @@ if (isset($_POST["images"])) {
         imagesavealpha($img, true);
         $w = imagesx($img);
         $h = imagesy($img);
-        //echo $w." ".$h.PHP_EOL;
         if ($w / $h > $org_aspect)
         {
             $w = $h*$org_aspect;

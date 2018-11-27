@@ -89,7 +89,7 @@ function getMax() {
     }
 }
 
-function getData() {
+function getData($profile  = false) {
     $pdo = DB::getConnection();
     if ($_SESSION["getData"] * 6 > getMax()) {
         $_SESSION["returnNull"] = true;
@@ -102,8 +102,17 @@ function getData() {
     //debug_to_console($_SESSION["returnNull"]);
     if ($_SESSION["returnNull"] == false) {
         $pageno = 6 * $pageno;
-        $stmt = $pdo->prepare("Select * FROM images ORDER BY `creation_date` DESC LIMIT 6 OFFSET :off");
-        $stmt->bindParam(':off', $pageno, PDO::PARAM_INT);
+		if ($profile == true)
+		{
+			$stmt = $pdo->prepare("Select * FROM images WHERE user_id=:uname ORDER BY `creation_date` DESC LIMIT 6 OFFSET :off");
+            $stmt->bindParam(":uname", $_SESSION["user_id"], PDO::PARAM_STR);
+			$stmt->bindParam(':off', $pageno, PDO::PARAM_INT);
+		}
+		else
+		{
+        	$stmt = $pdo->prepare("Select * FROM images ORDER BY `creation_date` DESC LIMIT 6 OFFSET :off");
+        	$stmt->bindParam(':off', $pageno, PDO::PARAM_INT);
+		}
         $stmt->execute();
         $row_div = new Element("div", false);
         $body = array();

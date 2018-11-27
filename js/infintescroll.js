@@ -9,6 +9,7 @@ window.addEventListener("DOMContentLoaded", function () {
     function loadMore()
     {
         var request = new XMLHttpRequest();
+		var link;
 
         request.onreadystatechange = function ()
         {
@@ -23,8 +24,11 @@ window.addEventListener("DOMContentLoaded", function () {
 			}
 				
         };
-
-        request.open("POST", "./loadmore.php", true);
+		if(window.location.href.includes("profile"))
+			link = "./loadmore.php?profile=true";
+		else
+			link = "./loadmore.php?profile=false";
+        request.open("POST", link, true);
         request.send();
     }
     window.addEventListener("scroll", scrollListen);

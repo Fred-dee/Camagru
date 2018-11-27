@@ -10,7 +10,10 @@ require_once('./includes/functions.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = array();
     //if($_SESSION["returnNull"] == false)
-        $data = getData();
+	if ($_GET["profile"] == "true")
+        $data = getData(true);
+	else
+		$data = getData();
     if (!empty($data)) {
         $arr_conv = array();
         foreach ($data as $key => $value) {
