@@ -137,6 +137,16 @@ function getData($profile  = false) {
                 "avatar_src" => $pro_pic,
             );
             $art = new Article($data);
+			if ($profile == true)
+			{
+				$btn_del =  new Element("button", false);
+				$btn_del->add_text("Delete");
+				$arr = array (
+					"class" => "btn btn-primary grey darken-4 delete-par",
+				);
+				$btn_del->add_attributes($arr);
+				$art->add_child($btn_del);
+			}
             $art->add_attribute("id", $row["id"] . "art");
             array_push($articles, $art);
         }

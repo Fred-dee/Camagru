@@ -39,13 +39,14 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] != "guest" && isset($_POST))
             $headers = 'FROM: noreply@camagru.com';
 
             $bool = mail($to_mail, $subject, $message, $headers);
-
             if ($bool == false)
                 index_error(-1, "Was unable to send a notifcation " . $row["email"]);
             else
-                valid_success(-1, "Comment was sent", "/index");
+                echo $_SESSION["login"].":\t".$msg;
+			exit();
         }
-        header("location: " . ROOT_DIR . "/index");
+		echo $_SESSION["login"].":\t".$msg;
+        //header("location: " . ROOT_DIR . "/index");
     } catch (\PDOException $e) {
         index_error(-1, $e->getMessage());
     }

@@ -32,6 +32,7 @@ class Article extends Element {
         $stmt = $pdo->prepare("SELECT * FROM events WHERE img_id = :img AND type='comment'");
         $stmt->bindParam(":img", $data["img_id"], PDO::PARAM_INT, 11);
         $stmt->execute();
+		$br = new Element("br", true);
         if ($stmt->rowCount() > 0) {
             while (($row = $stmt->fetch(PDO::FETCH_ASSOC))) {
                 $tmp = $pdo->prepare("SELECT user_name FROM users WHERE id = :uname");
@@ -39,8 +40,10 @@ class Article extends Element {
                 $tmp->execute();
                 $name = $tmp->fetch(PDO::FETCH_ASSOC);
                 $cspan = new Element("span", false);
-                $cspan->add_text($name["user_name"] . ": " . $row["message"]);
+                $cspan->add_text($name["user_name"] . ": \t" . $row["message"]);
                 $comm_div->add_child($cspan);
+				
+				$comm_div->add_child($br);
             }
         }
         //Done With all the comments
@@ -73,7 +76,7 @@ class Article extends Element {
         $like_button->add_attribute("type", "button");
         $like_button->add_class("like-btn");
         $like_button->add_child($heart_span);
-        $comm_div->add_child($like_button);
+        $comm_div->prepend_child($like_button);
         $this->add_child($head_div);
         $this->add_child($img_div);
         $this->add_child($comm_div);
@@ -83,11 +86,13 @@ class Article extends Element {
         $mcom = new Element("div", false);
 
         $mform = new Element("form", false);
-        $mform->add_attribute("action", "./includes/comment.php");
+        $mform->add_attribute("action", "");
         $mform->add_attribute("method", "POST");
+		$mform->add_class("form-comment");
 
         $input = new Element("input", true);
         $input->add_attribute("name", "message");
+		$input->add_inlineattr("required");
         $hidden = new Element("input", true);
         $hidden->add_attribute("name", "img_id");
         $hidden->add_attribute("value", $data["img_id"]);

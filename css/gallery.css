@@ -8,7 +8,18 @@ article
 {
     border: 0px;
     margin: 0px;
+	position: relative;
+	width: 100%;
+	top: 0px;
+	right: 0px;
 }
+
+.like-btn i
+{
+	position: absolute;
+	right: 0px;
+}
+
 form > *
 {
     max-width: inherit;
@@ -28,7 +39,20 @@ article .img-wrapper
 article .comment_section
 {
     max-height: 20%;
-    text-align: right;
+    text-align: left;
+}
+
+.comment_section
+{
+	height: 100px;
+	overflow-y: auto;
+	text-overflow: ellipsis;
+}
+
+.coment_section span
+{
+	padding: 1em;
+	width: 100%;
 }
 .gal-grid {
     display: flex;

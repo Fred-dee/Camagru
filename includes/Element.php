@@ -35,7 +35,7 @@ class Element {
             $last_key = end($arrkeys);
             foreach ($this->_classes as $key => $value) {
                 if (!($key == $last_key)) {
-                    $ret_string .= $value . ",";
+                    $ret_string .= $value . " ";
                 } else {
                     $ret_string .= $value;
                 }
