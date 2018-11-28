@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         foreach ($data as $key => $value) {
             array_push($arr_conv, print($value));
         }
-        echo json_encode($arr_conv);
+        echo ($arr_conv);
     }
     else
     {
