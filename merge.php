@@ -33,7 +33,7 @@ if (isset($_POST["images"])) {
         }
         else
             $h = $w/$org_aspect;
-        echo $w." ".$h.PHP_EOL;
+        //echo $w." ".$h.PHP_EOL;
         imagecopy($full_thing, $img, 0, 0, 0, 0, 500, 375);
     }
 

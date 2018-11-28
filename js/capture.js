@@ -349,7 +349,7 @@ window.addEventListener("DOMContentLoaded", function () {
                         colnew.appendChild(imgnew);
                         colnew.appendChild(img_pure);
                         var btnclose = document.createElement("button");
-                        btnclose.setAttribute("class", "close");
+                        btnclose.setAttribute("class", "close flex-item-close");
                         btnclose.setAttribute("aria-label", "Close");
                         btnclose.setAttribute("type", "button");
                         btnclose.onclick = function (btnclose)

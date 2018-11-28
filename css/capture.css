@@ -124,6 +124,19 @@ form
     z-index: 5;
 }
 
+.flex-item-close
+{
+	position: relative;
+	top: 0px;
+	right: 0px;
+	margin: 0px;
+}
+.flex-item-close span
+{
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
 
 .resizable
 {

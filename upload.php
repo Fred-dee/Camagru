@@ -41,8 +41,23 @@ if ($uploadOk == 0) {
 // if everything is ok, try to upload file
 } else {
     try {
+		$org_aspect = 500/375;
         $pdo = DB::getConnection();
         $img_src = base64_encode(file_get_contents($_FILES["fileToUpload"]["tmp_name"]));
+		$imgdir = "./imgs/trial" . $_SESSION["user_id"] . ".png";
+        
+		$file = imagecreatefromstring(file_get_contents($_FILES["fileToUpload"]["tmp_name"]));
+		$w = imagesx($file);
+        $h = imagesy($file);
+        if ($w / $h > $org_aspect)
+        {
+            $w = $h*$org_aspect;
+        }
+        else
+            $h = $w/$org_aspect;
+		$file = imagescale($file, $w, $h);
+		imagepng($file, $imgdir);
+		$img_src = base64_encode(file_get_contents($imgdir));
         if ($_GET["type"] == "gallery") {
 
             $stmt = $pdo->prepare("INSERT INTO images (`user_id`, `src`, `creation_date`, `type`) VALUES (:uid, :src, NOW(), :type)");
@@ -59,6 +74,8 @@ if ($uploadOk == 0) {
             $stmt->execute();
             valid_success(-1, "Your Profile Picture has been updated", "/profile");
         }
+		imagedestroy($file);
+		unlink($imgdir);
     } catch (\PDOException $e) {
         capture_error(-1, $e->getMessage(), $_GET["type"]);
     }
