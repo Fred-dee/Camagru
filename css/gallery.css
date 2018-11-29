@@ -56,6 +56,10 @@ article .comment_section
 	padding-top: 5px;
 }
 
+#center_display
+{
+	align-items: center;
+}
 .comment_section
 {
 

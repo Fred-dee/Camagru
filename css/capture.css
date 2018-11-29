@@ -52,6 +52,17 @@
         border: 20px;
         border-color: aqua;
     }
+	
+	#btn_upload #btn_clearsnaps
+	{
+		
+	}
+}
+
+#toggleDrag #toggleResize
+{
+	height: auto;
+	width: 100%;
 }
 
 .flex-col-item img
@@ -62,8 +73,10 @@
 
 .contained {
     position: relative;
-    width: 500px;
-    height: 375px;
+	width: 100%;
+	height: 100%;
+    max-width: 500px;
+    max-height: 375px;
     text-align: center;
     opacity: 1;
     z-index: 1;
@@ -83,8 +96,8 @@
     text-align: center;
 }
 #videoElement {
-    width: 500px;
-    height: 375px;
+    width: 100%;
+    height: 100%;
     background-color: #666;
     transform: rotateY(180deg);
     -webkit-transform:rotateY(180deg); /* Safari and Chrome */

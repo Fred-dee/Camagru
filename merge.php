@@ -22,21 +22,23 @@ if (isset($_POST["images"])) {
 
         $data = explode(",", $value);
         $data[1] = base64_decode($data[1]);
-        $img = imagecreatefromstring($data[1]);
-        imagealphablending($img, true);
-        imagesavealpha($img, true);
-        $w = imagesx($img);
-        $h = imagesy($img);
-        if ($w / $h > $org_aspect)
-        {
-            $w = $h*$org_aspect;
-        }
-        else
-            $h = $w/$org_aspect;
-        //echo $w." ".$h.PHP_EOL;
-        imagecopy($full_thing, $img, 0, 0, 0, 0, 500, 375);
+        if(($img = imagecreatefromstring($data[1])))
+	   	{
+			imagealphablending($img, true);
+			imagesavealpha($img, true);
+			$w = imagesx($img);
+			$h = imagesy($img);
+			if ($w / $h > $org_aspect)
+			{
+				$w = $h*$org_aspect;
+			}
+			else
+				$h = $w/$org_aspect;
+			//echo $w." ".$h.PHP_EOL;
+			$img = imagescale($img, $fw, -1);
+			imagecopy($full_thing, $img, 0, 0, 0, 0, $w, imagesy($img));
+		}
     }
-
     try {
         $imgdir = "./imgs/trial" . $_SESSION["user_id"] . ".png";
         imagepng($full_thing, $imgdir);

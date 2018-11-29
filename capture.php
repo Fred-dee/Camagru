@@ -53,12 +53,20 @@ if ($_SESSION["login"] == "guest") {
                         <div class="overlay">
                         </div>
                     </div>
+					<div class="row">
+						<div class="col-xs-6 col-md-6">
                     <button class="btn btn-primary grey darken-4" onclick="uploadSnaps()" id="btn_upload">Upload Snaps</button>
+						</div>
+						<div class="col-xs-5 col-md-6">
                     <button class="btn btn-primary grey darken-4" onclick="clearSnaps()" id="btn_clearsnaps">Clear Snaps</button>
+						</div>
+					</div>
                 </div>
                 <div class="col-sm-12 col-md-3 flex-col">
+					<div class="form-group">
                     <button class="btn btn-primary btn-amber darken-4" id="toggleDrag" disabled="">Drag Mode</button>
                     <button class="btn btn-primary btn-amber darken-3" id="toggleResize" >Resize Mode</button>
+					</div>
                     <form class="form-overlays">
                         <div class="form-check-inline flex-col-item">
                             <input type="checkbox" class="form-check-input" id="ov_c1" />

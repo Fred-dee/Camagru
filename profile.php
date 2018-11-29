@@ -26,6 +26,7 @@ $_SESSION["returnNull"] = false;
         ?>
 		<script type="text/javascript" src="./js/profile.js"></script>
 		<script type ="text/javascript" src="./js/infintescroll.js"></script>
+		<script type="text/javascript" src ="./js/likes.js"></script> 
 		<link type="text/css" rel="stylesheet" href="./css/gallery.css">
     </head>
     <body>
