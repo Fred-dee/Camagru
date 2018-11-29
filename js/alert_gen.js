@@ -19,7 +19,10 @@ function genAlert(type, message)
 	alert.classList.add("alert",type);
 	alert.innerHTML = message;
 	var cont = document.querySelector(".container-fluid");
-	alert.style.transition = "ease-in 2s delay";
+	alert.style.transition = "all 0.4s ease-in-out";
+	alert.style.position = "fixed";
+	alert.style.zIndex = "5";
+	alert.style.width = "100%";
 	cont.insertBefore(alert, cont.firstChild);
 	
 	sleep(1000).then(() =>

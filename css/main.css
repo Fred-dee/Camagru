@@ -1,8 +1,7 @@
-body
+/*body
 {
     padding-top: 75px;
-    min-width: 540px;
-}
+} */
 
 .container-fluid
 {
@@ -24,9 +23,7 @@ body
     border-radius: 50%;
 }
 
-body {
-    padding: 20px;
-}
+
 
 
 

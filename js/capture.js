@@ -35,13 +35,13 @@ function uploadSnaps()
     if (window.location.href.includes("type=propic"))
     {
         path = "merge.php?type=propic";
-        console.log("this is a propic");
+        //console.log("this is a propic");
         limit = 1;
     } else
     {
         limit = carosel.childElementCount;
         path = "merge.php?type=gallery";
-        console.log("this is a gallery");
+        //console.log("this is a gallery");
     }
     for (var x = 0; x < limit; x++) // flex-col-item
     {
@@ -155,9 +155,7 @@ window.addEventListener("DOMContentLoaded", function () {
         for (var x = 1; x < childNodes.length; x++)
         {
 			if(childNodes[x].tagName != "img")
-            childNodes[x].addEventListener("mousedown", resizeMouseDown.bind(childNodes[x]), false);
-			else
-				console.log("I habe an img child");
+	            childNodes[x].addEventListener("mousedown", resizeMouseDown.bind(childNodes[x]), false);
         }
 
         function resizeMouseDown(e)
@@ -323,7 +321,7 @@ window.addEventListener("DOMContentLoaded", function () {
                             var rect_ov = over[x].getBoundingClientRect();
                             var offT = rect_ov.top - rect.top;
                             var offL = rect_ov.left - rect.left;
-                            console.log(rect_ov.width + "  " + rect_ov.height);
+                            //console.log(rect_ov.width + "  " + rect_ov.height);
                             tmp_canvas.width = rect_ov.width;
                             tmp_canvas.height = rect_ov.height;
                             tmp_canvas.getContext("2d").drawImage(over[x], offL, offT, rect_ov.width, rect_ov.height);

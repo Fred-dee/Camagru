@@ -88,7 +88,7 @@ window.addEventListener("DOMContentLoaded", function () {
 					
 					var span = document.createElement("span");
 					
-					console.log(art);
+					//console.log(art);
 					span.innerHTML = this.responseText + "<br/>";
 					comm_section.appendChild(span);
 					form.reset();

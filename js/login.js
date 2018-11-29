@@ -27,17 +27,18 @@ window.addEventListener("DOMContentLoaded", function ()
             request.onreadystatechange = function ()
             {
                 if (this.readyState == 4 && this.status == 200) {
-					console.log(this.responseText);
+					//console.log(this.responseText);
                     var response = JSON.parse(this.responseText);
                     if (response["status"] == "success")
                     {
-                        window.alert("An email has been sent with the reset link");
-                        console.log(response["data"]);
+						genAlert("alert-success","An email has been sent with the reset link" );
                     }
                     else if(response["status"] == "failure")
-                        window.alert("No matching records for the provided username");
+						genAlert("alert-danger", "No matching records for the provided username");
+                        
                     else
-                        window.alert(response["data"]);
+						genAlert("alert-warning", response["data"]);
+                      
                 }
             }
         }

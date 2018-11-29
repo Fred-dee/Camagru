@@ -2,6 +2,7 @@ article
 {
     max-width: 100%;
     height: 100%;
+	max-height: 100%;
 
 }
 .like-btn
@@ -28,10 +29,19 @@ form > *
 article header
 {
     max-height: 10%;
+	height: 10%;
+	padding-bottom: 3em;
+	position: relative;
 }
 
+article header img
+{
+	position: absolute;
+	right: 0px;
+}
 article .img-wrapper
 {
+	width: auto;
     max-width: 100%;
     max-height: 70%;
 }
@@ -39,14 +49,17 @@ article .img-wrapper
 article .comment_section
 {
     max-height: 20%;
+	height: 100px;
     text-align: left;
+	overflow-y: auto;
+	text-overflow: ellipsis;
+	padding-top: 5px;
 }
 
 .comment_section
 {
-	height: 100px;
-	overflow-y: auto;
-	text-overflow: ellipsis;
+
+
 }
 
 .coment_section span
@@ -83,7 +96,12 @@ article .comment_section
     {
         flex-basis: 100%;
         margin: 0 0 10px 0;
+		padding-bottom: 4em;
     }
+	article
+	{
+		padding-bottom: 10px;
+	}
 
 }
 .gal-grid { 
