@@ -24,5 +24,23 @@ if($_SERVER["REQUEST_METHOD"] == "POST")
 			//general_error(-1, "Could Not delete image: ".$e->getMessage(), "/profile");
 		}
 	}
+	if(isset($_POST["action"]))
+	{
+		try
+		{
+			$pdo = DB::getConnection();
+			$stmt = $pdo->prepare('UPDATE `users` SET `avatar`=NULL, `type`=NULL WHERE `user_name`=:uname');
+			//$path = "./imgs/avatar.png";
+			//$stmt->bindParam(":na", $path, PDO::PARAM_STR);
+			$stmt->bindParam(":uname", $_SESSION["login"], PDO::PARAM_STR, 15);
+			$stmt->execute();
+			echo "success";
+			
+		}
+		catch(\PDOException $e)
+		{
+			echo "Could not remove profile picture: ".$e->getMessage();
+		}
+	}
 }
 ?>

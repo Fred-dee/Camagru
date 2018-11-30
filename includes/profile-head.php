@@ -31,7 +31,7 @@ require_once('./includes/DIRS.php');
         <h1><?php echo $_SESSION["login"]?></h1>
         <br/>
         <br/>
-        <i class="fa fa-upload icon-large" aria-hidden="true"></i><h3 style="display:inline-block"><a class="nav-link" href="./capture?type=propic">Edit Profile Picture</a></h3>
+		<h3 class="nav-link" ><i class="fa fa-upload icon-large" aria-hidden="true"></i><a href="./capture?type=propic">  Edit Profile Picture</a></h3><h3 class="nav-link"><i class="fa fa-window-close icon-large" aria-hidden="true"></i><a href="#" id="deleteProPic">  Remove Profile Picture</a></h3> 
         <hr>
         <a class="nav-item" href="./forgot?reset=update">Change Password</a>
     </div>

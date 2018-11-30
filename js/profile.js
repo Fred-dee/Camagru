@@ -47,15 +47,30 @@ window.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-
-
-/*    var dels = document.querySelectorAll(".delete-par");
-    for (var x = 0; x < dels.length; x++)
-    {
-		dels[x].removeEventListener("click", deleteParent.bind(dels[x]));
-        dels[x].addEventListener("click", deleteParent.bind(dels[x]));
-    } */
+	document.querySelector("#deleteProPic").addEventListener("click", function(e){
+		e.preventDefault();
+		var request = new XMLHttpRequest();
+		var formData = new FormData();
+		request.onreadystatechange = function()
+		{
+			if (this.status == 200 && this.readyState == 4)
+			{
+				if (this.responseText == "success")
+				{
+					document.querySelector('.avatar-lg').setAttribute("src", "./imgs/avatar.png");
+					document.querySelector('.avatar').setAttribute("src", "./imgs/avatar.png");
+				}
+				else
+					genAlert("alert-danger", this.responseText);
+			}
+		}
+		formData.append("action", "Remove Profile Picture");
+		request.open("POST", "./includes/deleteimg.php", true);
+		request.send(formData);
+	});
 });
+
+
 
 window.addEventListener("load", function(){
 	var dels = document.querySelectorAll(".delete-par");
