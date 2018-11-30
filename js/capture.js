@@ -59,14 +59,23 @@ function uploadSnaps()
         for (var i = 0; i < overlays.length; i++)
             images.push(overlays[i].getAttribute("src"));
         images = JSON.stringify(images);
-        formData.append("images", images)
+        formData.append("images", images);
         request.onreadystatechange = function ()
         {
             if (this.readyState == 4 && this.status == 200) {
                 formData = new FormData();
                 images = new Array();
-                genAlert("alert-success", "Images successfully uploaded");
+				if (this.responseText == "success")
+				{
+                	genAlert("alert-success", "Images successfully uploaded");
+				}
+				else
+				{
+					genAlert("alert-danger", "Could not upload images");
+				}
+				console.log(this.responseText);
             }
+			
         };
         request.open("POST", path, true);
         request.send(formData);
