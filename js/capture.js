@@ -63,7 +63,10 @@ function uploadSnaps()
 			console.log(pure_image.getAttribute("src"));
 		}
         for (var i = 0; i < overlays.length; i++)
-            images.push(overlays[i].getAttribute("src"));
+		{
+			if(overlays[i].getAttribute("src") !== "data:,")
+            	images.push(overlays[i].getAttribute("src"));
+		}
         images = JSON.stringify(images);
         formData.append("images", images);
         request.onreadystatechange = function (formData, images)
