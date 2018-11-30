@@ -22,7 +22,7 @@ if (isset($_POST["images"]))
     foreach ($all as $key => $value)
 	{
 
-        $data = explode(",", $value);
+        $data = explode(",", $value, 2);
 		$fresh = base64_decode($data[1]);
 
 		$img = imagecreatefromstring($fresh);
