@@ -34,9 +34,11 @@ if (isset($_SESSION["login"]) && $_SESSION["login"] != "guest" && isset($_POST))
         if ($row["em_subs"] == 1) {
             $to_mail = $row["email"];
             $subject = "You have unread Comments";
-            $message = "User " . $_SESSION["login"] . ", has commented on your image saying:" . PHP_EOL . $msg . PHP_EOL . "Best\nCamagru Team";
+            $message = "<p class='lead'>User <b>" . $_SESSION["login"] . "</b>,<br/> Has commented on your image saying:<br/>" . $msg . "<br/><br/>" . "Best<br/>Camagru Team</p>";
             $message = str_replace("\n.", "\n..", $message);
-            $headers = 'FROM: noreply@camagru.com';
+            $headers = 'FROM: noreply@camagru.com\r\n';
+			$headers .= "MIME-Version: 1.0\r\n";
+			$headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 
             $bool = mail($to_mail, $subject, $message, $headers);
             if ($bool == false)

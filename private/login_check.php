@@ -61,11 +61,13 @@ if (isset($_POST["submit"])) {
                          * Remember to send out an email here with verification auth details
                          */
                        	$to_mail = $email;
-						$header = "FROM: noreply@camagru.com";
-						$msg = "Welcome to Camagru:".PHP_EOL."Your username is: ".$username.PHP_EOL."To activate your account please follow the following link:".PHP_EOL.$link.PHP_EOL."Best\nCamagru Team";
+						$header = "FROM: noreply@camagru.com\r\n";
+						$msg = "Welcome to Camagru:"."<br/>"."Your username is: ".$username."<br/>"."To activate your account please follow the following link:"."<br/>"."<a href='".$link."'>Activate</a>"."<br/>"."Best\nCamagru Team";
 						$msg = str_replace("\n.", "\n..", $msg);
 						$subject = "Account Activation";
 						$bool = mail($to_mail, $subject, $msg, $header);
+						$header .= "MIME-Version: 1.0\r\n";
+						$header .= "Content-Type: text/html; charset=UTF-8\r\n";
 						if ($bool)
 							valid_success(1, "Activation Email sent, please check your mail: ", "/index");
 						else

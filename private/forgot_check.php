@@ -31,10 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $stmt->execute();
             $link = "localhost:8080/Camagru/forgot.php?reset=forgot&bar=" . base64_encode(htmlspecialchars($_POST["uid"]) . "delimiter" .$key);
 			$to_mail = $email;
-			$header = "FROM: noreply@camagru.com";
-			$msg = "To reset your account password please follow the following link:".PHP_EOL.$link.PHP_EOL."Best\nCamagru Team";
+			$header = "FROM: noreply@camagru.com\r\n";
+			$msg = "To reset your account password please follow the following link:"."<br/>"."<a href='".$link."'>Reset Password</a>"."<br/>"."Best\nCamagru Team";
 			$msg = str_replace("\n.", "\n..", $msg);
 			$subject = "Password Reset";
+			$header .= "MIME-Version: 1.0\r\n";
+			$header .= "Content-Type: text/html; charset=UTF-8\r\n";
 			$bool = mail($to_mail, $subject, $msg, $header);
             echo json_encode(array("status" => "success", "data" => $link));
 			
