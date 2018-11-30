@@ -15,11 +15,14 @@ function changeFilter(obj)
 function add_filter(obj)
 {
     document.querySelector(".overlay").appendChild(obj);
+	document.querySelector("#btn_snap").disabled = false;
 }
 
 function remove_filter(obj)
 {
     document.querySelector(".overlay").removeChild(obj);
+	if (document.querySelector(".overlay").childElementCount == 0)
+		document.querySelector("#btn_snap").disabled = true;
 }
 
 
@@ -55,12 +58,15 @@ function uploadSnaps()
                 images.pop();
         }
         if (pure_image != null)
+		{
             images.push(pure_image.getAttribute("src"));
+			console.log(pure_image.getAttribute("src"));
+		}
         for (var i = 0; i < overlays.length; i++)
             images.push(overlays[i].getAttribute("src"));
         images = JSON.stringify(images);
         formData.append("images", images);
-        request.onreadystatechange = function ()
+        request.onreadystatechange = function (formData, images)
         {
             if (this.readyState == 4 && this.status == 200) {
                 formData = new FormData();
@@ -76,7 +82,7 @@ function uploadSnaps()
 				console.log(this.responseText);
             }
 			
-        };
+        }.bind(request, formData, images);
         request.open("POST", path, true);
         request.send(formData);
     }
@@ -108,6 +114,8 @@ window.addEventListener("DOMContentLoaded", function () {
     var reader = new FileReader();
     var btnDrag = document.querySelector("#toggleDrag");
     var btnResize = document.querySelector("#toggleResize");
+	var btnSnap = document.querySelector("#btn_snap");
+
 	document.querySelector("input[name='clear_input']").addEventListener("click", function () {
         this.parentNode.parentNode.reset();
         video.setAttribute("src", "");
@@ -308,7 +316,7 @@ window.addEventListener("DOMContentLoaded", function () {
                     var canvas = document.getElementById("canvasVid");
                     var can2 = document.querySelector("#canvasOver");
                     var button = document.getElementById("btn_snap");
-                    button.disabled = false;
+                    button.disabled = true;
                     button.onclick = function () {
                         var over = document.querySelectorAll(".icon");
                         var screen = document.querySelector("body");

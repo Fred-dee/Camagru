@@ -12,7 +12,7 @@ if(!isset($_SESSION))
   {
   ?>    
   <div class="row bg-transparent text-dark" >
-      <div class="col-xs-2 text-center col-xs-offset-5">
+      <div class="col-xs-12 text-center">
           <a href="./capture.php?type=gallery" class="btn btn-primary grey darken-3 "><i class="fas fa-camera"></i></a>
       </div>
     </div>
