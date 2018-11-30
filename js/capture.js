@@ -60,7 +60,6 @@ function uploadSnaps()
         if (pure_image != null)
 		{
             images.push(pure_image.getAttribute("src"));
-			console.log(pure_image.getAttribute("src"));
 		}
         for (var i = 0; i < overlays.length; i++)
 		{
@@ -80,9 +79,8 @@ function uploadSnaps()
 				}
 				else
 				{
-					genAlert("alert-danger", "Could not upload images");
+					genAlert("alert-danger", "Could not upload images: " + this.responseText);
 				}
-				console.log(this.responseText);
             }
 			
         }.bind(request, formData, images);
@@ -90,8 +88,6 @@ function uploadSnaps()
         request.send(formData);
     }
     clearSnaps();
-
-
 
 }
 function clearSnaps()

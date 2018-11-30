@@ -3,7 +3,7 @@ if(!isset($_SESSION))
     session_start();
 ?>
 <!-- Footer -->
-<footer class="page-footer font-small bg-transparent  fixed-bottom">
+<footer class="page-footer font-small bg-transparent  fixed-bottom" >
 
   <!-- Copyright -->
   <?php
