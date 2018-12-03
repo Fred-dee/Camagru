@@ -6,6 +6,40 @@
 
 window.addEventListener("DOMContentLoaded", function () {
 
+	function like(data)
+    {
+        var span = data.childNodes[0];
+        var img_id = data.parentNode.parentNode.getAttribute("id").toString();
+        var xhttp =  new XMLHttpRequest();
+        xhttp.onreadystatechange = function()
+        {
+            if(this.readyState == 4 && this.status == 200)
+            {
+                if(this.responseText == "success")
+                {
+                    var numlikes = parseInt(span.textContent);
+                    if ((" " + span.className + " ").replace(/[\n\t]/g, " ").indexOf(" far ") > -1)
+                    {
+                        span.classList.remove("far");
+                        span.classList.add("fas");
+                        numlikes = numlikes + 1;
+
+                    } else
+                    {
+                        span.classList.remove("fas");
+                        span.classList.add("far");
+                        numlikes -= 1;
+                    }
+                    span.textContent = numlikes.toString();
+                }
+                else
+					genAlert("alert-danger", this.responseText);
+            }
+            
+        };
+        xhttp.open("GET", "./includes/likes.php?method=update&img="+img_id, true);
+        xhttp.send();
+    }
     function loadMore()
     {
         var request = new XMLHttpRequest();
@@ -24,6 +58,15 @@ window.addEventListener("DOMContentLoaded", function () {
 						{
 							dels[x].removeEventListener("click", deleteParent.bind(dels[x]));
 							dels[x].addEventListener("click", deleteParent.bind(dels[x]));
+						}
+					    var form_like = document.querySelectorAll(".like-btn");
+						for (var x = 0; x < form_like.length; x++)
+						{
+							form_like[x].onclick = null;
+							form_like[x].addEventListener("click", function (e) {
+								e.preventDefault();
+								like(this);
+							});
 						}
 						var comm_form = document.querySelectorAll(".form-comment");
 	for (var i = 0; i < comm_form.length; i++)

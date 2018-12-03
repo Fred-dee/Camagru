@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             $link = "localhost:8080/Camagru/forgot.php?reset=forgot&bar=" . base64_encode(htmlspecialchars($_POST["uid"]) . "delimiter" .$key);
 			$to_mail = $email;
 			$header = "FROM: noreply@camagru.com\r\n";
-			$msg = "To reset your account password please follow the following link:"."<br/>"."<a href='".$link."'>Reset Password</a>"."<br/>"."Best\nCamagru Team";
+			$msg = "To reset your account password please follow the following link:"."<br/>"."<a href='".$link."'>.$link.</a>"."<br/>"."Best\nCamagru Team";
 			$msg = str_replace("\n.", "\n..", $msg);
 			$subject = "Password Reset";
 			$header .= "MIME-Version: 1.0\r\n";

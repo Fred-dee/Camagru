@@ -32,6 +32,7 @@
 		}
 		public static function init()
 		{
+			//
 			$dsn = "mysql:host=".self::$host.";dbname=".self::$db.";charset=".self::$charset.";";
 			$options = [
 				PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
