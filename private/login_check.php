@@ -62,7 +62,7 @@ if (isset($_POST["submit"])) {
                          */
                        	$to_mail = $email;
 						$header = "FROM: noreply@camagru.com\r\n";
-						$msg = "Welcome to Camagru:"."<br/>"."Your username is: ".$username."<br/>"."To activate your account please follow the following link:"."<br/>"."<a href='".$link."'>Activate</a>"."<br/>"."Best\nCamagru Team";
+						$msg = "Welcome to Camagru:"."<br/>"."Your username is: ".$username."<br/>"."To activate your account please follow the following link:"."<br/>"."<a href='".$link."'>Activate:".$link."</a>"."<br/>"."Best\nCamagru Team";
 						$msg = str_replace("\n.", "\n..", $msg);
 						$subject = "Account Activation";
 						$bool = mail($to_mail, $subject, $msg, $header);

@@ -337,11 +337,10 @@ window.addEventListener("DOMContentLoaded", function () {
                             var rect_ov = over[x].getBoundingClientRect();
                             var offT = rect_ov.top - rect.top;
                             var offL = rect_ov.left - rect.left;
-                            //console.log(rect_ov.width + "  " + rect_ov.height);
-                            tmp_canvas.width = rect_ov.width;
-                            tmp_canvas.height = rect_ov.height;
+							tmp_canvas.width = 500;
+							tmp_canvas.height = 375;
                             tmp_canvas.getContext("2d").drawImage(over[x], offL, offT, rect_ov.width, rect_ov.height);
-                            canvas.getContext("2d").drawImage(over[x], offL, offT, 500, 375);
+                            canvas.getContext("2d").drawImage(over[x], offL, offT, rect_ov.width, rect_ov.height);
 
                             canvases.push(tmp_canvas);
                         }
