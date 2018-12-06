@@ -20,7 +20,7 @@ header('Content-type: text/html');
         require_once('./includes/functions.php');
         if (isset($_SESSION["login"])) {
             if ($_SESSION["login"] == "guest") {
-                echo "<a class='nav-item nav-link' href='./login'>Login/Sign-up</a>";
+                echo "<a class='nav-item nav-link links' href='./login'>Login/Sign-up</a>";
             } else {
                 $pdo = DB::getConnection();
                 $stmt = $pdo->prepare("SELECT avatar, type FROM users WHERE user_name=:uname");
@@ -40,17 +40,20 @@ header('Content-type: text/html');
                 $div = new Element("span", false);
                 $div->add_class("navbar-right");
                 $div->add_attribute("style", "display:inline-block; color: white; font: inherit");
-                $h3 = new Element("h3", false);
+                $h3 = new Element("span", false);
                 $h3->add_attribute("style", "display:inline-block; margin-right: 2px");
-                $h3->add_text($_SESSION["login"]);
+				$h3->add_class("navbar-brand");
+                //$h3->add_text($_SESSION["login"]);
                 $div->add_child($h3);
                 $div->add_child($profile_link);
                 $logout = new Element("a", false);
-                $logout->add_class("nav-item");
+                $logout->add_class("nav-item links navbar-brand");
                 $logout->add_attribute("href", "./logout");
                 $logout->add_text("Logout");
-                $div->prepend_child($logout);
+               // $div->prepend_child($logout);
+				
                 echo $div;
+				echo $logout;
             }
         }
         ?>

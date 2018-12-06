@@ -15,12 +15,16 @@ class Article extends Element {
         $img->add_class($data["img_classes"]);
         $img->add_attribute("id", $data["img_id"]);
         $head_div = new Element("header", false);
-        $head_div->add_text($data["user_id"]);
+        
         $avatar = new Element("img", true);
         $avatar->add_class("avatar");
         $avatar->add_attribute("src", $data["avatar_src"]);
         $avatar->add_attribute("alt", "Avatar");
         $head_div->add_child($avatar);
+		$nspan = new Element("span", false);
+		$nspan->add_text("   @".$data["user_id"]);
+		$head_div->add_child($nspan);
+		//$head_div->add_text("<span >"."</span>");
         $img_div = new Element("div", false);
         $img_div->add_class("img-wrapper");
         $img_div->add_child($img);
@@ -76,12 +80,12 @@ class Article extends Element {
         $like_button->add_attribute("type", "button");
         $like_button->add_class("like-btn");
         $like_button->add_child($heart_span);
-        $comm_div->prepend_child($like_button);
+        //$comm_div->prepend_child($like_button);
         $this->add_child($head_div);
         $this->add_child($img_div);
         $this->add_child($comm_div);
 
-
+		//$this->add_child($like_button);
         // Comment Form //
         $mcom = new Element("div", false);
 
@@ -89,7 +93,7 @@ class Article extends Element {
         $mform->add_attribute("action", "");
         $mform->add_attribute("method", "POST");
 		$mform->add_class("form-comment");
-
+		
         $input = new Element("input", true);
         $input->add_attribute("name", "message");
 		$input->add_inlineattr("required");
@@ -102,8 +106,8 @@ class Article extends Element {
         $submit->add_attribute("name", "submit");
         $submit->add_attribute("type", "submit");
         $submit->add_text("<i class='fa fa-paper-plane' aria-hidden='true'></i>");
-        $mform->add_class("form-inline");
-
+//        $mform->add_class("form-horizontal");
+		
         if ($_SESSION["login"] == "guest")
         {
             $input->add_inlineattr("disabled");
@@ -113,10 +117,14 @@ class Article extends Element {
         $input->add_attribute("placeholder", "Comment...");
         $input->add_attribute("type", "input");
         $mform->add_child($input);
-        $submit->add_class("form-control grey darken-3 btn comm_submit");
+	
+        $submit->add_class("form-control grey darken-3  comm_submit");
       
         $mform->add_child($submit);
+		$mform->add_child($like_button);
+		$like_button->add_class("form-control");
         $mcom->add_child($mform);
+		$mcom->add_class("flex-1");
         $this->add_child($mcom);
 
         // end Comment Form //
