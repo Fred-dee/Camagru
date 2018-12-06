@@ -114,7 +114,14 @@ window.addEventListener("DOMContentLoaded", function () {
     var btnDrag = document.querySelector("#toggleDrag");
     var btnResize = document.querySelector("#toggleResize");
 	var btnSnap = document.querySelector("#btn_snap");
-
+	var btnClearFilter = document.querySelector("#btn_clearfilter");
+	
+	btnClearFilter.addEventListener("click", function(){
+		var div = document.querySelector(".overlay");
+		while (div.firstChild)
+			div.removeChild(div.firstChild);
+		document.querySelector(".form-overlays").reset();
+	});
 	document.querySelector("input[name='clear_input']").addEventListener("click", function () {
         this.parentNode.parentNode.reset();
         video.setAttribute("src", "");

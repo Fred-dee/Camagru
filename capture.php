@@ -66,6 +66,7 @@ if ($_SESSION["login"] == "guest") {
 					<div class="form-group">
                     <button class="btn btn-primary btn-amber darken-4" id="toggleDrag" disabled="">Drag Mode</button>
                     <button class="btn btn-primary btn-amber darken-3" id="toggleResize" >Resize Mode</button>
+						<button class ="btn btn-elegant" id = "btn_clearfilter">Clear Filters</button>
 					</div>
                     <form class="form-overlays">
                         <div class="form-check-inline flex-col-item">
