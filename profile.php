@@ -97,7 +97,18 @@ $_SESSION["returnNull"] = false;
                 $btn->add_attribute("type", "submit");
                 $btn->add_attribute("name", "submit");
                 $form->add_child($btn);
-                echo $form;
+				$row = new Element("div", false);
+				//$col = new Element("div", false);
+				
+				
+				$row->add_class("center-form");
+				//$col->add_class("");
+				
+				
+				$row->add_child($form);
+				$form->add_attribute("style", "width:400px");
+				//$col->add_child($form);
+                echo $row;
                 echo "<hr/>";
             }
 			$body = getData(true);

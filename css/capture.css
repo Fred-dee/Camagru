@@ -13,51 +13,12 @@
 {
     display: flex;
     flex-grow: 1;
-    width: 250px;
-    max-width: 250px;
-    max-height: 250px;
     overflow: auto;
     margin-top: 1rem;
     margin-bottom: 1rem;
-    border: 20px;
-    border-color: aqua;
 
 }
-@media (max-width: 480px)
-{
-    .flex-col 
-    {
-        display: flex;
-        flex-direction: row;
-        max-height: 100%;
-        overflow: auto;
-        background-color: aqua;
-    }
 
-    .flex-col form
-    {
-        flex-direction: row;
-        flex-wrap: nowrap;
-    }
-
-    .flex-col-item
-    {
-        display: flex;
-        flex-grow: 1;
-        width: 250px;
-        max-width: 250px;
-        max-height: 250px;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        border: 20px;
-        border-color: aqua;
-    }
-	
-	#btn_upload #btn_clearsnaps
-	{
-		
-	}
-}
 
 #toggleDrag #toggleResize
 {
@@ -67,10 +28,19 @@
 
 .flex-col-item img
 {
-    width: 100%;
-    height: 100%;
+ 
 }
 
+
+.overlay_image
+{
+	width: 50px;
+	height: 50px;
+}
+
+.expand{
+	width : 100%;
+}
 .contained {
     position: relative;
 	width: 100%;
@@ -109,7 +79,10 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+	transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+    -moz-transform:rotateY(180deg); /* Firefox */
+    transform: translate(-50%, -50%);*/
     -ms-transform: translate(-50%, -50%);
     text-align: center;
     opacity: 1;

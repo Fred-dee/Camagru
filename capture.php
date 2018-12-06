@@ -63,39 +63,39 @@ if ($_SESSION["login"] == "guest") {
 					</div>
                 </div>
                 <div class="col-sm-12 col-md-3 flex-col">
-					<div class="form-group">
-                    <button class="btn btn-primary btn-amber darken-4" id="toggleDrag" disabled="">Drag Mode</button>
-                    <button class="btn btn-primary btn-amber darken-3" id="toggleResize" >Resize Mode</button>
-						<button class ="btn btn-elegant" id = "btn_clearfilter">Clear Filters</button>
-					</div>
-                    <form class="form-overlays">
+				
+                    <form class="form-overlays" style="margin-top:250px">
                         <div class="form-check-inline flex-col-item">
                             <input type="checkbox" class="form-check-input" id="ov_c1" />
                             <label class="form-check-label" for="ov_c1">
-                                <img class="img-responsive " id="ov_1" src="./imgs/overlay.png" alt="" onclick=""/>
+                                <img class="img-responsive overlay_image" id="ov_1" src="./imgs/overlay.png" alt="" onclick=""/>
 
                             </label>
                         </div>
                         <div class="form-check-inline flex-col-item">
                             <input type="checkbox" class="form-check-input" id="ov_c2" />
                             <label class="form-check-label" for ="ov_c2">
-                                <img class="img-responsive" id="ov_2" src="./imgs/overlay2.png" alt="" onclick=""/>
+                                <img class="img-responsive overlay_image" id="ov_2" src="./imgs/overlay2.png" alt="" onclick=""/>
                             </label>
                         </div>
                         <div class="form-check-inline flex-col-item">
                             <input type="checkbox" class="form-check-input" id="ov_c3" />
                             <label class="form-check-label" for ="ov_c2">
-                                <img class="img-responsive" id="ov_3" src="./imgs/2-2-sunglasses-picture-thumb.png" alt="" onclick=""/>
+                                <img class="img-responsive overlay_image" id="ov_3" src="./imgs/2-2-sunglasses-picture-thumb.png" alt="" onclick=""/>
                             </label>
                         </div>
                         <div class="form-check-inline flex-col-item">
                             <input type="checkbox" class="form-check-input" id="ov_c4" />
                             <label class="form-check-label" for ="ov_c2">
-                                <img class="img-responsive" id="ov_4" src="./imgs/lips.png" alt="" onclick=""/>
+                                <img class="img-responsive overlay_image" id="ov_4" src="./imgs/lips.png" alt="" onclick=""/>
                             </label>
                         </div>
                     </form>
-
+					<div class="form-group">
+                    <button class="btn btn-primary btn-amber darken-4" id="toggleDrag" disabled="">Drag Mode</button>
+                    <button class="btn btn-primary btn-amber darken-3" id="toggleResize" >Resize Mode</button>
+					<button class ="btn btn-elegant" id = "btn_clearfilter">Clear Filters</button>
+					</div>
                 </div>
             </div>
 

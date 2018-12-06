@@ -18,16 +18,33 @@
 .avatar-lg
 {
     vertical-align: middle;
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
 }
+
+
 .links{
 	text-decoration: none;
 	color : white;
 	
 }
 
+.center-av{
+	display: flex;
+	justify-content: center;
+}
 
+.center-form{
+	display: flex;
+	justify-content: center;
+	
+/*	flex-wrap: wrap;*/
+}
+.center-op{
+	text-align: center;
+}
 
-
+.settings-icon{
+	float: right;
+}

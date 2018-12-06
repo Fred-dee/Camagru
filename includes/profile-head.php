@@ -10,7 +10,7 @@ require_once('./config/database.php');
 require_once('./includes/DIRS.php');
 ?>
 <div class="row">
-    <div class="col-md-offset-1 col-md-3">
+    <div class="col-md-12 center-av">
         <?php
                 $pdo = DB::getConnection();
                 $stmt = $pdo->prepare("SELECT avatar, type FROM users WHERE user_name=:uname");
@@ -27,12 +27,20 @@ require_once('./includes/DIRS.php');
         ?>
         <!--<img class="avatar-lg img-responsive" src="./imgs/avatar.png" alt=""/> -->
     </div>
-    <div class="col-md-6">
-        <h1><?php echo $_SESSION["login"]?></h1>
-        <br/>
-        <br/>
-		<h3 class="nav-link" ><i class="fa fa-upload icon-large" aria-hidden="true"></i><a href="./capture?type=propic">  Edit Profile Picture</a></h3><h3 class="nav-link"><i class="fa fa-window-close icon-large" aria-hidden="true"></i><a href="#" id="deleteProPic">  Remove Profile Picture</a></h3> 
-        <hr>
-        <a class="nav-item" href="./forgot?reset=update">Change Password</a>
-    </div>
+	<div class="col-md-12  center-form"> 
+		<h1><?php echo $_SESSION["login"]?>'s profile</h1>
+	</div>
+	
+    <div style="" class="col-md-12  center-op">
+
+			<i class="fa fa-upload icon-large" aria-hidden="true"></i><a href="./capture?type=propic">  Edit Profile Picture</a>
+	 </div>
+	
+	<div style="" class="col-md-12  center-op">
+		<i class="fa fa-window-close icon-large" aria-hidden="true"></i><a href="#" id="deleteProPic">  Remove Profile Picture</a>
+	</div>
+	<div style="" class="col-md-12  center-op">
+		<a class="nav-item" href="./forgot?reset=update">Change Password</a>
+	</div>
+
 </div>
