@@ -25,10 +25,15 @@ article .img-wrapper
 	width: 330px;
 
 }
-	.comment, .like-btn, .comm_submit{
+.comment, .like-btn, .comm_submit
+{
 	width : 100%;
 }
 
+.comm_submit
+{
+	color: white;
+}
 .form-comment
 {
 	display : flex;

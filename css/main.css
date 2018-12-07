@@ -24,10 +24,22 @@
 }
 
 
-.links{
+.[class=*"links"]{
 	text-decoration: none;
-	color : white;
 	
+}
+.links{
+	color : white;
+}
+.links-dark
+{
+	text-decoration: none;
+	color: #212121;
+}
+
+.links-dark:hover
+{
+	color:#2E2E2E;
 }
 
 .center-av{

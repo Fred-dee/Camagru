@@ -33,14 +33,14 @@ require_once('./includes/DIRS.php');
 	
     <div style="" class="col-md-12  center-op">
 
-			<i class="fa fa-upload icon-large" aria-hidden="true"></i><a href="./capture?type=propic">  Edit Profile Picture</a>
+			<i class="fa fa-upload icon-large" aria-hidden="true"></i><a href="./capture?type=propic" class="links-dark">  Edit Profile Picture</a>
 	 </div>
 	
 	<div style="" class="col-md-12  center-op">
-		<i class="fa fa-window-close icon-large" aria-hidden="true"></i><a href="#" id="deleteProPic">  Remove Profile Picture</a>
+		<i class="fa fa-window-close icon-large" aria-hidden="true"></i><a href="#" id="deleteProPic" class="links-dark">  Remove Profile Picture</a>
 	</div>
 	<div style="" class="col-md-12  center-op">
-		<a class="nav-item" href="./forgot?reset=update">Change Password</a>
+		<a class="nav-item links-dark" href="./forgot?reset=update">Change Password</a>
 	</div>
 
 </div>

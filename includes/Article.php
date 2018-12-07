@@ -97,6 +97,10 @@ class Article extends Element {
         $input = new Element("input", true);
         $input->add_attribute("name", "message");
 		$input->add_inlineattr("required");
+		$input->add_attributes(array(
+			"minlength" => 25,
+			"maxlength" => 164
+		));
         $hidden = new Element("input", true);
         $hidden->add_attribute("name", "img_id");
         $hidden->add_attribute("value", $data["img_id"]);
