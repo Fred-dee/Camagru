@@ -4,6 +4,7 @@ function deleteParent()
 	var request = new XMLHttpRequest();
 
 	var fd = new FormData();
+	console.log(this);
 	fd.append("img_id", this.parentNode.getAttribute("id").replace("art", ""));
 	if (confirm("Delete this image"))
 	{
@@ -20,7 +21,7 @@ function deleteParent()
 					genAlert("alert-success", "Image Succesfully Deleted");
 				} else
 				{
-				  //  console.log(this.responseText);
+				  genAlert("alert-danger", this.responseText);
 				}
 			}
 		}.bind(request, this);
@@ -76,7 +77,8 @@ window.addEventListener("load", function(){
 	var dels = document.querySelectorAll(".delete-par");
     for (var x = 0; x < dels.length; x++)
     {
-		dels[x].removeEventListener("click", deleteParent.bind(dels[x]));
+		dels[x].onclick = null;
+		//dels[x].removeEventListener("click", deleteParent.bind(dels[x]));
         dels[x].addEventListener("click", deleteParent.bind(dels[x]));
     }
 });

@@ -44,11 +44,9 @@
   `message` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8");
 		$stmt->execute();
-		
-		//$stmt = $pdo->query("ALTER TABLE `events`
-  //ADD CONSTRAINT `img_id` FOREIGN KEY (`img_id`) REFERENCES `images` (`id`),
-  //ADD CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)");
-		//$stmt->execute();
+	$stmt = $pdo->query("ALTER TABLE `events` ADD CONSTRAINT `img_id` FOREIGN KEY (`img_id`) REFERENCES `images`(`id`) ON DELETE CASCADE ON UPDATE CASCADE; ALTER TABLE `events` ADD CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;");
+		$stmt->execute();
+
 		
 		$stmt = $pdo->query("INSERT INTO `users` (`user_name`, `first_name`, `last_name`, `email`, `hash`, `avatar`, `type`, `em_subs`, `verified`, `verification_key`, `forgot_key`) VALUES
 ( 'Fred-Dee', 'Fred', 'Dilapisho', 'fred.dilapisho@mailinator.com', '', NULL, NULL, 1, 1, NULL, 0x2c07a9a73044d40527f1),
