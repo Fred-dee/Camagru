@@ -8,8 +8,9 @@ window.addEventListener("DOMContentLoaded", function () {
 
 	function like(data)
     {
-        var span = data.childNodes[0];
-        var img_id = data.parentNode.parentNode.getAttribute("id").toString();
+        var span = data.firstChild;
+
+        var img_id = data.parentNode.querySelector("input[name='img_id']").value;
         var xhttp =  new XMLHttpRequest();
         xhttp.onreadystatechange = function()
         {
@@ -51,7 +52,8 @@ window.addEventListener("DOMContentLoaded", function () {
             {
 				
                 if (this.responseText != "")
-			 	{   
+			 	{
+
 					document.querySelector('.container-fluid').innerHTML += (this.responseText.replace("Array", ""));
 						var dels = document.querySelectorAll(".delete-par");
     					for (var x = 0; x < dels.length; x++)
@@ -65,6 +67,7 @@ window.addEventListener("DOMContentLoaded", function () {
 							form_like[x].onclick = null;
 							form_like[x].addEventListener("click", function (e) {
 								e.preventDefault();
+								
 								like(this);
 							});
 						}

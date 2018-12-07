@@ -40,7 +40,7 @@ require_once('./includes/DIRS.php');
 		<i class="fa fa-window-close icon-large" aria-hidden="true"></i><a href="#" id="deleteProPic" class="links-dark">  Remove Profile Picture</a>
 	</div>
 	<div style="" class="col-md-12  center-op">
-		<a class="nav-item links-dark" href="./forgot?reset=update">Change Password</a>
+		<i class="fa fa-cog icon-large" aria-hidden="true"></i><a class="nav-item links-dark" href="./forgot?reset=update">Change Password</a>
 	</div>
 
 </div>

@@ -39,7 +39,7 @@ window.addEventListener("DOMContentLoaded", function () {
         if (this.getAttribute("value") == 0)
         {
             this.setAttribute("value", 1);
-            this.setAttribute("checked");
+            this.checked = true;
         } else
         {
             this.setAttribute("value", 0);
